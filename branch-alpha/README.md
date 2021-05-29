@@ -29,6 +29,7 @@ curl -L https://www.jslint.com/jslint.js > jslint.mjs
 node jslint.mjs hello.js
 
 # stderr:
+#
 # jslint hello.js
 # 1 Undeclared 'console'. // line 1, column 1
 #     console.log('hello world');
@@ -49,6 +50,7 @@ result.warnings.forEach(function ({
 });
 
 // stderr:
+//
 // 1 Undeclared 'console'. // line 1, column 1
 //     console.log('hello world');
 // 2 Use double quotes, not single quotes. // line 1, column 14
