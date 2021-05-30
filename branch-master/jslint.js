@@ -129,18 +129,19 @@
     wrapped, writable, y
 */
 
-const edition = "v2021.5.27";
+const edition = "v2021.5.30";
 
 function assert_or_throw(passed, message) {
 
 // this function will throw <message> if <passed> is falsy
 
-    if (!passed) {
-        throw new Error(`This was caused by a bug in JSLint.
-Please open an issue with this stack-trace at
+    if (passed) {
+        return passed;
+    }
+    throw new Error(`This was caused by a bug in JSLint.
+Please open an issue with this stack-trace (and possible example-code) at
 https://github.com/jslint-org/jslint/issues.
 edition = "${edition}";` + "\n" + message);
-    }
 }
 
 function empty() {
@@ -351,12 +352,8 @@ const bundle = {
         "Unexpected 'typeof'. Use '===' to compare directly with {a}."
     ),
     uninitialized_a: "Uninitialized '{a}'.",
-    unordered_param_a: (
-        "Parameter '{a}' not listed in alphabetical order."
-    ),
-    unordered_property_a: (
-        "Property name '{a}' not listed in alphabetical order."
-    ),
+    unordered_param_a: "Parameter '{a}' not listed in alphabetical order.",
+    unordered_property_a: "Property '{a}' not listed in alphabetical order.",
     unreachable_a: "Unreachable '{a}'.",
     unregistered_property_a: "Unregistered property name '{a}'.",
     unused_a: "Unused '{a}'.",
@@ -568,6 +565,12 @@ function warn_at(code, line, column, a, b, c, d) {
             warning[filling] !== undefined,
             "Expected warning[filling] !== undefined."
         );
+//      Probably deadcode.
+//      return (
+//          replacement !== undefined
+//          ? replacement
+//          : found
+//      );
         return warning[filling];
     });
 
@@ -678,7 +681,10 @@ function tokenize(source) {
             && first
             && !regexp_seen
         ) {
-            warn_at("too_long", line, 80);
+
+// cause: "too_long"
+
+            warn_at("too_long", line);
         }
         column = 0;
         line += 1;
@@ -728,16 +734,16 @@ function tokenize(source) {
 // matched an expected value.
 
         if (match !== undefined && char !== match) {
-            return stop_at(
-                (
-                    char === ""
-                    ? "expected_a"
-                    : "expected_a_b"
-                ),
-                line,
-                column - 1,
-                match,
-                char
+            return (
+                char === ""
+
+// cause: "aa=/[/"
+
+                ? stop_at("expected_a", line, column - 1, match, char)
+
+// cause: "aa=/aa{/"
+
+                : stop_at("expected_a_b", line, column - 1, match, char)
             );
         }
         if (source_line) {
@@ -794,6 +800,9 @@ function tokenize(source) {
         if (char === "u") {
             if (next_char("u") === "{") {
                 if (json_mode) {
+
+// cause: "[\"\\u{12345}\"]"
+
                     warn_at("unexpected_a", line, column - 1, char);
                 }
                 if (some_digits(rx_hexs) > 5) {
@@ -803,6 +812,9 @@ function tokenize(source) {
                     warn_at("too_many_digits", line, column - 1);
                 }
                 if (char !== "}") {
+
+// cause: "\"\\u{12345\""
+
                     stop_at("expected_a_before_b", line, column, "}", char);
                 }
                 return next_char();
@@ -863,6 +875,9 @@ function tokenize(source) {
             && (id === "(comment)" || id === "(regexp)" || id === "/")
             && (previous.id === "(comment)" || previous.id === "(regexp)")
         ) {
+
+// cause: "/**//**/"
+
             warn(
                 "expected_space_a_b",
                 the_token,
@@ -916,8 +931,17 @@ function tokenize(source) {
                         if (Array.isArray(allowed)) {
                             populate(allowed, declared_globals, false);
                         }
-                    } else if (value === "false") {
+                    } else {
+                        assert_or_throw(
+                            value === "false",
+                            `Expected value === "false".`
+                        );
                         option[name] = false;
+//                  Probably deadcode.
+//                  } else if (value === "false") {
+//                      option[name] = false;
+//                  } else {
+//                      warn("bad_option_a", the_comment, name + ":" + value);
                     }
                 } else {
 
@@ -998,6 +1022,9 @@ function tokenize(source) {
                 next_char();
             } else if (char === "{") {
                 if (some_digits(rx_digits, true) === 0) {
+
+// cause: "aa=/aa{/"
+
                     warn_at("expected_a_before_b", line, column, "0", ",");
                 }
                 if (char === ",") {
@@ -1031,8 +1058,14 @@ function tokenize(source) {
                 return false;
             }
             if (char === " ") {
+
+// cause: "aa=/[ ]/"
+
                 warn_at("expected_a_b", line, column, "\\u0020", " ");
             } else if (char === "`" && mega_mode) {
+
+// cause: "`${/[`]/}`"
+
                 warn_at("unexpected_a", line, column, "`");
             }
             next_char();
@@ -1047,6 +1080,9 @@ function tokenize(source) {
                 if (char === "-") {
                     next_char("-");
                     if (!subklass()) {
+
+// cause: "aa=/[0-]/"
+
                         return stop_at(
                             "unexpected_a",
                             line,
@@ -1070,6 +1106,9 @@ function tokenize(source) {
             (function classy() {
                 ranges();
                 if (char !== "]" && char !== "") {
+
+// cause: "aa=/[/"
+
                     warn_at(
                         "expected_a_before_b",
                         line,
@@ -1085,57 +1124,68 @@ function tokenize(source) {
         }
 
         function choice() {
+            let follow;
 
-            function group() {
+// Parse sequence of characters in regexp.
+
+            while (true) {
+                switch (char) {
+                case "":
+                case "/":
+                case "]":
+                case ")":
+                    if (!follow) {
+
+// cause: "/ /"
+
+                        warn_at("expected_regexp_factor_a", line, column, char);
+                    }
+
+// Match a choice (a sequence that can be followed by | and another choice).
+
+                    assert_or_throw(
+                        !(char === "|"),
+                        `Expected !(char === "|").`
+                    );
+//                  Probably deadcode.
+//                  if (char === "|") {
+//                      next_char("|");
+//                      return choice();
+//                  }
+                    return;
+                case "(":
 
 // Match a group that starts with left paren.
 
-                next_char("(");
-                if (char === "?") {
-                    next_char("?");
-                    if (char === "=" || char === "!") {
-                        next_char();
-                    } else {
-                        next_char(":");
+                    next_char("(");
+                    if (char === "?") {
+                        next_char("?");
+                        if (char === "=" || char === "!") {
+                            next_char();
+                        } else {
+                            next_char(":");
+                        }
+                    } else if (char === ":") {
+
+// cause: "aa=/(:)/"
+// cause: "aa=/?/"
+
+                        warn_at("expected_a_before_b", line, column, "?", ":");
                     }
-                } else if (char === ":") {
-                    warn_at("expected_a_before_b", line, column, "?", ":");
-                }
-                choice();
-                next_char(")");
-            }
-
-            function factor() {
-
-// Parse current character in regexp.
-
-                if (
-                    char === ""
-                    || char === "/"
-                    || char === "]"
-                    || char === ")"
-                ) {
-                    return false;
-                }
-                if (char === "(") {
-                    group();
-                    return true;
-                }
-                if (char === "[") {
+                    choice();
+                    next_char(")");
+                    break;
+                case "[":
                     klass();
-                    return true;
-                }
-                if (char === "\\") {
+                    break;
+                case "\\":
                     escape("BbDdSsWw^${}[]():=!.|*+?");
-                    return true;
-                }
-                if (
-                    char === "?"
-                    || char === "+"
-                    || char === "*"
-                    || char === "}"
-                    || char === "{"
-                ) {
+                    break;
+                case "?":
+                case "+":
+                case "*":
+                case "}":
+                case "{":
                     warn_at(
                         "expected_a_before_b",
                         line,
@@ -1143,50 +1193,41 @@ function tokenize(source) {
                         "\\",
                         char
                     );
-                } else if (char === "`") {
+                    next_char();
+                    break;
+                case "`":
                     if (mega_mode) {
+
+// cause: "`${/`/}`"
+
                         warn_at("unexpected_a", line, column - 1, "`");
                     }
-                } else if (char === " ") {
-                    warn_at(
-                        "expected_a_b",
-                        line,
-                        column - 1,
-                        "\\s",
-                        " "
-                    );
-                } else if (char === "$") {
+                    next_char();
+                    break;
+                case " ":
+
+// cause: "aa=/ /"
+
+                    warn_at("expected_a_b", line, column - 1, "\\s", " ");
+                    next_char();
+                    break;
+                case "$":
                     if (source_line[0] !== "/") {
                         multi_mode = true;
                     }
-                } else if (char === "^") {
+                    next_char();
+                    break;
+                case "^":
                     if (snippet !== "^") {
                         multi_mode = true;
                     }
+                    next_char();
+                    break;
+                default:
+                    next_char();
                 }
-                next_char();
-                return true;
-            }
-
-            function sequence(follow) {
-                if (factor()) {
-                    quantifier();
-                    return sequence(true);
-                }
-                if (!follow) {
-
-// cause: "/ /"
-
-                    warn_at("expected_regexp_factor_a", line, column, char);
-                }
-            }
-
-// Match a choice (a sequence that can be followed by | and another choice).
-
-            sequence();
-            if (char === "|") {
-                next_char("|");
-                return choice();
+                quantifier();
+                follow = true;
             }
         }
 
@@ -1196,6 +1237,9 @@ function tokenize(source) {
         snippet = "";
         next_char();
         if (char === "=") {
+
+// cause: "aa=/=/"
+
             warn_at("expected_a_before_b", line, column, "\\", "=");
         }
         choice();
@@ -1219,6 +1263,9 @@ function tokenize(source) {
         (function make_flag() {
             if (is_letter(char)) {
                 if (allowed[char] !== true) {
+
+// cause: "aa=/./z"
+
                     warn_at("unexpected_a", line, column, char);
                 }
                 allowed[char] = false;
@@ -1229,6 +1276,9 @@ function tokenize(source) {
         }());
         back_char();
         if (char === "/" || char === "*") {
+
+// cause: "aa=/.//"
+
             return stop_at("unexpected_a", line, from, char);
         }
         result = make("(regexp)", char);
@@ -1268,6 +1318,9 @@ function tokenize(source) {
                 escape(quote);
             } else if (char === "`") {
                 if (mega_mode) {
+
+// cause: "`${\"`\"}`"
+
                     warn_at("unexpected_a", line, column, "`");
                 }
                 next_char("`");
@@ -1433,6 +1486,9 @@ function tokenize(source) {
 
         if (snippet === "`") {
             if (mega_mode) {
+
+// cause: "`${`"
+
                 return stop_at("expected_a_b", line, column, "}", "`");
             }
             snippet = "";
@@ -1491,6 +1547,9 @@ function tokenize(source) {
                     (function expr() {
                         const id = lex().id;
                         if (id === "{") {
+
+// cause: "`${{"
+
                             return stop_at(
                                 "expected_a_b",
                                 line,
@@ -1686,6 +1745,9 @@ function survey(name) {
             }
         }
     } else if (!name.identifier) {
+
+// cause: "let aa={0:0}"
+
         return stop("expected_identifier_a", name);
     }
 
@@ -1727,6 +1789,9 @@ function dispense() {
     token_nr += 1;
     if (cadet.id === "(comment)") {
         if (json_mode) {
+
+// cause: "[//]"
+
             warn("unexpected_a", cadet);
         }
         return dispense();
@@ -1871,6 +1936,9 @@ function json_value() {
         return token;
     }
     if (next_token.id === "(number)") {
+
+// cause: "[0x0]"
+
         if (!rx_JSON_number.test(next_token.value)) {
             warn("unexpected_a");
         }
@@ -1878,6 +1946,9 @@ function json_value() {
         return token;
     }
     if (next_token.id === "(string)") {
+
+// cause: "['']"
+
         if (next_token.quote !== "\"") {
             warn("unexpected_a", next_token, next_token.quote);
         }
@@ -1890,6 +1961,9 @@ function json_value() {
         advance("-");
         advance("(number)");
         if (!rx_JSON_number.test(token.value)) {
+
+// cause: "[-0x0]"
+
             warn("unexpected_a", token);
         }
         negative.expression = token;
@@ -1944,7 +2018,7 @@ function enroll(name, role, readonly) {
                 if (id === "ignore") {
                     if (earlier.role === "variable") {
 
-// cause: "let ignore;function aa(ignore) {}"
+// cause: "let ignore;function aa(ignore){}"
 
                         warn("unexpected_a", name);
                     }
@@ -1958,8 +2032,8 @@ function enroll(name, role, readonly) {
                         && role !== "function"
                     ) {
 
-// cause: "function aa(){var aa;}"
 // cause: "function aa(){try{aa();}catch(aa){aa();}}"
+// cause: "function aa(){var aa;}"
 
                         warn(
                             "redefinition_a_b",
@@ -2009,8 +2083,14 @@ function expression(rbp, initial) {
     }
     the_symbol = syntax[token.id];
     if (the_symbol !== undefined && the_symbol.nud !== undefined) {
+
+// cause: "0"
+
         left = the_symbol.nud();
     } else if (token.identifier) {
+
+// cause: "aa"
+
         left = token;
         left.arity = "variable";
     } else {
@@ -2050,9 +2130,15 @@ function condition() {
     the_value = expression(0);
     advance(")");
     if (the_value.wrapped === true) {
+
+// cause: "while((0)){}"
+
         warn("unexpected_a", the_paren);
     }
     if (anticondition[the_value.id] === true) {
+
+// cause: "while(~0){}"
+
         warn("unexpected_a", the_value);
     }
     return the_value;
@@ -2072,7 +2158,8 @@ function are_similar(a, b) {
 
 // cause: "0&&0"
 
-    assert_or_throw(a !== b, "Expected a !== b.");
+    assert_or_throw(!(a === b), `Expected !(a === b).`);
+//  Probably deadcode.
 //  if (a === b) {
 //      return true;
 //  }
@@ -2088,7 +2175,8 @@ function are_similar(a, b) {
             })
         );
     }
-    assert_or_throw(!Array.isArray(b), "Expected !Array.isArray(b).");
+    assert_or_throw(!Array.isArray(b), `Expected !Array.isArray(b).`);
+//  Probably deadcode.
 //  if (Array.isArray(b)) {
 //      return false;
 //  }
@@ -2150,10 +2238,11 @@ function are_similar(a, b) {
             );
         }
         assert_or_throw(
-            a.arity !== "function" && a.arity !== "regexp",
-            "Expected a.arity !== \"function\" && a.arity !== \"regexp\"."
+            !(a.arity === "function" || a.arity === "regexp"),
+            `Expected !(a.arity === "function" || a.arity === "regexp").`
         );
-//      if (a.arity === "function" && a.arity === "regexp") {
+//      Probably deadcode.
+//      if (a.arity === "function" || a.arity === "regexp") {
 //          return false;
 //      }
 
@@ -2176,7 +2265,6 @@ function semicolon() {
     } else {
 
 // cause: "0"
-// cause: "0\n0"
 
         warn_at(
             "expected_a_b",
@@ -2203,6 +2291,9 @@ function statement() {
     if (token.identifier && next_token.id === ":") {
         the_label = token;
         if (the_label.id === "ignore") {
+
+// cause: "ignore:"
+
             warn("unexpected_a", the_label);
         }
         advance(":");
@@ -2288,6 +2379,9 @@ function not_top_level(thing) {
 // Some features should not be at the outermost level.
 
     if (functionage === global) {
+
+// cause: "while(0){}"
+
         warn("unexpected_at_top_level_a", thing);
     }
 }
@@ -2376,10 +2470,11 @@ function mutation_check(the_thing) {
 function left_check(left, right) {
 
 // Warn if the left is not one of these:
+//      ?.
+//      ?:
+//      e()
 //      e.b
 //      e[b]
-//      e()
-//      ?:
 //      identifier
 
     const id = left.id;
@@ -2496,6 +2591,9 @@ function infixr(id, bp) {
 
     const the_symbol = symbol(id, bp);
     the_symbol.led = function (left) {
+
+// cause: "0**0"
+
         const the_token = token;
         the_token.arity = "binary";
         the_token.expression = [left, expression(bp - 1)];
@@ -2620,13 +2718,22 @@ constant("(number)", "number");
 constant("(regexp)", "regexp");
 constant("(string)", "string");
 constant("arguments", "object", function () {
+
+// cause: "arguments"
+
     warn("unexpected_a", token);
     return token;
 });
 constant("eval", "function", function () {
     if (!option.eval) {
+
+// cause: "eval"
+
         warn("unexpected_a", token);
     } else if (next_token.id !== "(") {
+
+// cause: "/*jslint eval*/\neval"
+
         warn("expected_a_before_b", next_token, "(", artifact());
     }
     return token;
@@ -2634,18 +2741,30 @@ constant("eval", "function", function () {
 constant("false", "boolean", false);
 constant("Function", "function", function () {
     if (!option.eval) {
+
+// cause: "Function()"
+
         warn("unexpected_a", token);
     } else if (next_token.id !== "(") {
+
+// cause: "/*jslint eval*/\nFunction"
+
         warn("expected_a_before_b", next_token, "(", artifact());
     }
     return token;
 });
 constant("ignore", "undefined", function () {
+
+// cause: "ignore"
+
     warn("unexpected_a", token);
     return token;
 });
 constant("Infinity", "number", Infinity);
 constant("isFinite", "function", function () {
+
+// cause: "isFinite"
+
     warn("expected_a_b", token, "Number.isFinite", "isFinite");
     return token;
 });
@@ -2660,6 +2779,9 @@ constant("NaN", "number", NaN);
 constant("null", "null", null);
 constant("this", "object", function () {
     if (!option.this) {
+
+// cause: "this"
+
         warn("unexpected_a", token);
     }
     return token;
@@ -2709,6 +2831,10 @@ infix("(", 160, function (left) {
     const the_paren = token;
     let the_argument;
     if (left.id !== "function") {
+
+// cause: "(0?0:0)()"
+// cause: "0()"
+
         left_check(left, the_paren);
     }
     if (functionage.arity === "statement" && left.identifier) {
@@ -2740,6 +2866,9 @@ infix("(", 160, function (left) {
 
         the_paren.free = true;
         if (the_argument.wrapped === true) {
+
+// cause: "aa((0))"
+
             warn("unexpected_a", the_paren);
         }
         if (the_argument.id === "(") {
@@ -2777,9 +2906,15 @@ infix(".", 170, function (left) {
             || (name.id !== "exec" && name.id !== "test")
         )
     ) {
+
+// cause: "\"\".aa"
+
         left_check(left, the_token);
     }
     if (!name.identifier) {
+
+// cause: "aa.0"
+
         stop("expected_identifier_a");
     }
     advance();
@@ -2808,15 +2943,26 @@ infix("?.", 170, function (left) {
                 && name.id !== "map"
             )
         )
+
+// cause: "(0+0)?.0"
+
         && (left.id !== "+" || name.id !== "slice")
         && (
             left.id !== "(regexp)"
             || (name.id !== "exec" && name.id !== "test")
         )
     ) {
+
+// cause: "\"aa\"?.0"
+// cause: "(/./)?.0"
+// cause: "aa=[]?.aa"
+
         left_check(left, the_token);
     }
     if (!name.identifier) {
+
+// cause: "aa?.0"
+
         stop("expected_identifier_a");
     }
     advance();
@@ -2840,6 +2986,9 @@ infix("[", 170, function (left) {
             warn("subscript_a", the_subscript, name);
         }
     }
+
+// cause: "0[0]"
+
     left_check(left, the_token);
     the_token.expression = [left, the_subscript];
     advance("]");
@@ -2874,6 +3023,9 @@ function do_tick() {
 
 infix("`", 160, function (left) {
     const the_tick = do_tick();
+
+// cause: "0``"
+
     left_check(left, the_tick);
     the_tick.expression = [left].concat(the_tick.expression);
     return the_tick;
@@ -2921,12 +3073,18 @@ prefix("/=", function () {
     stop("expected_a_b", token, "/\\=", "/=");
 });
 prefix("=>", function () {
+
+// cause: "=>0"
+
     return stop("expected_a_before_b", token, "()", "=>");
 });
 prefix("new", function () {
     const the_new = token;
     const right = expression(160);
     if (next_token.id !== "(") {
+
+// cause: "new aa"
+
         warn("expected_a_before_b", next_token, "()", artifact(next_token));
     }
     the_new.expression = right;
@@ -2937,6 +3095,7 @@ prefix("void", function () {
     const the_void = token;
 
 // cause: "void"
+// cause: "void 0"
 
     warn("unexpected_a", the_void);
     the_void.expression = expression(0);
@@ -2955,6 +3114,9 @@ function parameter_list() {
                 let a;
                 let b = "";
                 if (optional !== undefined) {
+
+// cause: "function aa(aa=0,{}){}"
+
                     warn(
                         "required_a_optional_b",
                         next_token,
@@ -2969,18 +3131,20 @@ function parameter_list() {
                 (function subparameter() {
                     let subparam = next_token;
                     if (!subparam.identifier) {
+
+// cause: "function aa(aa=0,{}){}"
+// cause: "function aa({0}){}"
+
                         return stop("expected_identifier_a");
                     }
                     survey(subparam);
                     a = b;
                     b = String(subparam.value || subparam.id);
-                    if (a > b) {
-                        if (!option.unordered) {
+                    if (!option.unordered && a > b) {
 
 // cause: "function aa({bb,aa}){}"
 
-                            warn("unordered_param_a", subparam);
-                        }
+                        warn("unordered_param_a", subparam);
                     }
                     advance();
                     signature.push(subparam.id);
@@ -2990,9 +3154,15 @@ function parameter_list() {
                         token.label = subparam;
                         subparam = token;
                         if (!subparam.identifier) {
+
+// cause: "function aa({aa:0}){}"
+
                             return stop("expected_identifier_a");
                         }
                     }
+
+// cause: "function aa({aa=aa},aa){}"
+
                     if (next_token.id === "=") {
                         advance("=");
                         subparam.expression = expression();
@@ -3015,6 +3185,9 @@ function parameter_list() {
                 }
             } else if (next_token.id === "[") {
                 if (optional !== undefined) {
+
+// cause: "function aa(aa=0,[]){}"
+
                     warn(
                         "required_a_optional_b",
                         next_token,
@@ -3029,10 +3202,16 @@ function parameter_list() {
                 (function subparameter() {
                     const subparam = next_token;
                     if (!subparam.identifier) {
+
+// cause: "function aa(aa=0,[]){}"
+
                         return stop("expected_identifier_a");
                     }
                     advance();
                     param.names.push(subparam);
+
+// cause: "function aa([aa=aa],aa){}"
+
                     if (next_token.id === "=") {
                         advance("=");
                         subparam.expression = expression();
@@ -3056,6 +3235,9 @@ function parameter_list() {
                     signature.push("...");
                     advance("...");
                     if (optional !== undefined) {
+
+// cause: "function aa(aa=0,...){}"
+
                         warn(
                             "required_a_optional_b",
                             next_token,
@@ -3065,6 +3247,9 @@ function parameter_list() {
                     }
                 }
                 if (!next_token.identifier) {
+
+// cause: "function aa(0){}"
+
                     return stop("expected_identifier_a");
                 }
                 param = next_token;
@@ -3080,6 +3265,9 @@ function parameter_list() {
                         param.expression = expression(0);
                     } else {
                         if (optional !== undefined) {
+
+// cause: "function aa(aa=0,bb){}"
+
                             warn(
                                 "required_a_optional_b",
                                 param,
@@ -3112,6 +3300,7 @@ function do_function(the_function) {
         if (the_function.arity === "statement") {
             if (!next_token.identifier) {
 
+// cause: "function(){}"
 // cause: "function*aa(){}"
 
                 return stop("expected_identifier_a", next_token);
@@ -3138,9 +3327,11 @@ function do_function(the_function) {
         name = the_function.name;
     }
     the_function.level = functionage.level + 1;
-    if (mega_mode) {
-        warn("unexpected_a", the_function);
-    }
+    assert_or_throw(!mega_mode, `Expected !mega_mode.`);
+//  Probably deadcode.
+//  if (mega_mode) {
+//      warn("unexpected_a", the_function);
+//  }
 
 // Don't make functions in loops. It is inefficient, and it can lead to scoping
 // errors.
@@ -3167,6 +3358,9 @@ function do_function(the_function) {
     functions.push(the_function);
     functionage = the_function;
     if (the_function.arity !== "statement" && typeof name === "object") {
+
+// cause: "let aa=function bb(){return;};"
+
         enroll(name, "function", true);
         name.dead = false;
         name.init = true;
@@ -3197,6 +3391,9 @@ function do_function(the_function) {
         the_function.arity === "statement"
         && next_token.line === token.line
     ) {
+
+// cause: "function aa(){}0"
+
         return stop("unexpected_a", next_token);
     }
     if (
@@ -3204,6 +3401,9 @@ function do_function(the_function) {
         || next_token.id === "?."
         || next_token.id === "["
     ) {
+
+// cause: "function aa(){}\n[]"
+
         warn("unexpected_a");
     }
 
@@ -3237,6 +3437,10 @@ prefix("await", function () {
     let the_await;
     the_await = token;
     if (!functionage.is_async) {
+
+// cause: "await"
+// cause: "function aa(){await 0;}"
+
         return stop("unexpected_a", the_await);
     }
     functionage.has_await = true;
@@ -3274,9 +3478,15 @@ function fart(pl) {
     the_fart.parameters = pl[0];
     the_fart.signature = pl[1];
     the_fart.parameters.forEach(function (name) {
+
+// cause: "(aa)=>{}"
+
         enroll(name, "parameter", true);
     });
     if (next_token.id === "{") {
+
+// cause: "()=>{}"
+
         warn("expected_a_b", the_fart, "function", "=>");
         the_fart.block = block("body");
     } else {
@@ -3321,9 +3531,20 @@ prefix("(", function () {
     if (next_token.id === "=>") {
         if (the_value.arity !== "variable") {
             if (the_value.id === "{" || the_value.id === "[") {
+
+// cause: "([])=>0"
+// cause: "({})=>0"
+
                 warn("expected_a_before_b", the_paren, "function", "(");
+
+// cause: "([])=>0"
+// cause: "({})=>0"
+
                 return stop("expected_a_b", next_token, "{", "=>");
             }
+
+// cause: "(0)=>0"
+
             return stop("expected_identifier_a", the_value);
         }
         the_paren.expression = [the_value];
@@ -3348,13 +3569,11 @@ prefix("{", function () {
             advance();
             a = b;
             b = String(name.value || name.id);
-            if (a > b) {
-                if (!option.unordered) {
+            if (!option.unordered && a > b) {
 
 // cause: "aa={bb,aa}"
 
-                    warn("unordered_property_a", name);
-                }
+                warn("unordered_property_a", name);
             }
             if (
                 (name.id === "get" || name.id === "set")
@@ -3392,6 +3611,9 @@ prefix("{", function () {
             if (name.identifier) {
                 if (next_token.id === "}" || next_token.id === ",") {
                     if (typeof extra === "string") {
+
+// cause: "aa={get aa}"
+
                         advance("(");
                     }
                     value = expression(Infinity, true);
@@ -3403,19 +3625,31 @@ prefix("{", function () {
                         line: name.line,
                         name: (
                             typeof extra === "string"
+
+// cause: "aa={get aa(){}}"
+
                             ? extra
+
+// cause: "aa={aa()}"
+
                             : id
                         ),
                         thru: name.from
                     });
                 } else {
                     if (typeof extra === "string") {
+
+// cause: "aa={get aa.aa}"
+
                         advance("(");
                     }
                     let the_colon = next_token;
                     advance(":");
                     value = expression(0);
                     if (value.id === name.id && value.id !== "function") {
+
+// cause: "aa={aa:aa}"
+
                         warn("unexpected_a", the_colon, ": " + name.id);
                     }
                 }
@@ -3441,11 +3675,15 @@ prefix("{", function () {
 });
 
 stmt(";", function () {
+
+// cause: ";"
+
     warn("unexpected_a", token);
     return token;
 });
 stmt("{", function () {
 
+// cause: ";{}"
 // cause: "class aa{}"
 
     warn("naked_block", token);
@@ -3459,6 +3697,9 @@ stmt("break", function () {
         (functionage.loop < 1 && functionage.switch < 1)
         || functionage.finally > 0
     ) {
+
+// cause: "break"
+
         warn("unexpected_a", the_break);
     }
     the_break.disrupt = true;
@@ -3501,6 +3742,9 @@ function do_var() {
         if (var_mode === undefined) {
             var_mode = the_statement.id;
         } else if (the_statement.id !== var_mode) {
+
+// cause: "let aa;var aa"
+
             warn(
                 "expected_a_b",
                 the_statement,
@@ -3532,24 +3776,29 @@ function do_var() {
             advance("{");
             (function pair() {
                 if (!next_token.identifier) {
+
+// cause: "let {0}"
+
                     return stop("expected_identifier_a", next_token);
                 }
                 const name = next_token;
                 survey(name);
                 a = b;
                 b = String(name.value || name.id);
-                if (a > b) {
-                    if (!option.unordered) {
+                if (!option.unordered && a > b) {
 
-// cause: "let{bb,aa}=0"
+// cause: "let{bb,aa}"
 
-                        warn("unordered_param_a", name);
-                    }
+                    warn("unordered_param_a", name);
                 }
                 advance();
                 if (next_token.id === ":") {
                     advance(":");
                     if (!next_token.identifier) {
+
+// cause: "let {aa:0}"
+// cause: "let {aa:{aa}}"
+
                         return stop("expected_identifier_a", next_token);
                     }
                     next_token.label = name;
@@ -3564,6 +3813,9 @@ function do_var() {
                 name.dead = false;
                 name.init = true;
                 if (next_token.id === "=") {
+
+// cause: "let {aa=0}"
+
                     advance("=");
                     name.expression = expression();
                     the_brace.open = true;
@@ -3586,6 +3838,9 @@ function do_var() {
                     advance("...");
                 }
                 if (!next_token.identifier) {
+
+// cause: "let[]"
+
                     return stop("expected_identifier_a", next_token);
                 }
                 const name = next_token;
@@ -3629,6 +3884,10 @@ function do_var() {
             }
             the_statement.names.push(name);
         } else {
+
+// cause: "let 0"
+// cause: "var{aa:{aa}}"
+
             return stop("expected_identifier_a", next_token);
         }
     }());
@@ -3640,6 +3899,10 @@ stmt("const", do_var);
 stmt("continue", function () {
     const the_continue = token;
     if (functionage.loop < 1 || functionage.finally > 0) {
+
+// cause: "continue"
+// cause: "function aa(){while(0){try{}finally{continue}}}"
+
         warn("unexpected_a", the_continue);
     }
     not_top_level(the_continue);
@@ -3651,6 +3914,9 @@ stmt("continue", function () {
 stmt("debugger", function () {
     const the_debug = token;
     if (!option.devel) {
+
+// cause: "debugger"
+
         warn("unexpected_a", the_debug);
     }
     semicolon();
@@ -3663,6 +3929,9 @@ stmt("delete", function () {
         (the_value.id !== "." && the_value.id !== "[")
         || the_value.arity !== "binary"
     ) {
+
+// cause: "delete 0"
+
         stop("expected_a_b", the_value, ".", artifact(the_value));
     }
     the_token.expression = the_value;
@@ -3694,11 +3963,17 @@ stmt("export", function () {
 
     function export_id() {
         if (!next_token.identifier) {
+
+// cause: "export {}"
+
             stop("expected_identifier_a");
         }
         the_id = next_token.id;
         the_name = global.context[the_id];
         if (the_name === undefined) {
+
+// cause: "export {aa}"
+
             warn("unexpected_a");
         } else {
             the_name.used += 1;
@@ -3734,8 +4009,10 @@ stmt("export", function () {
 // cause: "export default {}"
 
             warn("freeze_exports", the_thing);
-        }
-        if (next_token.id === ";") {
+        } else {
+
+// cause: "export default Object.freeze({})"
+
             semicolon();
         }
         exports.default = the_thing;
@@ -3749,10 +4026,10 @@ stmt("export", function () {
             the_thing = statement();
             the_name = the_thing.name;
             the_id = the_name.id;
+            the_name.used += 1;
 
 // cause: "let aa;export{aa};export function aa(){}"
 
-            the_name.used += 1;
             if (exports[the_id] !== undefined) {
                 warn("duplicate_a", the_name);
             }
@@ -3765,9 +4042,17 @@ stmt("export", function () {
             || next_token.id === "let"
             || next_token.id === "const"
         ) {
+
+// cause: "export const"
+// cause: "export let"
+// cause: "export var"
+
             warn("unexpected_a", next_token);
             statement();
         } else if (next_token.id === "{") {
+
+// cause: "export {}"
+
             advance("{");
             (function loop() {
                 export_id();
@@ -3779,6 +4064,9 @@ stmt("export", function () {
             advance("}");
             semicolon();
         } else {
+
+// cause: "export"
+
             stop("unexpected_a");
         }
     }
@@ -3789,6 +4077,9 @@ stmt("for", function () {
     let first;
     const the_for = token;
     if (!option.for) {
+
+// cause: "for"
+
         warn("unexpected_a", the_for);
     }
     not_top_level(the_for);
@@ -3809,6 +4100,9 @@ stmt("for", function () {
         || next_token.id === "let"
         || next_token.id === "const"
     ) {
+
+// cause: "for(const aa in aa){}"
+
         return stop("unexpected_a");
     }
     first = expression(0);
@@ -3838,6 +4132,9 @@ stmt("for", function () {
     advance(")");
     the_for.block = block();
     if (the_for.block.disrupt === true) {
+
+// cause: "/*jslint for*/\nfunction aa(bb,cc){for(0;0;0){break;}}"
+
         warn("weird_loop", the_for);
     }
     functionage.loop -= 1;
@@ -3854,13 +4151,25 @@ stmt("if", function () {
         the_else = token;
         the_if.else = (
             next_token.id === "if"
+
+// cause: "if(0){0}else if(0){0}"
+
             ? statement()
+
+// cause: "if(0){0}else{0}"
+
             : block()
         );
         if (the_if.block.disrupt === true) {
             if (the_if.else.disrupt === true) {
+
+// cause: "if(0){break;}else{}"
+
                 the_if.disrupt = true;
             } else {
+
+// cause: "if(0){break;}else{}"
+
                 warn("unexpected_a", the_else);
             }
         }
@@ -3903,6 +4212,9 @@ stmt("import", function () {
         name = next_token;
         advance();
         if (name.id === "ignore") {
+
+// cause: "import ignore from \"aa\""
+
             warn("unexpected_a", name);
         }
         enroll(name, "variable", true);
@@ -3913,11 +4225,17 @@ stmt("import", function () {
         if (next_token.id !== "}") {
             while (true) {
                 if (!next_token.identifier) {
+
+// cause: "import {"
+
                     stop("expected_identifier_a");
                 }
                 name = next_token;
                 advance();
                 if (name.id === "ignore") {
+
+// cause: "import {ignore} from \"aa\""
+
                     warn("unexpected_a", name);
                 }
                 enroll(name, "variable", true);
@@ -3949,6 +4267,9 @@ stmt("return", function () {
     const the_return = token;
     not_top_level(the_return);
     if (functionage.finally > 0) {
+
+// cause: "function aa(){try{}finally{return;}}"
+
         warn("unexpected_a", the_return);
     }
     the_return.disrupt = true;
@@ -3967,6 +4288,9 @@ stmt("switch", function () {
     const the_switch = token;
     not_top_level(the_switch);
     if (functionage.finally > 0) {
+
+// cause: "function aa(){try{}finally{switch(0){}}}"
+
         warn("unexpected_a", the_switch);
     }
     functionage.switch += 1;
@@ -3990,6 +4314,9 @@ stmt("switch", function () {
             if (dups.some(function (thing) {
                 return are_similar(thing, exp);
             })) {
+
+// cause: "switch(0){case 0:break;case 0:break}"
+
                 warn("unexpected_a", exp);
             }
             dups.push(exp);
@@ -4001,6 +4328,9 @@ stmt("switch", function () {
         }());
         stmts = statements();
         if (stmts.length < 1) {
+
+// cause: "switch(0){case 0:}"
+
             warn("expected_statements_a");
             return;
         }
@@ -4031,11 +4361,17 @@ stmt("switch", function () {
         advance(":");
         the_switch.else = statements();
         if (the_switch.else.length < 1) {
+
+// cause: "switch(0){case 0:break;default:}"
+
             warn("unexpected_a", the_default);
             the_disrupt = false;
         } else {
             const the_last = the_switch.else[the_switch.else.length - 1];
             if (the_last.id === "break" && the_last.label === undefined) {
+
+// cause: "switch(0){case 0:break;default:break;}"
+
                 warn("unexpected_a", the_last);
                 the_last.disrupt = false;
             }
@@ -4055,6 +4391,9 @@ stmt("throw", function () {
     the_throw.expression = expression(10);
     semicolon();
     if (functionage.try > 0) {
+
+// cause: "try{throw 0}catch(){}"
+
         warn("unexpected_a", the_throw);
     }
     return the_throw;
@@ -4064,6 +4403,9 @@ stmt("try", function () {
     let the_disrupt;
     const the_try = token;
     if (functionage.try > 0) {
+
+// cause: "try{try{}catch(){}}catch(){}"
+
         warn("unexpected_a", the_try);
     }
     functionage.try += 1;
@@ -4077,6 +4419,9 @@ stmt("try", function () {
         if (next_token.id === "(") {
             advance("(");
             if (!next_token.identifier) {
+
+// cause: "try{}catch(){}"
+
                 return stop("expected_identifier_a", next_token);
             }
             if (next_token.id !== "ignore") {
@@ -4092,6 +4437,9 @@ stmt("try", function () {
             the_disrupt = false;
         }
     } else {
+
+// cause: "try{}finally{break;}"
+
         warn(
             "expected_a_before_b",
             next_token,
@@ -4226,8 +4574,8 @@ function walk_expression(thing) {
     if (thing) {
         if (Array.isArray(thing)) {
 
-// cause: "0&&0"
 // cause: "(function(){}())"
+// cause: "0&&0"
 
             thing.forEach(walk_expression);
         } else {
@@ -4252,7 +4600,10 @@ function walk_expression(thing) {
                 thing.arity === "statement"
                 || thing.arity === "assignment"
             ) {
-                warn("unexpected_statement_a", thing); // deadcode?
+
+// cause: "aa[aa=0]"
+
+                warn("unexpected_statement_a", thing);
             }
             postamble(thing);
         }
@@ -4285,6 +4636,7 @@ function walk_statement(thing) {
 
 // cause: "!0"
 // cause: "+[]"
+// cause: "+new aa()"
 // cause: "0"
 
                 warn("unexpected_expression_a", thing);
@@ -4420,6 +4772,22 @@ function preaction_function(thing) {
 
 function bitwise_check(thing) {
     if (!option.bitwise && bitwiseop[thing.id] === true) {
+
+// cause: "0&0"
+// cause: "0&=0"
+// cause: "0<<0"
+// cause: "0<<=0"
+// cause: "0>>0"
+// cause: "0>>=0"
+// cause: "0>>>0"
+// cause: "0>>>=0"
+// cause: "0^0"
+// cause: "0^=0"
+// cause: "0|0"
+// cause: "0|=0"
+// cause: "0~0"
+// cause: "~0"
+
         warn("unexpected_a", thing);
     }
     if (
@@ -4434,6 +4802,9 @@ function bitwise_check(thing) {
             || relationop[thing.expression[1].id] === true
         )
     ) {
+
+// cause: "0<0<0"
+
         warn("unexpected_a", thing);
     }
 }
@@ -4446,21 +4817,25 @@ function pop_block() {
     blockage = block_stack.pop();
 }
 
-function activate(name) {
-    name.dead = false;
-    if (name.expression !== undefined) {
-        walk_expression(name.expression);
-        if (name.id === "{" || name.id === "[") {
-            name.names.forEach(subactivate);
-        } else {
+function action_var(thing) {
+    thing.names.forEach(function (name) {
+        name.dead = false;
+        if (name.expression !== undefined) {
+            walk_expression(name.expression);
+            assert_or_throw(
+                !(name.id === "{" || name.id === "["),
+                `Expected !(name.id === "{" || name.id === "[").`
+            );
+//          Probably deadcode.
+//          if (name.id === "{" || name.id === "[") {
+//              name.names.forEach(subactivate);
+//          } else {
+//              name.init = true;
+//          }
             name.init = true;
         }
-    }
-    blockage.live.push(name);
-}
-
-function action_var(thing) {
-    thing.names.forEach(activate);
+        blockage.live.push(name);
+    });
 }
 
 preaction("assignment", bitwise_check);
@@ -4629,11 +5004,20 @@ postaction("assignment", function (thing) {
     const lvalue = thing.expression[0];
     if (thing.id === "=") {
         if (thing.names !== undefined) {
-            if (Array.isArray(thing.names)) {
-                thing.names.forEach(init_variable);
-            } else {
-                init_variable(thing.names);
-            }
+
+// cause: "if(0){aa=0}"
+
+            assert_or_throw(
+                !Array.isArray(thing.names),
+                `Expected !Array.isArray(thing.names).`
+            );
+//          Probably deadcode.
+//          if (Array.isArray(thing.names)) {
+//              thing.names.forEach(init_variable);
+//          } else {
+//              init_variable(thing.names);
+//          }
+            init_variable(thing.names);
         } else {
             if (lvalue.id === "[" || lvalue.id === "{") {
                 lvalue.expression.forEach(function (thing) {
@@ -4645,6 +5029,9 @@ postaction("assignment", function (thing) {
                 lvalue.id === "."
                 && thing.expression[1].id === "undefined"
             ) {
+
+// cause: "aa.aa=undefined"
+
                 warn(
                     "expected_a_b",
                     lvalue.expression,
@@ -4672,6 +5059,9 @@ postaction("assignment", function (thing) {
                 )
             )
         ) {
+
+// cause: "aa+=undefined"
+
             warn("unexpected_a", thing.expression[1]);
         }
     }
@@ -4713,8 +5103,14 @@ postaction("binary", function (thing) {
     if (thing.id === "+") {
         if (!option.convert) {
             if (thing.expression[0].value === "") {
+
+// cause: "\"\"+0"
+
                 warn("expected_a_b", thing, "String(...)", "\"\" +");
             } else if (thing.expression[1].value === "") {
+
+// cause: "0+\"\""
+
                 warn("expected_a_b", thing, "String(...)", "+ \"\"");
             }
         }
@@ -4767,9 +5163,9 @@ postaction("binary", "&&", function (thing) {
         || thing.expression[1].constant === true
     ) {
 
+// cause: "aa=(``?``:``)&&(``?``:``)"
 // cause: "aa=0&&0"
 // cause: "aa=`${0}`&&`${0}`"
-// cause: "aa=(``?``:``)&&(``?``:``)"
 
         warn("weird_condition_a", thing);
     }
@@ -4812,19 +5208,32 @@ postaction("binary", "(", function (thing) {
                 || left.id === "Symbol"
             ) {
 
-// cause: "+new aa()"
+// cause: "new Boolean()"
+// cause: "new Number()"
+// cause: "new String()"
+// cause: "new Symbol()"
+// cause: "new aa()"
 
                 warn("unexpected_a", the_new);
             } else if (left.id === "Function") {
                 if (!option.eval) {
+
+// cause: "new Function()"
+
                     warn("unexpected_a", left, "new Function");
                 }
             } else if (left.id === "Array") {
                 arg = thing.expression;
                 if (arg.length !== 2 || arg[1].id === "(string)") {
+
+// cause: "new Array()"
+
                     warn("expected_a_b", left, "[]", "new Array");
                 }
             } else if (left.id === "Object") {
+
+// cause: "new Object()"
+
                 warn(
                     "expected_a_b",
                     left,
@@ -4841,6 +5250,9 @@ postaction("binary", "(", function (thing) {
                 && left.id !== "String"
                 && left.id !== "Symbol"
             ) {
+
+// cause: "let Aa=Aa()"
+
                 warn(
                     "expected_a_before_b",
                     left,
@@ -4852,12 +5264,21 @@ postaction("binary", "(", function (thing) {
     } else if (left.id === ".") {
         let cack = the_new !== undefined;
         if (left.expression.id === "Date" && left.name.id === "UTC") {
+
+// cause: "new Date.UTC()"
+
             cack = !cack;
         }
         if (rx_cap.test(left.name.id) !== cack) {
             if (the_new !== undefined) {
+
+// cause: "new Date.UTC()"
+
                 warn("unexpected_a", the_new);
             } else {
+
+// cause: "let Aa=Aa.Aa()"
+
                 warn(
                     "expected_a_before_b",
                     left.expression,
@@ -4876,6 +5297,9 @@ postaction("binary", "(", function (thing) {
                         new_date.id === "new"
                         && new_date.expression.id === "Date"
                     ) {
+
+// cause: "new Date().getTime()"
+
                         warn(
                             "expected_a_b",
                             new_date,
@@ -4947,18 +5371,30 @@ postaction("ternary", function (thing) {
     ) {
         warn("unexpected_a", thing);
     } else if (are_similar(thing.expression[0], thing.expression[1])) {
+
+// cause: "aa?aa:0"
+
         warn("expected_a_b", thing, "||", "?");
     } else if (are_similar(thing.expression[0], thing.expression[2])) {
+
+// cause: "aa?0:aa"
+
         warn("expected_a_b", thing, "&&", "?");
     } else if (
         thing.expression[1].id === "true"
         && thing.expression[2].id === "false"
     ) {
+
+// cause: "aa?true:false"
+
         warn("expected_a_b", thing, "!!", "?");
     } else if (
         thing.expression[1].id === "false"
         && thing.expression[2].id === "true"
     ) {
+
+// cause: "aa?false:true"
+
         warn("expected_a_b", thing, "!", "?");
     } else if (
         thing.expression[0].wrapped !== true
@@ -5005,6 +5441,9 @@ postaction("unary", function (thing) {
 postaction("unary", "function", postaction_function);
 postaction("unary", "+", function (thing) {
     if (!option.convert) {
+
+// cause: "aa=+0"
+
         warn("expected_a_b", thing, "Number(...)", "+");
     }
     const right = thing.expression;
@@ -5024,12 +5463,20 @@ function delve(the_function) {
         if (id !== "ignore") {
             const name = the_function.context[id];
             if (name.parent === the_function) {
+
+// cause: "let aa=function bb(){return;};"
+
                 if (
                     name.used === 0
-                    && (
-                        name.role !== "function"
-                        || name.parent.arity !== "unary"
+                    && assert_or_throw(
+                        name.role !== "function",
+                        `Expected name.role !== "function".`
                     )
+//                  Probably deadcode.
+//                  && (
+//                      name.role !== "function"
+//                      || name.parent.arity !== "unary"
+//                  )
                 ) {
 
 // cause: "/*jslint node*/\nlet aa;"
@@ -5044,6 +5491,9 @@ function delve(the_function) {
                 }
             }
         }
+
+// cause: "function aa(ignore){return;}"
+
     });
 }
 
@@ -5082,7 +5532,7 @@ function whitage() {
 // cause: "switch(){}"
 // cause: "while(){}"
 
-// let free = true;
+    // let free = true;
 
     let left = global;
     let margin = 0;
@@ -5111,6 +5561,14 @@ function whitage() {
     }
 
     function expected_at(at) {
+        assert_or_throw(
+            !(right === undefined),
+            `Expected !(right === undefined).`
+        );
+//      Probably deadcode.
+//      if (right === undefined) {
+//          right = next_token;
+//      }
         warn(
             "expected_a_at_b_c",
             right,
@@ -5177,9 +5635,15 @@ function whitage() {
 
     function no_space() {
         if (left.line === right.line) {
+
+// from:
+//                  if (left.line === right.line) {
+//                      no_space();
+//                  } else {
+
             if (left.thru !== right.from && nr_comments_skipped === 0) {
 
-// cause: "let aa = aa()( );"
+// cause: "let aa = aa( );"
 
                 warn(
                     "unexpected_space_a_b",
@@ -5189,13 +5653,34 @@ function whitage() {
                 );
             }
         } else {
-            if (open) {
-                const at = (
-                    free
-                    ? margin
-                    : margin + 8 // deadcode?
-                );
-                if (right.from < at) {
+
+// from:
+//                  } else if (
+//                      right.arity === "binary"
+//                      && right.id === "("
+//                      && free
+//                  ) {
+//                      no_space();
+//                  } else if (
+
+            assert_or_throw(open, `Expected open.`);
+            assert_or_throw(free, `Expected free.`);
+//          Probably deadcode.
+//          if (open) {
+//              const at = (
+//                  free
+//                  ? margin
+//                  : margin + 8
+//              );
+//              if (right.from < at) {
+//                  expected_at(at);
+//              }
+//          } else {
+//              if (right.from !== margin + 8) {
+//                  expected_at(margin + 8);
+//              }
+//          }
+            if (right.from < margin) {
 
 // cause:
 // let aa = aa(
@@ -5203,12 +5688,7 @@ function whitage() {
 // ()
 // );
 
-                    expected_at(at);
-                }
-            } else { // deadcode?
-                if (right.from !== margin + 8) {
-                    expected_at(margin + 8);
-                }
+                expected_at(margin);
             }
         }
     }
@@ -5343,16 +5823,34 @@ function whitage() {
 // cause: "{}"
 
                     if (left.line === right.line) {
+
+// cause: "let aa = aa( );"
+
                         no_space();
                     } else {
+
+// cause: "let aa = aa(\n );"
+
                         at_margin(0);
                     }
                 }
             } else {
                 if (right.statement === true) {
                     if (left.id === "else") {
+
+// cause:
+// let aa = 0;
+// if (aa) {
+//     aa();
+// } else  if (aa) {
+//     aa();
+// }
+
                         one_space_only();
                     } else {
+
+// cause: " let aa = 0;"
+
                         at_margin(0);
                         open = false;
                     }
@@ -5381,7 +5879,7 @@ function whitage() {
 
 // cause:
 // function aa() {
-//     let bb = 0;cc:
+//     aa();cc:
 //     while (aa) {
 //         if (aa) {
 //             break cc;
@@ -5396,8 +5894,19 @@ function whitage() {
                             (free || closer === "]")
                             && left.line === right.line
                         )) {
+
+// cause: "let {aa,bb} = 0;"
+
                             one_space();
                         } else {
+
+// cause:
+// function aa() {
+//     aa(
+//         0,0
+//     );
+// }
+
                             at_margin(0);
                         }
 
@@ -5405,8 +5914,19 @@ function whitage() {
 
                     } else if (right.arity === "ternary") {
                         if (open) {
+
+// cause:
+// let aa = (
+//     aa
+//     ? 0
+// : 1
+// );
+
                             at_margin(0);
                         } else {
+
+// cause: "let aa = (aa ? 0 : 1);"
+
                             warn("use_open", right);
                         }
                     } else if (
@@ -5414,6 +5934,13 @@ function whitage() {
                         && right.id === "("
                         && free
                     ) {
+
+// cause:
+// let aa = aa(
+//     aa
+// ()
+// );
+
                         no_space();
                     } else if (
                         left.id === "."
@@ -5431,10 +5958,29 @@ function whitage() {
                             && left.id !== "function"
                         )
                     ) {
+
+// cause: "let aa = 0 ;"
+
                         no_space_only();
                     } else if (right.id === "." || right.id === "?.") {
+
+// cause: "let aa = aa ?.aa;"
+
                         no_space_only();
-                    } else if (left.id === ";") { // deadcode?
+                    } else if (left.id === ";") {
+
+// cause:
+// /*jslint for*/
+// function aa() {
+//     for (
+//         aa();
+// aa;
+//         aa()
+//     ) {
+//         aa();
+//     }
+// }
+
                         if (open) {
                             at_margin(0);
                         }
@@ -5493,6 +6039,11 @@ function whitage() {
                     ) {
 
 // cause: "let aa=0;"
+// cause:
+// let aa={
+//     aa:
+// 0
+// };
 
                         one_space();
                     } else if (left.arity === "unary" && left.id !== "`") {
@@ -5657,7 +6208,7 @@ function jslint(
             + " \u001b[31m" + message + "\u001b[39m"
             + " \u001b[90m\/\/ line " + line + ", column " + column
             + "\u001b[39m\n"
-            + ("    " + String(lines && lines[line - 1]).trim()).slice(0, 72)
+            + ("    " + String(lines[line - 1] || "").trim()).slice(0, 72)
             + "\n" + stack_trace
         ).trim();
     });
@@ -5869,7 +6420,7 @@ if (
     && process && process.versions
     && typeof process.versions.node === "string"
     && (
-        (/\bjslint.m?js$/m).test(process.argv[1])
+        (/[\/|\\]jslint.m?js$/m).test(process.argv[1])
         || process.env.JSLINT_CLI === "1"
     )
 ) {

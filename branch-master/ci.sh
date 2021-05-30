@@ -15,8 +15,8 @@ if (!globalThis.debugInline) {
     consoleError = console.error;
     globalThis.debugInline = function (...argList) {
     /*
-     * this function will both print <argList> to stderr and
-     * return <argList>[0]
+     * this function will both print <argList> to stderr
+     * and return <argList>[0]
      */
         consoleError("\n\ndebugInline");
         consoleError(...argList);
@@ -149,30 +149,30 @@ process.exit(
     git checkout -b gh-pages
     git fetch origin gh-pages
     git reset --hard origin/gh-pages
-    # update dir branch.$BRANCH
-    rm -rf "branch.$BRANCH"
-    mkdir "branch.$BRANCH"
+    # update dir branch-$BRANCH
+    rm -rf "branch-$BRANCH"
+    mkdir "branch-$BRANCH"
     (set -e
-        cd "branch.$BRANCH"
+        cd "branch-$BRANCH"
         git init -b branch1
         git pull --depth=1 .. "$BRANCH"
         rm -rf .git
         git add -f .
     )
-    # update root-dir with branch-master
-    if [ "$BRANCH" = master ]
+    # update root-dir with branch-beta
+    if [ "$BRANCH" = beta ]
     then
         git rm -rf .build
-        git checkout master .
+        git checkout beta .
     fi
     git status
-    git commit -am "update dir branch.$BRANCH" || true
+    git commit -am "update dir branch-$BRANCH" || true
     # if branch-gh-pages has more than 100 commits,
     # then backup and squash commits
     if [ "$(git rev-list --count gh-pages)" -gt 100 ]
     then
         # backup
-        shGitCmdWithGithubToken push origin -f gh-pages:gh-pages.backup
+        shGitCmdWithGithubToken push origin -f gh-pages:gh-pages-backup
         # squash commits
         git checkout --orphan squash1
         git commit --quiet -am squash || true
@@ -188,7 +188,7 @@ process.exit(
     shGitCmdWithGithubToken push origin gh-pages
     # validate http-links
     (set -e
-        cd "branch.$BRANCH"
+        cd "branch-$BRANCH"
         sleep 15
         shDirHttplinkValidate
     )
@@ -211,7 +211,62 @@ shCiBase() {(set -e
     )
     # screenshot live-web-demo
     shBrowserScreenshot \
-        https://jslint-org.github.io/jslint/branch.beta/index.html
+        https://jslint-org.github.io/jslint/branch-beta/index.html
+    # update version from CHANGELOG.md
+    node -e '
+(async function () {
+    "use strict";
+    let dict;
+    let versionBeta;
+    let versionMaster;
+    dict = {};
+    await Promise.all([
+        "CHANGELOG.md",
+        "README.md",
+        "jslint.js"
+    ].map(async function (file) {
+        dict[file] = await require("fs").promises.readFile(file, "utf8");
+    }));
+    Array.from(dict["CHANGELOG.md"].matchAll(
+        /\n##\u0020(v\d\d\d\d\.\d\d?\.\d\d?(.*?)?)\n/g
+    )).slice(0, 2).forEach(function ([
+        ignore, version, isBeta
+    ]) {
+        versionBeta = versionBeta || version;
+        versionMaster = versionMaster || (!isBeta && version);
+    });
+    [
+        {
+            file: "README.md",
+            src: dict["README.md"].replace((
+                /\bv\d\d\d\d\.\d\d?\.\d\d?\b/m
+            ), versionMaster).replace((
+                /\n#\u0020Changelog[\S\s]*?\n#\u0020/
+            ), (
+                "\n"
+                + dict["CHANGELOG.md"].split("\n## ").slice(0, 4).join("\n## ")
+                + "\n# "
+            )),
+            src0: dict["README.md"]
+        }, {
+            file: "jslint.js",
+            src: dict["jslint.js"].replace((
+                /^const\u0020edition\u0020=\u0020".*?";$/m
+            ), `const edition = "${versionBeta}";`),
+            src0: dict["jslint.js"]
+        }
+    ].forEach(function ({
+        file,
+        src,
+        src0
+    }) {
+        if (src !== src0) {
+            console.error(`update file ${file}`);
+            require("fs").promises.writeFile(file, src);
+        }
+    });
+}());
+' # '
 )}
 
 shCiBranchPromote() {(set -e
@@ -250,8 +305,8 @@ shDirHttplinkValidate() {(set -e
             url = url.slice(0, -1).replace((
                 /[\u0022\u0027]/g
             ), "").replace((
-                /\/branch\.\w+?\//g
-            ), "/branch.alpha/").replace((
+                /\/branch-\w+?\//g
+            ), "/branch-alpha/").replace((
                 /\bjslint-org\/jslint\b/g
             ), process.env.GITHUB_REPOSITORY || "jslint-org/jslint").replace((
                 /\bjslint-org\.github\.io\/jslint\b/g
@@ -332,8 +387,8 @@ shGitCmdWithGithubToken() {(set -e
     REMOTE="$1"
     shift
     URL="$(
-        git config "remote.$REMOTE.url" |
-            sed -e "s|https://|https://x-access-token:$GITHUB_TOKEN@|"
+        git config "remote.$REMOTE.url" \
+        | sed -e "s|https://|https://x-access-token:$GITHUB_TOKEN@|"
     )"
     EXIT_CODE=0
     # hide $GITHUB_TOKEN in case of err
@@ -425,8 +480,8 @@ shGitLsTree() {(set -e
 )}
 
 shRunWithCoverage() {(set -e
-# this function will run nodejs command $@ with v8-coverage and
-# create coverage-report .build/coverage/index.html
+# this function will run nodejs command $@ with v8-coverage
+# and create coverage-report .build/coverage/index.html
     local EXIT_CODE
     EXIT_CODE=0
     export DIR_COVERAGE=.build/coverage/
@@ -445,8 +500,8 @@ if (!globalThis.debugInline) {
     consoleError = console.error;
     globalThis.debugInline = function (...argList) {
     /*
-     * this function will both print <argList> to stderr and
-     * return <argList>[0]
+     * this function will both print <argList> to stderr
+     * and return <argList>[0]
      */
         consoleError("\n\ndebugInline");
         consoleError(...argList);
