@@ -538,7 +538,7 @@ function warn_at(code, line, column, a, b, c, d) {
         b,
         c,
         code,
-        column,
+        column: column || fudge,
         d,
         line,
         name: "JSLintError",
@@ -672,6 +672,7 @@ function tokenize(source) {
         let at;
         if (
             !option.long
+            && !disable_parse
             && whole_line.length > 80
             && !json_mode
             && first
