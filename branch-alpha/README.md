@@ -100,11 +100,13 @@ right so that you can focus your creative energy where it is most needed.
 - jslint - remove obsolete ie-warning about duplicate names for caught-errors.
 - node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises")`.
 - node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
+- website - replace current-editor with CodeMirror-editor and change programming-font-faminly from `Programma` to `Consolas, Menlo, monospace`.
 
 ## v2021.6.1-beta
 - breaking-change - hardcode `const fudge = 1`
 - breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as source b/c internal lines-object has been changed from array-of-strings to array-of-objects.
-- jslint - add ignore-directives `/*jslint_disable_parse*/`, `/*jslint_enable_parse*/`, `//jslint_ignore_warning`.
+- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslint-quiet`.
+- jslint - add new warning `Unclosed directive /*jslint-disable*/.`.
 
 ## v2021.5.30
 - bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.

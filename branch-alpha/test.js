@@ -114,11 +114,11 @@ function noop() {
         fart: [
             "function aa() {\n    return () => 0;\n}"
         ],
-        jslint_disable_parse: [
-            "/*jslint_disable_parse*/\n0\n/*jslint_enable_parse*/"
+        jslint_disable: [
+            "/*jslint-disable*/\n0\n/*jslint-enable*/"
         ],
-        jslint_ignore_warning: [
-            "0 //jslint_ignore_warning"
+        jslint_quiet: [
+            "0 //jslint-quiet"
         ],
         json: [
             "{\"aa\":[[],-0,null]}"
@@ -192,7 +192,7 @@ function noop() {
         let expectedWarningCode;
         let fnc;
         // debug match0
-        console.error(match0.trim().replace((/\n\n/g), "\n"));
+        // console.error(match0.trim().replace((/\n\n/g), "\n"));
         assertOrThrow(
             match0.indexOf("\n\n" + causeList + "\n    ") === 0,
             JSON.stringify([

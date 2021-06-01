@@ -370,11 +370,18 @@ document.getElementById("JSLINT_CLEAR_OPTIONS").onclick = clear_options;
 
 elem_source.select();
 elem_source.focus();
-elem_source.value = String(`
-#!/usr/bin/env node
-/*jslint devel*/
-import jslint from "./jslint.js";
+elem_source.value = `#!/usr/bin/env node
+/*jslint node*/
+import jslint from "./jslint.mjs";
 import https from "https";
+
+/*jslint-disable*/
+// TODO: jslint this code-block in the future.
+console.log('hello world');
+/*jslint-enable*/
+
+eval("console.log('hello world');"); //jslint-quiet
+
 (async function () {
     let result;
     result = await new Promise(function (resolve) {
@@ -393,7 +400,6 @@ import https from "https";
     }) {
         console.error(formatted_message);
     });
-}());
-`).trim();
+}());`;
 elem_source.onchange();
 call_jslint();
