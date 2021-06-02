@@ -359,29 +359,29 @@ body {
 <pre><span class="lineno"><a href="#line_230" id="line_230">  230.</a></span><span class="count                ">    308</span><span>            + &quot;\\\u0028\\s*?\&quot;?&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_231" id="line_231">  231.</a></span><span class="count                ">    308</span><span>            + &quot;(\\S[^\n\&quot;]+)&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_232" id="line_232">  232.</a></span><span class="count                ">    308</span><span>        );</span></pre>
-<pre><span class="lineno"><a href="#line_233" id="line_233">  233.</a></span><span class="count                ">    248</span><span>        if (warning) {</span></pre>
-<pre><span class="lineno"><a href="#line_234" id="line_234">  234.</a></span><span class="count                ">    248</span><span>            expectedWarningCode = warning[2];</span></pre>
-<pre><span class="lineno"><a href="#line_235" id="line_235">  235.</a></span><span class="count                ">    248</span><span>            fnc = warning[1];</span></pre>
-<pre><span class="lineno"><a href="#line_236" id="line_236">  236.</a></span><span class="count                ">    248</span><span>            switch (fnc) {</span></pre>
-<pre><span class="lineno"><a href="#line_237" id="line_237">  237.</a></span><span class="count                ">    248</span><span>            case &quot;at_margin&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_238" id="line_238">  238.</a></span><span class="count                ">    248</span><span>            case &quot;expected_at&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_239" id="line_239">  239.</a></span><span class="count                ">    248</span><span>                expectedWarningCode = &quot;expected_a_at_b_c&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_240" id="line_240">  240.</a></span><span class="count                ">    248</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_241" id="line_241">  241.</a></span><span class="count                ">    248</span><span>            case &quot;left_check&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_242" id="line_242">  242.</a></span><span class="count                ">    248</span><span>                expectedWarningCode = &quot;unexpected_a&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_243" id="line_243">  243.</a></span><span class="count                ">    248</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_244" id="line_244">  244.</a></span><span class="count                ">    248</span><span>            case &quot;no_space_only&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_245" id="line_245">  245.</a></span><span class="count                ">    248</span><span>                expectedWarningCode = &quot;unexpected_space_a_b&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_246" id="line_246">  246.</a></span><span class="count                ">    248</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_247" id="line_247">  247.</a></span><span class="count                ">    248</span><span>            case &quot;one_space&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_248" id="line_248">  248.</a></span><span class="count                ">    248</span><span>            case &quot;one_space_only&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_249" id="line_249">  249.</a></span><span class="count                ">    248</span><span>                expectedWarningCode = &quot;expected_space_a_b&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_250" id="line_250">  250.</a></span><span class="count                ">    248</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_251" id="line_251">  251.</a></span><span class="count                ">    248</span><span>            case &quot;semicolon&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_252" id="line_252">  252.</a></span><span class="count                ">    248</span><span>                expectedWarningCode = &quot;expected_a_b&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_253" id="line_253">  253.</a></span><span class="count                ">    248</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_254" id="line_254">  254.</a></span><span class="count                ">    248</span><span>            }</span></pre>
-<pre><span class="lineno"><a href="#line_255" id="line_255">  255.</a></span><span class="count                ">    248</span><span>        }</span></pre>
+<pre><span class="lineno"><a href="#line_233" id="line_233">  233.</a></span><span class="count                ">    249</span><span>        if (warning) {</span></pre>
+<pre><span class="lineno"><a href="#line_234" id="line_234">  234.</a></span><span class="count                ">    249</span><span>            expectedWarningCode = warning[2];</span></pre>
+<pre><span class="lineno"><a href="#line_235" id="line_235">  235.</a></span><span class="count                ">    249</span><span>            fnc = warning[1];</span></pre>
+<pre><span class="lineno"><a href="#line_236" id="line_236">  236.</a></span><span class="count                ">    249</span><span>            switch (fnc) {</span></pre>
+<pre><span class="lineno"><a href="#line_237" id="line_237">  237.</a></span><span class="count                ">    249</span><span>            case &quot;at_margin&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_238" id="line_238">  238.</a></span><span class="count                ">    249</span><span>            case &quot;expected_at&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_239" id="line_239">  239.</a></span><span class="count                ">    249</span><span>                expectedWarningCode = &quot;expected_a_at_b_c&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_240" id="line_240">  240.</a></span><span class="count                ">    249</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_241" id="line_241">  241.</a></span><span class="count                ">    249</span><span>            case &quot;left_check&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_242" id="line_242">  242.</a></span><span class="count                ">    249</span><span>                expectedWarningCode = &quot;unexpected_a&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_243" id="line_243">  243.</a></span><span class="count                ">    249</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_244" id="line_244">  244.</a></span><span class="count                ">    249</span><span>            case &quot;no_space_only&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_245" id="line_245">  245.</a></span><span class="count                ">    249</span><span>                expectedWarningCode = &quot;unexpected_space_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_246" id="line_246">  246.</a></span><span class="count                ">    249</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_247" id="line_247">  247.</a></span><span class="count                ">    249</span><span>            case &quot;one_space&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_248" id="line_248">  248.</a></span><span class="count                ">    249</span><span>            case &quot;one_space_only&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_249" id="line_249">  249.</a></span><span class="count                ">    249</span><span>                expectedWarningCode = &quot;expected_space_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_250" id="line_250">  250.</a></span><span class="count                ">    249</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_251" id="line_251">  251.</a></span><span class="count                ">    249</span><span>            case &quot;semicolon&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_252" id="line_252">  252.</a></span><span class="count                ">    249</span><span>                expectedWarningCode = &quot;expected_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_253" id="line_253">  253.</a></span><span class="count                ">    249</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_254" id="line_254">  254.</a></span><span class="count                ">    249</span><span>            }</span></pre>
+<pre><span class="lineno"><a href="#line_255" id="line_255">  255.</a></span><span class="count                ">    249</span><span>        }</span></pre>
 <pre><span class="lineno"><a href="#line_256" id="line_256">  256.</a></span><span class="count                ">    308</span><span>        cause0 = &quot;&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_257" id="line_257">  257.</a></span><span class="count                ">    308</span><span>        causeList.split(</span></pre>
 <pre><span class="lineno"><a href="#line_258" id="line_258">  258.</a></span><span class="count                ">    308</span><span>            /\/\/\u0020cause:[\n|\u0020]/</span></pre>
@@ -403,11 +403,11 @@ body {
 <pre><span class="lineno"><a href="#line_274" id="line_274">  274.</a></span><span class="count                ">    391</span><span>            cause0 = cause;</span></pre>
 <pre><span class="lineno"><a href="#line_275" id="line_275">  275.</a></span><span class="count                ">    391</span><span>            // Assert expectedWarningCode from cause.</span></pre>
 <pre><span class="lineno"><a href="#line_276" id="line_276">  276.</a></span><span class="count                ">    391</span><span>            assertOrThrow(</span></pre>
-<pre><span class="lineno"><a href="#line_277" id="line_277">  277.</a></span><span class="count                ">    677</span><span>                jslint(cause).warnings.some(function ({</span></pre>
-<pre><span class="lineno"><a href="#line_278" id="line_278">  278.</a></span><span class="count                ">    677</span><span>                    code</span></pre>
-<pre><span class="lineno"><a href="#line_279" id="line_279">  279.</a></span><span class="count                ">    677</span><span>                }) {</span></pre>
-<pre><span class="lineno"><a href="#line_280" id="line_280">  280.</a></span><span class="count                ">    677</span><span>                    return code === expectedWarningCode;</span></pre>
-<pre><span class="lineno"><a href="#line_281" id="line_281">  281.</a></span><span class="count                ">    677</span><span>                }) || !expectedWarningCode,</span></pre>
+<pre><span class="lineno"><a href="#line_277" id="line_277">  277.</a></span><span class="count                ">    678</span><span>                jslint(cause).warnings.some(function ({</span></pre>
+<pre><span class="lineno"><a href="#line_278" id="line_278">  278.</a></span><span class="count                ">    678</span><span>                    code</span></pre>
+<pre><span class="lineno"><a href="#line_279" id="line_279">  279.</a></span><span class="count                ">    678</span><span>                }) {</span></pre>
+<pre><span class="lineno"><a href="#line_280" id="line_280">  280.</a></span><span class="count                ">    678</span><span>                    return code === expectedWarningCode;</span></pre>
+<pre><span class="lineno"><a href="#line_281" id="line_281">  281.</a></span><span class="count                ">    678</span><span>                }) || !expectedWarningCode,</span></pre>
 <pre><span class="lineno"><a href="#line_282" id="line_282">  282.</a></span><span class="count                ">    391</span><span>                &quot;\n&quot; + cause.trim()</span></pre>
 <pre><span class="lineno"><a href="#line_283" id="line_283">  283.</a></span><span class="count                ">    391</span><span>            );</span></pre>
 <pre><span class="lineno"><a href="#line_284" id="line_284">  284.</a></span><span class="count                ">    391</span><span>        });</span></pre>
