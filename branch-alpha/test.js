@@ -31,6 +31,11 @@ function noop() {
     jslint.cli({
         // suppress error
         console_error: noop,
+        file: "undefined"
+    });
+    jslint.cli({
+        // suppress error
+        console_error: noop,
         file: "syntax_error.js",
         option: {
             debug: true
