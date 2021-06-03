@@ -1,0 +1,61 @@
+<svg height="1350px" width="720px" xmlns="http://www.w3.org/2000/svg">
+<rect height="1350px" fill="#555" width="720px"></rect>
+<text
+    fill="#7f7"
+    font-family="consolas, menlo, monospace"
+    font-size="12"
+    xml:space="preserve"
+>
+<tspan x="10" y="30"># Changelog</tspan>
+<tspan x="10" y="50"></tspan>
+<tspan x="10" y="70">## Todo</tspan>
+<tspan x="10" y="90">- app - deploy jslint as chrome-extension.</tspan>
+<tspan x="10" y="110">- jslint - add `for...of` syntax support.</tspan>
+<tspan x="10" y="130">- jslint - add html and css linting back into jslint.</tspan>
+<tspan x="10" y="150">- jslint - add new warning if case-statements are not sorted.</tspan>
+<tspan x="10" y="170">- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan><tspan x="10" y="190">.</tspan>
+<tspan x="10" y="210">- jslint - add new warning if const/let/var statements are not sorted.</tspan>
+<tspan x="10" y="230">- jslint - migrate code away from recursive-loops to for/while loops.</tspan>
+<tspan x="10" y="250">- node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises"\</tspan><tspan x="10" y="270">)`.</tspan>
+<tspan x="10" y="290">- node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejec\</tspan><tspan x="10" y="310">tions=strict"`.</tspan>
+<tspan x="10" y="330">- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan><tspan x="10" y="350">m `Programma` to `Consolas, Menlo, monospace`.</tspan>
+<tspan x="10" y="370"></tspan>
+<tspan x="10" y="390">## v2021.6.1-beta</tspan>
+<tspan x="10" y="410">- breaking-change - hardcode `const fudge = 1`</tspan>
+<tspan x="10" y="430">- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan><tspan x="10" y="450">rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.</tspan>
+<tspan x="10" y="470">- doc - add svg changelog.</tspan>
+<tspan x="10" y="490">- doc - add svg package-listing.</tspan>
+<tspan x="10" y="510">- doc - document cli-feature to jslint entire directory.</tspan>
+<tspan x="10" y="530">- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan><tspan x="10" y="550">t-quiet`.</tspan>
+<tspan x="10" y="570">- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan><tspan x="10" y="590">.</tspan>
+<tspan x="10" y="610">- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan><tspan x="10" y="630">.</tspan>
+<tspan x="10" y="650">- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.</tspan>
+<tspan x="10" y="670"></tspan>
+<tspan x="10" y="690">## v2021.5.30</tspan>
+<tspan x="10" y="710">- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})\</tspan><tspan x="10" y="730">`.</tspan>
+<tspan x="10" y="750">- ci - 100% code-coverage!</tspan>
+<tspan x="10" y="770">- ci - auto-update changelog in README.md from CHANGELOG.md.</tspan>
+<tspan x="10" y="790">- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.</tspan>
+<tspan x="10" y="810">- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`\</tspan><tspan x="10" y="830">.</tspan>
+<tspan x="10" y="850">- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... \</tspan><tspan x="10" y="870">}`.</tspan>
+<tspan x="10" y="890">- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.</tspan>
+<tspan x="10" y="910">- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.</tspan>
+<tspan x="10" y="930">- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === \</tspan><tspan x="10" y="950">"false") {...}`.</tspan>
+<tspan x="10" y="970">- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== und\</tspan><tspan x="10" y="990">efined ?...)`.</tspan>
+<tspan x="10" y="1010">- jslint - cleanup regexp code using switch-case-statements.</tspan>
+<tspan x="10" y="1030">- jslint - inline function `activate` into function `action_var`.</tspan>
+<tspan x="10" y="1050">- jslint - inline-document each deadcode-removal/assertion-check.</tspan>
+<tspan x="10" y="1070">- jslint - inline-document each warning with cause that can reproduce it - part 2.</tspan>
+<tspan x="10" y="1090">- tests - inline remaining causal-regressions from test.js into jslint.js</tspan>
+<tspan x="10" y="1110">- tests - validate inline-multi-causes are sorted.</tspan>
+<tspan x="10" y="1130">- website - replace links `branch.xxx` with `branch-xxx`.</tspan>
+<tspan x="10" y="1150"></tspan>
+<tspan x="10" y="1170">## v2021.5.27</tspan>
+<tspan x="10" y="1190">- ci - fix expectedWarningCode not being validated.</tspan>
+<tspan x="10" y="1210">- ci - in windows, disable git-autocrlf.</tspan>
+<tspan x="10" y="1230">- deadcode - replace with assertion-check in function are_similar() - "if (a === b) { return tru\</tspan><tspan x="10" y="1250">e }".</tspan>
+<tspan x="10" y="1270">- deadcode - replace with assertion-check in function are_similar() superseded by id-check - "if\</tspan><tspan x="10" y="1290"> (Array.isArray(b)) { return false; }".</tspan>
+<tspan x="10" y="1310">- deadcode - replace with assertion-check in function are_similar() superseded by is_weird() che\</tspan><tspan x="10" y="1330">ck - "if (a.arity === "function" &amp;&amp; a.arity ===...c".</tspan>
+
+</text>
+</svg>
