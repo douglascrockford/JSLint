@@ -1,9 +1,7 @@
 # Changelog
-- [Full CHANGELOG.md](CHANGELOG.md)
 
 ## Todo
 - app - deploy jslint as chrome-extension.
-- doc - add svg package-listing.
 - jslint - add `for...of` syntax support.
 - jslint - add html and css linting back into jslint.
 - jslint - add new warning if case-statements are not sorted.
@@ -17,11 +15,14 @@
 ## v2021.6.1-beta
 - breaking-change - hardcode `const fudge = 1`
 - breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as source b/c internal lines-object has been changed from array-of-strings to array-of-objects.
+- doc - add svg changelog.
+- doc - add svg package-listing.
 - doc - document cli-feature to jslint entire directory.
 - jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslint-quiet`.
 - jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`.
 - jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`.
 - jslint - remove obsolete ie-era warning about duplicate names for caught-errors.
+- website - move options-ui to top of page after editor-ui
 
 ## v2021.5.30
 - bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.
