@@ -1,5 +1,5 @@
-<svg height="1210px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="1210px" fill="#222" width="800px"></rect>
+<svg height="1190px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="1190px" fill="#222" width="800px"></rect>
 <text
     fill="#7d7"
     font-family="consolas, menlo, monospace"
@@ -30,32 +30,32 @@
 <tspan x="10" y="530">- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`.</tspan>
 <tspan x="10" y="550">- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`.</tspan>
 <tspan x="10" y="570">- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.</tspan>
-<tspan x="10" y="590"></tspan>
-<tspan x="10" y="610">## v2021.5.30</tspan>
-<tspan x="10" y="630">- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.</tspan>
-<tspan x="10" y="650">- ci - 100% code-coverage!</tspan>
-<tspan x="10" y="670">- ci - auto-update changelog in README.md from CHANGELOG.md.</tspan>
-<tspan x="10" y="690">- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.</tspan>
-<tspan x="10" y="710">- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`.</tspan>
-<tspan x="10" y="730">- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... }`.</tspan>
-<tspan x="10" y="750">- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.</tspan>
-<tspan x="10" y="770">- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.</tspan>
-<tspan x="10" y="790">- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === "fal\</tspan><tspan x="10" y="810">se") {...}`.</tspan>
-<tspan x="10" y="830">- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== undefin\</tspan><tspan x="10" y="850">ed ?...)`.</tspan>
-<tspan x="10" y="870">- jslint - cleanup regexp code using switch-case-statements.</tspan>
-<tspan x="10" y="890">- jslint - inline function `activate` into function `action_var`.</tspan>
-<tspan x="10" y="910">- jslint - inline-document each deadcode-removal/assertion-check.</tspan>
-<tspan x="10" y="930">- jslint - inline-document each warning with cause that can reproduce it - part 2.</tspan>
-<tspan x="10" y="950">- tests - inline remaining causal-regressions from test.js into jslint.js</tspan>
-<tspan x="10" y="970">- tests - validate inline-multi-causes are sorted.</tspan>
-<tspan x="10" y="990">- website - replace links `branch.xxx` with `branch-xxx`.</tspan>
-<tspan x="10" y="1010"></tspan>
-<tspan x="10" y="1030">## v2021.5.27</tspan>
-<tspan x="10" y="1050">- ci - fix expectedWarningCode not being validated.</tspan>
-<tspan x="10" y="1070">- ci - in windows, disable git-autocrlf.</tspan>
-<tspan x="10" y="1090">- deadcode - replace with assertion-check in function are_similar() - "if (a === b) { return true }"\</tspan><tspan x="10" y="1110">.</tspan>
-<tspan x="10" y="1130">- deadcode - replace with assertion-check in function are_similar() superseded by id-check - "if (Ar\</tspan><tspan x="10" y="1150">ray.isArray(b)) { return false; }".</tspan>
-<tspan x="10" y="1170">- deadcode - replace with assertion-check in function are_similar() superseded by is_weird() check -\</tspan><tspan x="10" y="1190"> "if (a.arity === "function" &amp;&amp; a.arity ===...c".</tspan>
+<tspan x="10" y="590">- website - move options-ui to top of page after editor-ui</tspan>
+<tspan x="10" y="610"></tspan>
+<tspan x="10" y="630">## v2021.5.30</tspan>
+<tspan x="10" y="650">- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.</tspan>
+<tspan x="10" y="670">- ci - 100% code-coverage!</tspan>
+<tspan x="10" y="690">- ci - auto-update changelog in README.md from CHANGELOG.md.</tspan>
+<tspan x="10" y="710">- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.</tspan>
+<tspan x="10" y="730">- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`.</tspan>
+<tspan x="10" y="750">- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... }`.</tspan>
+<tspan x="10" y="770">- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.</tspan>
+<tspan x="10" y="790">- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.</tspan>
+<tspan x="10" y="810">- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === "fal\</tspan><tspan x="10" y="830">se") {...}`.</tspan>
+<tspan x="10" y="850">- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== undefin\</tspan><tspan x="10" y="870">ed ?...)`.</tspan>
+<tspan x="10" y="890">- jslint - cleanup regexp code using switch-case-statements.</tspan>
+<tspan x="10" y="910">- jslint - inline function `activate` into function `action_var`.</tspan>
+<tspan x="10" y="930">- jslint - inline-document each deadcode-removal/assertion-check.</tspan>
+<tspan x="10" y="950">- jslint - inline-document each warning with cause that can reproduce it - part 2.</tspan>
+<tspan x="10" y="970">- tests - inline remaining causal-regressions from test.js into jslint.js</tspan>
+<tspan x="10" y="990">- tests - validate inline-multi-causes are sorted.</tspan>
+<tspan x="10" y="1010">- website - replace links `branch.xxx` with `branch-xxx`.</tspan>
+<tspan x="10" y="1030"></tspan>
+<tspan x="10" y="1050">## v2021.5.27</tspan>
+<tspan x="10" y="1070">- ci - fix expectedWarningCode not being validated.</tspan>
+<tspan x="10" y="1090">- ci - in windows, disable git-autocrlf.</tspan>
+<tspan x="10" y="1110">- deadcode - replace with assertion-check in function are_similar() - "if (a === b) { return true }"\</tspan><tspan x="10" y="1130">.</tspan>
+<tspan x="10" y="1150">- deadcode - replace with assertion-check in function are_similar() superseded by id-check - "if (Ar\</tspan><tspan x="10" y="1170">ray.isArray(b)) { return false; }".</tspan>
 
 </text>
 </svg>
