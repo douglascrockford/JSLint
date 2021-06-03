@@ -141,6 +141,7 @@ process.exit(
     git config --local user.name "github-actions"
     # update README.md with $GITHUB_REPOSITORY
     sed -i \
+        -e "s|/branch-[0-9A-Z_a-z]*/|/branch-alpha/|g" \
         -e "s|\bjslint-org/jslint\b|$GITHUB_REPOSITORY|g" \
         -e "s|\bjslint-org\.github\.io/jslint\b|$(
             printf "$GITHUB_REPOSITORY" | sed -e "s|/|.github.io/|"
@@ -743,7 +744,7 @@ body {
 <g
     fill="#fff"
     font-family="dejavu sans,verdana,geneva,sans-serif"
-    font-size="11"
+    font-size="11px"
     font-weight="bold"
     text-anchor="middle"
 >
@@ -1094,12 +1095,12 @@ shRunWithScreenshotTxt() {(set -e
     ), function (match0) {
         return String.fromCharCode("0x" + match0.slice(-4));
     }).trimEnd();
-    // 96 column wordwrap
+    // 100 column wordwrap
     result = result.replace((
         /^.*?$/gm
     ), function (line) {
         return line.replace((
-            /.{0,96}/g
+            /.{0,100}/g
         ), function (line, ii) {
             if (ii && !line) {
                 return "";
@@ -1117,12 +1118,12 @@ shRunWithScreenshotTxt() {(set -e
         ), "\\$1").slice();
     }) + "\n";
     result = String(`
-  <svg height="${yy + 20}px" width="720px" xmlns="http://www.w3.org/2000/svg">
-<rect height="${yy + 20}px" fill="#555" width="720px"></rect>
+  <svg height="${yy + 20}px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="${yy + 20}px" fill="#222" width="800px"></rect>
 <text
-    fill="#7f7"
+    fill="#7d7"
     font-family="consolas, menlo, monospace"
-    font-size="12"
+    font-size="12px"
     xml:space="preserve"
 >
 ${result}
