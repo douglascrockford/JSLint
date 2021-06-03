@@ -139,14 +139,6 @@ process.exit(
     # init .git/config
     git config --local user.email "github-actions@users.noreply.github.com"
     git config --local user.name "github-actions"
-    # update README.md with $GITHUB_REPOSITORY
-    sed -i \
-        -e "s|/branch-[0-9A-Z_a-z]*/|/branch-alpha/|g" \
-        -e "s|\bjslint-org/jslint\b|$GITHUB_REPOSITORY|g" \
-        -e "s|\bjslint-org\.github\.io/jslint\b|$(
-            printf "$GITHUB_REPOSITORY" | sed -e "s|/|.github.io/|"
-        )|g" \
-        README.md
     # screenshot live-web-demo
     shBrowserScreenshot \
         https://jslint-org.github.io/jslint/branch-beta/index.html
@@ -179,6 +171,14 @@ process.exit(
         git rm -rf .build
         git checkout beta .
     fi
+    # update README.md with branch-$BRANCH and $GITHUB_REPOSITORY
+    sed -i \
+        -e "s|/branch-[0-9A-Z_a-z]*/|/branch-$BRANCH/|g" \
+        -e "s|\bjslint-org/jslint\b|$GITHUB_REPOSITORY|g" \
+        -e "s|\bjslint-org\.github\.io/jslint\b|$(
+            printf "$GITHUB_REPOSITORY" | sed -e "s|/|.github.io/|"
+        )|g" \
+        "branch-$BRANCH/README.md"
     git status
     git commit -am "update dir branch-$BRANCH" || true
     # if branch-gh-pages has more than 100 commits,
@@ -1119,7 +1119,7 @@ shRunWithScreenshotTxt() {(set -e
     }) + "\n";
     result = String(`
   <svg height="${yy + 20}px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="${yy + 20}px" fill="#222" width="800px"></rect>
+<rect height="${yy + 20}px" fill="#333" width="800px"></rect>
 <text
     fill="#7d7"
     font-family="consolas, menlo, monospace"
