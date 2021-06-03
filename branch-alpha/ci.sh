@@ -1119,7 +1119,7 @@ shRunWithScreenshotTxt() {(set -e
     }) + "\n";
     result = String(`
   <svg height="${yy + 20}px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="${yy + 20}px" fill="#333" width="800px"></rect>
+<rect height="${yy + 20}px" fill="#222" width="800px"></rect>
 <text
     fill="#7d7"
     font-family="consolas, menlo, monospace"
