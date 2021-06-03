@@ -4,26 +4,26 @@ Douglas Crockford
 douglas@crockford.com
 
 # Status
-| Branch | [master<br>(v2021.5.30)](https://github.com/jslint-org/jslint/tree/master) | [beta<br>(Web Demo)](https://github.com/jslint-org/jslint/tree/beta) | [alpha<br>(Development)](https://github.com/jslint-org/jslint/tree/alpha) |
+| Branch | [master<br>(v2021.6.3)](https://github.com/jslint-org/jslint/tree/master) | [beta<br>(Web Demo)](https://github.com/jslint-org/jslint/tree/beta) | [alpha<br>(Development)](https://github.com/jslint-org/jslint/tree/alpha) |
 |--:|:--:|:--:|:--:|
 | CI | [![ci](https://github.com/jslint-org/jslint/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jslint-org/jslint/actions?query=branch%3Amaster) | [![ci](https://github.com/jslint-org/jslint/actions/workflows/ci.yml/badge.svg?branch=beta)](https://github.com/jslint-org/jslint/actions?query=branch%3Abeta) | [![ci](https://github.com/jslint-org/jslint/actions/workflows/ci.yml/badge.svg?branch=alpha)](https://github.com/jslint-org/jslint/actions?query=branch%3Aalpha) |
-| Coverage | [![coverage](https://jslint-org.github.io/jslint/branch-master/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-master/.build/coverage/index.html) | [![coverage](https://jslint-org.github.io/jslint/branch-beta/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-beta/.build/coverage/index.html) | [![coverage](https://jslint-org.github.io/jslint/branch-alpha/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-alpha/.build/coverage/index.html) |
-| Demo | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-master/index.html) | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-beta/index.html) | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-alpha/index.html) |
-| Artifacts | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-master/.build) | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-beta/.build) | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-alpha/.build) |
+| Coverage | [![coverage](https://jslint-org.github.io/jslint/branch-master/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-master/.build/coverage/index.html) | [![coverage](https://jslint-org.github.io/jslint/branch-master/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-master/.build/coverage/index.html) | [![coverage](https://jslint-org.github.io/jslint/branch-master/.build/coverage/coverage-badge.svg)](https://jslint-org.github.io/jslint/branch-master/.build/coverage/index.html) |
+| Demo | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-master/index.html) | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-master/index.html) | [<img src="image-window-maximize-regular.svg" height="30">](https://jslint-org.github.io/jslint/branch-master/index.html) |
+| Artifacts | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-master/.build) | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-master/.build) | [<img src="image-folder-open-solid.svg" height="30">](https://github.com/jslint-org/jslint/tree/gh-pages/branch-master/.build) |
 
 # Web Demo
-- https://www.jslint.com/index.html
+- https://www.jslint.com/
 
-[![screenshot](https://jslint-org.github.io/jslint/branch-beta/.build/screenshot.browser._2fjslint_2fbranch-beta_2findex.html.png)](https://jslint-org.github.io/jslint/index.html)
+[![screenshot](https://jslint-org.github.io/jslint/branch-master/.build/screenshot-browser-_2fjslint_2fbranch-beta_2findex.html.png)](https://jslint-org.github.io/jslint/index.html)
 
 # Install
-1. To install, just download and rename https://www.jslint.com/jslint.js to `jslint.mjs`:
+### 1. To install, just download and rename https://www.jslint.com/jslint.js to `jslint.mjs`:
 ```shell
 #!/bin/sh
 curl -L https://www.jslint.com/jslint.js > jslint.mjs
 ```
 
-2. To run `jslint.mjs` from command-line:
+### 2. To run `jslint.mjs` from command-line:
 ```shell
 #!/bin/sh
 node jslint.mjs hello.js
@@ -33,11 +33,11 @@ node jslint.mjs hello.js
 # jslint hello.js
 # 1 Undeclared 'console'. // line 1, column 1
 #     console.log('hello world');
-# 2 Use double quotes, not single quotes. // line 1, column 14
+# 2 Use double quotes, not single quotes. // line 1, column 13
 #     console.log('hello world');
 ```
 
-3. To load `jslint.mjs` as es-module:
+### 3. To load `jslint.mjs` as es-module:
 ```javascript
 /*jslint devel*/
 import jslint from "./jslint.mjs";
@@ -53,8 +53,28 @@ result.warnings.forEach(function ({
 //
 // 1 Undeclared 'console'. // line 1, column 1
 //     console.log('hello world');
-// 2 Use double quotes, not single quotes. // line 1, column 14
+// 2 Use double quotes, not single quotes. // line 1, column 13
 //     console.log('hello world');
+```
+
+### 4. To jslint entire directory:
+```shell
+#!/bin/sh
+node jslint.mjs .
+
+# stderr:
+#
+# jslint - 20ms - ./CHANGELOG.md
+# jslint - 20ms - ./README.md
+# jslint - 20ms - ./browser.js
+# jslint - 20ms - ./function.html
+# jslint - 20ms - ./image-jslint.html
+# jslint - 20ms - ./index.html
+# jslint - 20ms - ./package.json
+# jslint - 20ms - ./test.js
+# jslint - 50ms - ./ci.sh
+# jslint - 50ms - ./help.html
+# jslint - 150ms - ./jslint.mjs
 ```
 
 # Description
@@ -84,52 +104,10 @@ readability, and frees you to express yourself in ways that matter. JSLint here
 plays the part of a stern but benevolent editor, helping you to get the style
 right so that you can focus your creative energy where it is most needed.
 
+# Files
+![screenshot-files.svg](https://jslint-org.github.io/jslint/branch-master/.build/screenshot-files.svg)
+
 # Changelog
 - [Full CHANGELOG.md](CHANGELOG.md)
 
-## Todo
-- app - deploy jslint as chrome-extension.
-- doc - add svg package-listing.
-- doc - document cli-feature to jslint entire directory.
-- jslint - add `for...of` syntax support.
-- jslint - add eslint-like disable-macros `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslint-disable-line`.
-- jslint - add html and css linting back into jslint.
-- jslint - add new warning if case-statements are not sorted.
-- jslint - add new warning if const/let/var statements are not declared at top of function-scope.
-- jslint - add new warning if const/let/var statements are not sorted.
-- jslint - migrate code away from recursive-loops to for/while loops.
-- node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises")`.
-- node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
-
-## v2021.5.30
-- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.
-- ci - 100% code-coverage!
-- ci - auto-update changelog in README.md from CHANGELOG.md.
-- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.
-- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`.
-- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... }`.
-- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.
-- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.
-- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === "false") {...}`.
-- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== undefined ?...)`.
-- jslint - cleanup regexp code using switch-case-statements.
-- jslint - inline function `activate` into function `action_var`.
-- jslint - inline-document each deadcode-removal/assertion-check.
-- jslint - inline-document each warning with cause that can reproduce it - part 2.
-- tests - inline remaining causal-regressions from test.js into jslint.js
-- tests - validate inline-multi-causes are sorted.
-- website - replace links `branch.xxx` with `branch-xxx`.
-
-## v2021.5.27
-- ci - fix expectedWarningCode not being validated.
-- ci - in windows, disable git-autocrlf.
-- deadcode - replace with assertion-check in function are_similar() - "if (a === b) { return true }".
-- deadcode - replace with assertion-check in function are_similar() superseded by id-check - "if (Array.isArray(b)) { return false; }".
-- deadcode - replace with assertion-check in function are_similar() superseded by is_weird() check - "if (a.arity === "function" && a.arity ===...c".
-- jslint - add directive `test_internal_error`.
-- jslint - add directive `unordered` to tolerate unordered properties and params.
-- jslint - inline-document each warning with cause that can reproduce it - part 1.
-- style - refactor code moving infix-operators from post-position to pre-position in multiline statements.
-- website - add hotkey ctrl-enter to run jslint.
-
-# End
+![screenshot-changelog.svg](https://jslint-org.github.io/jslint/branch-master/.build/screenshot-changelog.svg)

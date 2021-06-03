@@ -25,12 +25,15 @@ function noop() {
     process.exit = function (exitCode) {
         assertOrThrow(!exitCode, exitCode);
     };
-    jslint("", {
-        cli_mode: true,
+    jslint.cli({
         file: "jslint.js"
     });
-    jslint("", {
-        cli_mode: true,
+    jslint.cli({
+        // suppress error
+        console_error: noop,
+        file: "undefined"
+    });
+    jslint.cli({
         // suppress error
         console_error: noop,
         file: "syntax_error.js",
@@ -39,8 +42,7 @@ function noop() {
         },
         source: "syntax error"
     });
-    jslint("", {
-        cli_mode: true,
+    jslint.cli({
         file: "aa.html",
         source: "<script>\nlet aa = 0;\n</script>\n"
     });
@@ -60,7 +62,7 @@ function noop() {
 /*
  * this function will test jslint's option handling-behavior
  */
-    assertOrThrow(jslint([""], {
+    assertOrThrow(jslint("", {
         bitwise: true,
         browser: true,
         convert: true,
@@ -69,7 +71,6 @@ function noop() {
         devel: true,
         eval: true,
         for: true,
-        fudge: true,
         getset: true,
         long: true,
         node: true,
@@ -115,6 +116,12 @@ function noop() {
         fart: [
             "function aa() {\n    return () => 0;\n}"
         ],
+        jslint_disable: [
+            "/*jslint-disable*/\n0\n/*jslint-enable*/"
+        ],
+        jslint_quiet: [
+            "0 //jslint-quiet"
+        ],
         json: [
             "{\"aa\":[[],-0,null]}"
         ],
@@ -150,6 +157,20 @@ function noop() {
         ternary: [
             "let aa = (\n    aa()\n    ? 0\n    : 1\n) "
             + "&& (\n    aa()\n    ? 0\n    : 1\n);"
+        ],
+        try_catch: [
+            "let aa = 0;\n"
+            + "try {\n"
+            + "    aa();\n"
+            + "} catch (err) {\n"
+            + "    aa = err;\n"
+            + "}\n"
+            + "try {\n"
+            + "    aa();\n"
+            + "} catch (err) {\n"
+            + "    aa = err;\n"
+            + "}\n"
+            + "aa();\n"
         ],
         var: [
             "let [...aa] = [...aa];",
@@ -187,7 +208,7 @@ function noop() {
         let expectedWarningCode;
         let fnc;
         // debug match0
-        console.error(match0.trim().replace((/\n\n/g), "\n"));
+        // console.error(match0.trim().replace((/\n\n/g), "\n"));
         assertOrThrow(
             match0.indexOf("\n\n" + causeList + "\n    ") === 0,
             JSON.stringify([

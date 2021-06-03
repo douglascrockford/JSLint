@@ -1,12 +1,8 @@
 # Changelog
-- [Full CHANGELOG.md](CHANGELOG.md)
 
 ## Todo
 - app - deploy jslint as chrome-extension.
-- doc - add svg package-listing.
-- doc - document cli-feature to jslint entire directory.
 - jslint - add `for...of` syntax support.
-- jslint - add eslint-like disable-macros `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslint-disable-line`.
 - jslint - add html and css linting back into jslint.
 - jslint - add new warning if case-statements are not sorted.
 - jslint - add new warning if const/let/var statements are not declared at top of function-scope.
@@ -14,6 +10,20 @@
 - jslint - migrate code away from recursive-loops to for/while loops.
 - node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises")`.
 - node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
+- tests - update function warn_at() with assertion-check matching column with artifact.
+- website - replace current-editor with CodeMirror-editor and change programming-font-family from `Programma` to `Consolas, Menlo, monospace`.
+
+## v2021.6.3
+- breaking-change - hardcode `const fudge = 1`
+- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as source b/c internal lines-object has been changed from array-of-strings to array-of-objects.
+- doc - add svg changelog.
+- doc - add svg package-listing.
+- doc - document cli-feature to jslint entire directory.
+- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslint-quiet`.
+- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`.
+- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`.
+- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.
+- website - move options-ui to top of page after editor-ui
 
 ## v2021.5.30
 - bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})`.
