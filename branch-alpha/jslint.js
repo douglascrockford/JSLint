@@ -5223,8 +5223,8 @@ function jslint(
 // found with a regular expression. Regular expressions cannot correctly match
 // regular expression literals, so we will match those the hard way. String
 // literals and number literals can be matched by regular expressions, but they
-// don't provide good warnings. The functions snip, next_char, back_char,
-// some_digits, and escape help in the parsing of literals.
+// don't provide good warnings. The functions snip, char_after, char_before,
+// read_some_digits, and char_after_escape help in the parsing of literals.
 
     function snip() {
 
@@ -5233,7 +5233,7 @@ function jslint(
         snippet = snippet.slice(0, -1);
     }
 
-    function next_char(match) {
+    function char_after(match) {
 
 // Get the next character from the source line. Remove it from the source_line,
 // and append it to the snippet. Optionally check that the previous character
@@ -5264,7 +5264,7 @@ function jslint(
         return char;
     }
 
-    function back_char() {
+    function char_before() {
 
 // Back up one character by moving a character from the end of the snippet to
 // the front of the source_line.
@@ -5276,7 +5276,7 @@ function jslint(
         return char;
     }
 
-    function some_digits(rx, quiet) {
+    function read_some_digits(rx, quiet) {
         const digits = source_line.match(rx)[0];
         const length = digits.length;
         if (!quiet && length === 0) {
@@ -5288,15 +5288,15 @@ function jslint(
         column += length;
         source_line = source_line.slice(length);
         snippet += digits;
-        next_char();
+        char_after();
         return length;
     }
 
-    function regexp_escape(extra) {
+    function char_after_escape(extra) {
 
-// Validate regexp-char following escape "\\".
+// Validate char after escape "\\".
 
-        next_char("\\");
+        char_after("\\");
         switch (char) {
         case "":
 
@@ -5311,16 +5311,16 @@ function jslint(
         case "n":
         case "r":
         case "t":
-            return next_char();
+            return char_after();
         case "u":
-            if (next_char("u") === "{") {
+            if (char_after("u") === "{") {
                 if (json_mode) {
 
 // cause: "[\"\\u{12345}\"]"
 
                     warn_at("unexpected_a", line, column, char);
                 }
-                if (some_digits(rx_hexs) > 5) {
+                if (read_some_digits(rx_hexs) > 5) {
 
 // cause: "\"\\u{123456}\""
 
@@ -5332,10 +5332,10 @@ function jslint(
 
                     stop_at("expected_a_before_b", line, column, "}", char);
                 }
-                return next_char();
+                return char_after();
             }
-            back_char();
-            if (some_digits(rx_hexs, true) < 4) {
+            char_before();
+            if (read_some_digits(rx_hexs, true) < 4) {
 
 // cause: "\"\\u0\""
 
@@ -5344,7 +5344,7 @@ function jslint(
             return;
         default:
             if (extra && extra.indexOf(char) >= 0) {
-                return next_char();
+                return char_after();
             }
 
 // cause: "\"\\0\""
@@ -5535,23 +5535,26 @@ function jslint(
 // Match an optional quantifier.
 
             if (char === "?" || char === "*" || char === "+") {
-                next_char();
+                char_after();
             } else if (char === "{") {
-                if (some_digits(rx_digits, true) === 0) {
+                if (read_some_digits(rx_digits, true) === 0) {
 
 // cause: "aa=/aa{/"
 
                     warn_at("expected_a_before_b", line, column, "0", ",");
                 }
                 if (char === ",") {
-                    some_digits(rx_digits, true);
+
+// cause: "aa=/.{,/"
+
+                    read_some_digits(rx_digits, true);
                 }
-                next_char("}");
+                char_after("}");
             } else {
                 return;
             }
             if (char === "?") {
-                next_char("?");
+                char_after("?");
             }
         }
 
@@ -5560,7 +5563,7 @@ function jslint(
 // Match a character in a character class.
 
             if (char === "\\") {
-                regexp_escape("BbDdSsWw-[]^");
+                char_after_escape("BbDdSsWw-[]^");
                 return true;
             }
             if (
@@ -5584,7 +5587,7 @@ function jslint(
 
                 warn_at("unexpected_a", line, column, "`");
             }
-            next_char();
+            char_after();
             return true;
         }
 
@@ -5594,7 +5597,7 @@ function jslint(
 
             if (subklass()) {
                 if (char === "-") {
-                    next_char("-");
+                    char_after("-");
                     if (!subklass()) {
 
 // cause: "aa=/[0-]/"
@@ -5610,9 +5613,9 @@ function jslint(
 
 // Match a class.
 
-            next_char("[");
+            char_after("[");
             if (char === "^") {
-                next_char("^");
+                char_after("^");
             }
             (function classy() {
                 ranges();
@@ -5621,11 +5624,11 @@ function jslint(
 // cause: "aa=/[/"
 
                     warn_at("expected_a_before_b", line, column, "\\", char);
-                    next_char();
+                    char_after();
                     return classy();
                 }
             }());
-            next_char("]");
+            char_after("]");
         }
 
         function choice() {
@@ -5654,7 +5657,7 @@ function jslint(
                     );
 //                  Probably deadcode.
 //                  if (char === "|") {
-//                      next_char("|");
+//                      char_after("|");
 //                      return choice();
 //                  }
                     return;
@@ -5662,13 +5665,13 @@ function jslint(
 
 // Match a group that starts with left paren.
 
-                    next_char("(");
+                    char_after("(");
                     if (char === "?") {
-                        next_char("?");
+                        char_after("?");
                         if (char === "=" || char === "!") {
-                            next_char();
+                            char_after();
                         } else {
-                            next_char(":");
+                            char_after(":");
                         }
                     } else if (char === ":") {
 
@@ -5678,13 +5681,13 @@ function jslint(
                         warn_at("expected_a_before_b", line, column, "?", ":");
                     }
                     choice();
-                    next_char(")");
+                    char_after(")");
                     break;
                 case "[":
                     klass();
                     break;
                 case "\\":
-                    regexp_escape("BbDdSsWw^${}[]():=!.|*+?");
+                    char_after_escape("BbDdSsWw^${}[]():=!.|*+?");
                     break;
                 case "?":
                 case "+":
@@ -5692,7 +5695,7 @@ function jslint(
                 case "}":
                 case "{":
                     warn_at("expected_a_before_b", line, column, "\\", char);
-                    next_char();
+                    char_after();
                     break;
                 case "`":
                     if (mega_mode) {
@@ -5701,29 +5704,29 @@ function jslint(
 
                         warn_at("unexpected_a", line, column, "`");
                     }
-                    next_char();
+                    char_after();
                     break;
                 case " ":
 
 // cause: "aa=/ /"
 
                     warn_at("expected_a_b", line, column, "\\s", " ");
-                    next_char();
+                    char_after();
                     break;
                 case "$":
                     if (source_line[0] !== "/") {
                         multi_mode = true;
                     }
-                    next_char();
+                    char_after();
                     break;
                 case "^":
                     if (snippet !== "^") {
                         multi_mode = true;
                     }
-                    next_char();
+                    char_after();
                     break;
                 default:
-                    next_char();
+                    char_after();
                 }
                 quantifier();
                 follow = true;
@@ -5734,7 +5737,7 @@ function jslint(
 // /= looks like a division assignment operator.
 
         snippet = "";
-        next_char();
+        char_after();
         if (char === "=") {
 
 // cause: "aa=/=/"
@@ -5747,7 +5750,7 @@ function jslint(
 
         snip();
         value = snippet;
-        next_char("/");
+        char_after("/");
 
 // Process dangling flag letters.
 
@@ -5769,11 +5772,11 @@ function jslint(
                 }
                 allowed[char] = false;
                 flag[char] = true;
-                next_char();
+                char_after();
                 return make_flag();
             }
         }());
-        back_char();
+        char_before();
         if (char === "/" || char === "*") {
 
 // cause: "aa=/.//"
@@ -5798,7 +5801,7 @@ function jslint(
 
         let the_token;
         snippet = "";
-        next_char();
+        char_after();
 
         return (function next() {
             if (char === quote) {
@@ -5814,7 +5817,7 @@ function jslint(
                 return stop_at("unclosed_string", line, column);
             }
             if (char === "\\") {
-                regexp_escape(quote);
+                char_after_escape(quote);
             } else if (char === "`") {
                 if (mega_mode) {
 
@@ -5822,9 +5825,9 @@ function jslint(
 
                     warn_at("unexpected_a", line, column, "`");
                 }
-                next_char("`");
+                char_after("`");
             } else {
-                next_char();
+                char_after();
             }
             return next();
         }());
@@ -5832,31 +5835,31 @@ function jslint(
 
     function frack() {
         if (char === ".") {
-            some_digits(rx_digits);
+            read_some_digits(rx_digits);
         }
         if (char === "E" || char === "e") {
-            next_char();
+            char_after();
             if (char !== "+" && char !== "-") {
-                back_char();
+                char_before();
             }
-            some_digits(rx_digits);
+            read_some_digits(rx_digits);
         }
     }
 
     function number() {
         if (snippet === "0") {
-            next_char();
+            char_after();
             if (char === ".") {
                 frack();
             } else if (char === "b") {
-                some_digits(rx_bits);
+                read_some_digits(rx_bits);
             } else if (char === "o") {
-                some_digits(rx_octals);
+                read_some_digits(rx_octals);
             } else if (char === "x") {
-                some_digits(rx_hexs);
+                read_some_digits(rx_hexs);
             }
         } else {
-            next_char();
+            char_after();
             frack();
         }
 
@@ -5879,7 +5882,7 @@ function jslint(
                 snippet.slice(0, -1)
             );
         }
-        back_char();
+        char_before();
         return make("(number)", snippet);
     }
 
