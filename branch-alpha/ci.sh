@@ -7,6 +7,7 @@
 # git fetch upstream "refs/tags/*:refs/tags/*"
 # head CHANGELOG.md -n50
 # sh ci.sh shCiBranchPromote origin alpha beta
+# sh ci.sh shRunWithScreenshotTxt head -n50 CHANGELOG.md
 
 shBrowserScreenshot() {(set -e
 # this function will run headless-chrome to screenshot url $1 with
@@ -1078,13 +1079,11 @@ shRunWithScreenshotTxt() {(set -e
     node -e '
 (async function () {
     "use strict";
-    let result;
-    let yy;
-    yy = 10;
-    result = await require("fs").promises.readFile(
+    let result = await require("fs").promises.readFile(
         process.argv[1] + ".txt",
         "utf8"
     );
+    let yy = 0;
     // remove ansi escape-code
     result = result.replace((
         /\u001b.*?m/g
@@ -1095,35 +1094,40 @@ shRunWithScreenshotTxt() {(set -e
     ), function (match0) {
         return String.fromCharCode("0x" + match0.slice(-4));
     }).trimEnd();
-    // 100 column wordwrap
+    // 96 column wordwrap
     result = result.replace((
         /^.*?$/gm
     ), function (line) {
         return line.replace((
-            /.{0,100}/g
+            /.{0,96}/g
         ), function (line, ii) {
-            if (ii && !line) {
+            if (ii !== 0 && line === "") {
                 return "";
             }
-            yy += 20;
-            return `<tspan x="10" y="${yy}">` + line.replace((
-                /&/g
-            ), "&amp;").replace((
-                /</g
-            ), "&lt;").replace((
-                />/g
-            ), "&gt;") + "</tspan>";
+            yy += 25;
+            return (
+                `<tspan x="10" y="${yy}">`
+                + " ".repeat(2 * Boolean(ii))
+                + line.replace((
+                    /&/g
+                ), "&amp;").replace((
+                    /</g
+                ), "&lt;").replace((
+                    />/g
+                ), "&gt;") + "</tspan>"
+            );
         }).replace((
             /(<\/tspan><tspan)/g
-        ), "\\$1").slice();
+        ), "\\$1");
     }) + "\n";
     result = String(`
   <svg height="${yy + 20}px" width="800px" xmlns="http://www.w3.org/2000/svg">
 <rect height="${yy + 20}px" fill="#222" width="800px"></rect>
 <text
-    fill="#7d7"
-    font-family="consolas, menlo, monospace"
-    font-size="12px"
+    fill="#7f7"
+    font-family="courier new, monospace"
+    font-size="13px"
+    font-weight="bold"
     xml:space="preserve"
 >
 ${result}
