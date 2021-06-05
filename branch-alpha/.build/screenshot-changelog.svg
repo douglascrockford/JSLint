@@ -71,7 +71,7 @@
     textLength="768"
     x="10"
     y="252"
->- jslint rewrite part2 - migrate recursive-loops to for/while loops.                             </tspan>
+>- jslint-refactor - migrate recursive-loops to for/while loops.                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -137,37 +137,37 @@
     textLength="768"
     x="10"
     y="494"
->- jslint-rewrite-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving \</tspan>
+>- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="516"
->  them into jslint().                                                                            </tspan>
+>   them into jslint().                                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="538"
->- jslint-rewrite-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly \</tspan>
+>- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="560"
->  into code.                                                                                     </tspan>
+>   into code.                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="582"
->- jslint-rewrite-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directly\</tspan>
+>- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="604"
->   into code.                                                                                    </tspan>
+>  y into code.                                                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
