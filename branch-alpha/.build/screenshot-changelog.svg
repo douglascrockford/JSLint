@@ -1,5 +1,5 @@
-<svg height="1438px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="1438px" fill="#222" width="800px"></rect>
+<svg height="1482px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="1482px" fill="#222" width="800px"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
@@ -128,268 +128,280 @@
 >## v2021.6.4-beta</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
-    textLength="768"
+    textLength="512"
     x="10"
     y="472"
+>- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="494"
 >- jslint-rewrite-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="176"
     x="10"
-    y="494"
+    y="516"
 >   them into jslint().</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="516"
+    y="538"
 >- jslint-rewrite-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="104"
     x="10"
-    y="538"
+    y="560"
 >   into code.</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="582"
+>- jslint-rewrite-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="112"
+    x="10"
+    y="604"
+>  y into code.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="0"
     x="10"
-    y="560"
+    y="626"
 ></tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="96"
     x="10"
-    y="582"
+    y="648"
 >## v2021.6.3</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="368"
     x="10"
-    y="604"
+    y="670"
 >- breaking-change - hardcode `const fudge = 1`</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="626"
+    y="692"
 >- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as so\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="736"
     x="10"
-    y="648"
+    y="714"
 >  urce b/c internal lines-object has been changed from array-of-strings to array-of-objects.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="208"
     x="10"
-    y="670"
+    y="736"
 >- doc - add svg changelog.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="256"
     x="10"
-    y="692"
+    y="758"
 >- doc - add svg package-listing.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="448"
     x="10"
-    y="714"
+    y="780"
 >- doc - document cli-feature to jslint entire directory.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="736"
+    y="802"
 >- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jsli\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="96"
     x="10"
-    y="758"
+    y="824"
 >  nt-quiet`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="780"
+    y="846"
 >- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="32"
     x="10"
-    y="802"
+    y="868"
 >  `.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="824"
+    y="890"
 >- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="32"
     x="10"
-    y="846"
+    y="912"
 >  `.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="656"
     x="10"
-    y="868"
+    y="934"
 >- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="464"
     x="10"
-    y="890"
+    y="956"
 >- website - move options-ui to top of page after editor-ui</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="0"
     x="10"
-    y="912"
+    y="978"
 ></tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="104"
     x="10"
-    y="934"
+    y="1000"
 >## v2021.5.30</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="956"
+    y="1022"
 >- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({}\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="40"
     x="10"
-    y="978"
+    y="1044"
 >  )`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="208"
     x="10"
-    y="1000"
+    y="1066"
 >- ci - 100% code-coverage!</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="480"
     x="10"
-    y="1022"
+    y="1088"
 >- ci - auto-update changelog in README.md from CHANGELOG.md.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="640"
     x="10"
-    y="1044"
+    y="1110"
 >- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1066"
+    y="1132"
 >- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="32"
     x="10"
-    y="1088"
+    y="1154"
 >  `.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1110"
+    y="1176"
 >- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn...\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="48"
     x="10"
-    y="1132"
+    y="1198"
 >   }`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="744"
     x="10"
-    y="1154"
+    y="1220"
 >- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="680"
     x="10"
-    y="1176"
+    y="1242"
 >- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1198"
+    y="1264"
 >- deadcode - replace with assertion-check in function parse_directive() - `} else if (value ===\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="152"
     x="10"
-    y="1220"
+    y="1286"
 >   "false") {...}`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1242"
+    y="1308"
 >- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== un\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="136"
     x="10"
-    y="1264"
+    y="1330"
 >  defined ?...)`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="480"
     x="10"
-    y="1286"
+    y="1352"
 >- jslint - cleanup regexp code using switch-case-statements.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="520"
     x="10"
-    y="1308"
+    y="1374"
 >- jslint - inline function `activate` into function `action_var`.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="520"
     x="10"
-    y="1330"
+    y="1396"
 >- jslint - inline-document each deadcode-removal/assertion-check.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="656"
     x="10"
-    y="1352"
+    y="1418"
 >- jslint - inline-document each warning with cause that can reproduce it - part 2.</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="584"
     x="10"
-    y="1374"
+    y="1440"
 >- tests - inline remaining causal-regressions from test.js into jslint.js</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="400"
     x="10"
-    y="1396"
+    y="1462"
 >- tests - validate inline-multi-causes are sorted.</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="456"
-    x="10"
-    y="1418"
->- website - replace links `branch.xxx` with `branch-xxx`.</tspan>
 
 </text>
 </svg>

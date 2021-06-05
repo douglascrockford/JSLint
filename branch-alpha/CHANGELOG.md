@@ -14,8 +14,10 @@
 - website - replace current-editor with CodeMirror-editor and change programming-font-family from `Programma` to `Consolas, Menlo, monospace`.
 
 ## v2021.6.4-beta
+- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.
 - jslint-rewrite-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving them into jslint().
 - jslint-rewrite-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly into code.
+- jslint-rewrite-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directly into code.
 
 ## v2021.6.3
 - breaking-change - hardcode `const fudge = 1`
