@@ -173,235 +173,235 @@
     textLength="768"
     x="10"
     y="626"
->                                                                                                 </tspan>
+>- website - add ui-loader-animation.                                                             </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="648"
->## v2021.6.3                                                                                     </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="670"
->- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="692"
->- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="714"
->  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="736"
->- doc - add svg changelog.                                                                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="758"
->- doc - add svg package-listing.                                                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="780"
->- doc - document cli-feature to jslint entire directory.                                         </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="802"
->- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="824"
->  t-quiet`.                                                                                      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="846"
->- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="868"
->  .                                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="890"
->- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="912"
->  .                                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="934"
->- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.               </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="956"
->- website - move options-ui to top of page after editor-ui                                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="978"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1000"
->## v2021.5.30                                                                                    </tspan>
+    y="670"
+>## v2021.6.3                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1022"
->- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})\</tspan>
+    y="692"
+>- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1044"
->  `.                                                                                             </tspan>
+    y="714"
+>- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1066"
->- ci - 100% code-coverage!                                                                       </tspan>
+    y="736"
+>  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1088"
->- ci - auto-update changelog in README.md from CHANGELOG.md.                                     </tspan>
+    y="758"
+>- doc - add svg changelog.                                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1110"
->- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.                 </tspan>
+    y="780"
+>- doc - add svg package-listing.                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1132"
->- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`\</tspan>
+    y="802"
+>- doc - document cli-feature to jslint entire directory.                                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1154"
+    y="824"
+>- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="846"
+>  t-quiet`.                                                                                      </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="868"
+>- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="890"
 >  .                                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="912"
+>- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="934"
+>  .                                                                                              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="956"
+>- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.               </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="978"
+>- website - move options-ui to top of page after editor-ui                                       </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1000"
+>                                                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1022"
+>## v2021.5.30                                                                                    </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1044"
+>- bugfix - fix issue #282 - fail to warn trailing semicolon in `export default Object.freeze({})\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1066"
+>  `.                                                                                             </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1088"
+>- ci - 100% code-coverage!                                                                       </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1110"
+>- ci - auto-update changelog in README.md from CHANGELOG.md.                                     </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1132"
+>- ci - auto-update version numbers in README.md and jslint.js from CHANGELOG.md.                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1154"
+>- deadcode - replace with assertion-check in function choice() - `if (char === "|") { warn... }`\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="1176"
->- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... \</tspan>
+>  .                                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1198"
->  }`.                                                                                            </tspan>
+>- deadcode - replace with assertion-check in function do_function() - `if (mega_mode) { warn... \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1220"
->- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.    </tspan>
+>  }`.                                                                                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1242"
->- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.            </tspan>
+>- deadcode - replace with assertion-check in function no_space() - `const at = (free ? ...)`.    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1264"
->- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === \</tspan>
+>- deadcode - replace with assertion-check in function no_space() - `if (open) {...}`.            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1286"
->  "false") {...}`.                                                                               </tspan>
+>- deadcode - replace with assertion-check in function parse_directive() - `} else if (value === \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1308"
->- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== und\</tspan>
+>  "false") {...}`.                                                                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1330"
->  efined ?...)`.                                                                                 </tspan>
+>- deadcode - replace with assertion-check in function supplant() - `return ( replacement !== und\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1352"
->- jslint - cleanup regexp code using switch-case-statements.                                     </tspan>
+>  efined ?...)`.                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1374"
->- jslint - inline function `activate` into function `action_var`.                                </tspan>
+>- jslint - cleanup regexp code using switch-case-statements.                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1396"
->- jslint - inline-document each deadcode-removal/assertion-check.                                </tspan>
+>- jslint - inline function `activate` into function `action_var`.                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1418"
->- jslint - inline-document each warning with cause that can reproduce it - part 2.               </tspan>
+>- jslint - inline-document each deadcode-removal/assertion-check.                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1440"
->- tests - inline remaining causal-regressions from test.js into jslint.js                        </tspan>
+>- jslint - inline-document each warning with cause that can reproduce it - part 2.               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1462"
->- tests - validate inline-multi-causes are sorted.                                               </tspan>
+>- tests - inline remaining causal-regressions from test.js into jslint.js                        </tspan>
 
 </text>
 </svg>
