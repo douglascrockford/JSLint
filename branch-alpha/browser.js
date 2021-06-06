@@ -305,6 +305,7 @@ function call_jslint() {
 
     elem_report_list.innerHTML = function_html;
     elem_report_field.style.display = "block";
+    elem_source.select();
     elem_property.value = property_text;
     elem_property_fieldset.style.display = "block";
     elem_property.scrollTop = 0;
@@ -352,7 +353,6 @@ document.querySelectorAll("[name='clear']").forEach(function (node) {
 
 document.getElementById("JSLINT_CLEAR_OPTIONS").onclick = clear_options;
 
-elem_source.focus();
 elem_source.value = `#!/usr/bin/env node
 /*jslint node*/
 import jslint from "./jslint.mjs";

@@ -854,29 +854,29 @@ body {
 <pre><span class="lineno"><a href="#line_725" id="line_725">  725.</a></span><span class="count                ">   3935</span><span>// If we have seen this name before, increment its count.</span></pre>
 <pre><span class="lineno"><a href="#line_726" id="line_726">  726.</a></span><span class="count                ">   3935</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_727" id="line_727">  727.</a></span><span class="count                ">   3935</span><span>        if (typeof property[id] === &quot;number&quot;) {</span></pre>
-<pre><span class="lineno"><a href="#line_728" id="line_728">  728.</a></span><span class="count                ">   3107</span><span>            property[id] += 1;</span></pre>
-<pre><span class="lineno"><a href="#line_729" id="line_729">  729.</a></span><span class="count                ">   3107</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_730" id="line_730">  730.</a></span><span class="count                ">   3107</span><span>// If this is the first time seeing this property name, and if there is a</span></pre>
-<pre><span class="lineno"><a href="#line_731" id="line_731">  731.</a></span><span class="count                ">   3107</span><span>// tenure list, then it must be on the list. Otherwise, it must conform to</span></pre>
-<pre><span class="lineno"><a href="#line_732" id="line_732">  732.</a></span><span class="count                ">   3107</span><span>// the rules for good property names.</span></pre>
-<pre><span class="lineno"><a href="#line_733" id="line_733">  733.</a></span><span class="count                ">   3107</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_734" id="line_734">  734.</a></span><span class="count                ">   3107</span><span>        } else {</span></pre>
-<pre><span class="lineno"><a href="#line_735" id="line_735">  735.</a></span><span class="count                ">    828</span><span>            if (tenure !== undefined) {</span></pre>
-<pre><span class="lineno"><a href="#line_736" id="line_736">  736.</a></span><span class="count                ">    828</span><span>                if (tenure[id] !== true) {</span></pre>
-<pre><span class="lineno"><a href="#line_737" id="line_737">  737.</a></span><span class="count                ">    828</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_738" id="line_738">  738.</a></span><span class="count                ">    828</span><span>// cause: &quot;/*property aa*/\naa.bb&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_739" id="line_739">  739.</a></span><span class="count                ">    828</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_740" id="line_740">  740.</a></span><span class="count                ">    828</span><span>                    warn(&quot;unregistered_property_a&quot;, name);</span></pre>
-<pre><span class="lineno"><a href="#line_741" id="line_741">  741.</a></span><span class="count                ">    828</span><span>                }</span></pre>
-<pre><span class="lineno"><a href="#line_742" id="line_742">  742.</a></span><span class="count                ">    828</span><span>            } else {</span></pre>
-<pre><span class="lineno"><a href="#line_743" id="line_743">  743.</a></span><span class="count                ">    828</span><span>                if (name.identifier &amp;&amp; rx_bad_property.test(id)) {</span></pre>
-<pre><span class="lineno"><a href="#line_744" id="line_744">  744.</a></span><span class="count                ">    828</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_745" id="line_745">  745.</a></span><span class="count                ">    828</span><span>// cause: &quot;aa._&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_746" id="line_746">  746.</a></span><span class="count                ">    828</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_747" id="line_747">  747.</a></span><span class="count                ">    828</span><span>                    warn(&quot;bad_property_a&quot;, name);</span></pre>
-<pre><span class="lineno"><a href="#line_748" id="line_748">  748.</a></span><span class="count                ">    828</span><span>                }</span></pre>
-<pre><span class="lineno"><a href="#line_749" id="line_749">  749.</a></span><span class="count                ">    828</span><span>            }</span></pre>
-<pre><span class="lineno"><a href="#line_750" id="line_750">  750.</a></span><span class="count                ">    828</span><span>            property[id] = 1;</span></pre>
+<pre><span class="lineno"><a href="#line_728" id="line_728">  728.</a></span><span class="count                ">   3106</span><span>            property[id] += 1;</span></pre>
+<pre><span class="lineno"><a href="#line_729" id="line_729">  729.</a></span><span class="count                ">   3106</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_730" id="line_730">  730.</a></span><span class="count                ">   3106</span><span>// If this is the first time seeing this property name, and if there is a</span></pre>
+<pre><span class="lineno"><a href="#line_731" id="line_731">  731.</a></span><span class="count                ">   3106</span><span>// tenure list, then it must be on the list. Otherwise, it must conform to</span></pre>
+<pre><span class="lineno"><a href="#line_732" id="line_732">  732.</a></span><span class="count                ">   3106</span><span>// the rules for good property names.</span></pre>
+<pre><span class="lineno"><a href="#line_733" id="line_733">  733.</a></span><span class="count                ">   3106</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_734" id="line_734">  734.</a></span><span class="count                ">   3106</span><span>        } else {</span></pre>
+<pre><span class="lineno"><a href="#line_735" id="line_735">  735.</a></span><span class="count                ">    829</span><span>            if (tenure !== undefined) {</span></pre>
+<pre><span class="lineno"><a href="#line_736" id="line_736">  736.</a></span><span class="count                ">    829</span><span>                if (tenure[id] !== true) {</span></pre>
+<pre><span class="lineno"><a href="#line_737" id="line_737">  737.</a></span><span class="count                ">    829</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_738" id="line_738">  738.</a></span><span class="count                ">    829</span><span>// cause: &quot;/*property aa*/\naa.bb&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_739" id="line_739">  739.</a></span><span class="count                ">    829</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_740" id="line_740">  740.</a></span><span class="count                ">    829</span><span>                    warn(&quot;unregistered_property_a&quot;, name);</span></pre>
+<pre><span class="lineno"><a href="#line_741" id="line_741">  741.</a></span><span class="count                ">    829</span><span>                }</span></pre>
+<pre><span class="lineno"><a href="#line_742" id="line_742">  742.</a></span><span class="count                ">    829</span><span>            } else {</span></pre>
+<pre><span class="lineno"><a href="#line_743" id="line_743">  743.</a></span><span class="count                ">    829</span><span>                if (name.identifier &amp;&amp; rx_bad_property.test(id)) {</span></pre>
+<pre><span class="lineno"><a href="#line_744" id="line_744">  744.</a></span><span class="count                ">    829</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_745" id="line_745">  745.</a></span><span class="count                ">    829</span><span>// cause: &quot;aa._&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_746" id="line_746">  746.</a></span><span class="count                ">    829</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_747" id="line_747">  747.</a></span><span class="count                ">    829</span><span>                    warn(&quot;bad_property_a&quot;, name);</span></pre>
+<pre><span class="lineno"><a href="#line_748" id="line_748">  748.</a></span><span class="count                ">    829</span><span>                }</span></pre>
+<pre><span class="lineno"><a href="#line_749" id="line_749">  749.</a></span><span class="count                ">    829</span><span>            }</span></pre>
+<pre><span class="lineno"><a href="#line_750" id="line_750">  750.</a></span><span class="count                ">    829</span><span>            property[id] = 1;</span></pre>
 <pre><span class="lineno"><a href="#line_751" id="line_751">  751.</a></span><span class="count                ">   3935</span><span>        }</span></pre>
 <pre><span class="lineno"><a href="#line_752" id="line_752">  752.</a></span><span class="count                ">   3935</span><span>        return id;</span></pre>
 <pre><span class="lineno"><a href="#line_753" id="line_753">  753.</a></span><span class="count                ">   3935</span><span>    }</span></pre>
@@ -1973,7 +1973,7 @@ body {
 <pre><span class="lineno"><a href="#line_1844" id="line_1844"> 1844.</a></span><span class="count                ">   2868</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_1845" id="line_1845"> 1845.</a></span><span class="count                ">   2868</span><span>            left_check(left, the_paren);</span></pre>
 <pre><span class="lineno"><a href="#line_1846" id="line_1846"> 1846.</a></span><span class="count                ">   2868</span><span>        }</span></pre>
-<pre><span class="lineno"><a href="#line_1847" id="line_1847"> 1847.</a></span><span class="count                ">   1340</span><span>        if (functionage.arity === &quot;statement&quot; &amp;&amp; left.identifier) {</span></pre>
+<pre><span class="lineno"><a href="#line_1847" id="line_1847"> 1847.</a></span><span class="count                ">   1341</span><span>        if (functionage.arity === &quot;statement&quot; &amp;&amp; left.identifier) {</span></pre>
 <pre><span class="lineno"><a href="#line_1848" id="line_1848"> 1848.</a></span><span class="count                ">   1063</span><span>            functionage.name.calls[left.id] = left;</span></pre>
 <pre><span class="lineno"><a href="#line_1849" id="line_1849"> 1849.</a></span><span class="count                ">   1063</span><span>        }</span></pre>
 <pre><span class="lineno"><a href="#line_1850" id="line_1850"> 1850.</a></span><span class="count                ">   2928</span><span>        the_paren.expression = [left];</span></pre>
@@ -6042,34 +6042,34 @@ body {
 <pre><span class="lineno"><a href="#line_5913" id="line_5913"> 5913.</a></span><span class="count                ">   1106</span><span>        return make(&quot;(number)&quot;, snippet);</span></pre>
 <pre><span class="lineno"><a href="#line_5914" id="line_5914"> 5914.</a></span><span class="count                ">   1106</span><span>    }</span></pre>
 <pre><span class="lineno"><a href="#line_5915" id="line_5915"> 5915.</a></span><span class="count                ">    467</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5916" id="line_5916"> 5916.</a></span><span class="count                ">  84178</span><span>    function lex() {</span></pre>
-<pre><span class="lineno"><a href="#line_5917" id="line_5917"> 5917.</a></span><span class="count                ">  84178</span><span>        let array;</span></pre>
-<pre><span class="lineno"><a href="#line_5918" id="line_5918"> 5918.</a></span><span class="count                ">  84178</span><span>        let i = 0;</span></pre>
-<pre><span class="lineno"><a href="#line_5919" id="line_5919"> 5919.</a></span><span class="count                ">  84178</span><span>        let j = 0;</span></pre>
-<pre><span class="lineno"><a href="#line_5920" id="line_5920"> 5920.</a></span><span class="count                ">  84178</span><span>        let last;</span></pre>
-<pre><span class="lineno"><a href="#line_5921" id="line_5921"> 5921.</a></span><span class="count                ">  84178</span><span>        let result;</span></pre>
-<pre><span class="lineno"><a href="#line_5922" id="line_5922"> 5922.</a></span><span class="count                ">  84178</span><span>        let the_token;</span></pre>
-<pre><span class="lineno"><a href="#line_5923" id="line_5923"> 5923.</a></span><span class="count                ">  84178</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5924" id="line_5924"> 5924.</a></span><span class="count                ">  84178</span><span>// This should properly be a tail recursive function, but sadly, conformant</span></pre>
-<pre><span class="lineno"><a href="#line_5925" id="line_5925"> 5925.</a></span><span class="count                ">  84178</span><span>// implementations of ES6 are still rare. This is the ideal code:</span></pre>
-<pre><span class="lineno"><a href="#line_5926" id="line_5926"> 5926.</a></span><span class="count                ">  84178</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5927" id="line_5927"> 5927.</a></span><span class="count                ">  84178</span><span>//      if (!source_line) {</span></pre>
-<pre><span class="lineno"><a href="#line_5928" id="line_5928"> 5928.</a></span><span class="count                ">  84178</span><span>//          source_line = next_line();</span></pre>
-<pre><span class="lineno"><a href="#line_5929" id="line_5929"> 5929.</a></span><span class="count                ">  84178</span><span>//          from = 0;</span></pre>
-<pre><span class="lineno"><a href="#line_5930" id="line_5930"> 5930.</a></span><span class="count                ">  84178</span><span>//          return (</span></pre>
-<pre><span class="lineno"><a href="#line_5931" id="line_5931"> 5931.</a></span><span class="count                ">  84178</span><span>//              source_line === undefined</span></pre>
-<pre><span class="lineno"><a href="#line_5932" id="line_5932"> 5932.</a></span><span class="count                ">  84178</span><span>//              ? (</span></pre>
-<pre><span class="lineno"><a href="#line_5933" id="line_5933"> 5933.</a></span><span class="count                ">  84178</span><span>//                  mega_mode</span></pre>
-<pre><span class="lineno"><a href="#line_5934" id="line_5934"> 5934.</a></span><span class="count                ">  84178</span><span>//                  ? stop_at(&quot;unclosed_mega&quot;, mega_line, mega_from)</span></pre>
-<pre><span class="lineno"><a href="#line_5935" id="line_5935"> 5935.</a></span><span class="count                ">  84178</span><span>//                  : make(&quot;(end)&quot;)</span></pre>
-<pre><span class="lineno"><a href="#line_5936" id="line_5936"> 5936.</a></span><span class="count                ">  84178</span><span>//              )</span></pre>
-<pre><span class="lineno"><a href="#line_5937" id="line_5937"> 5937.</a></span><span class="count                ">  84178</span><span>//              : lex()</span></pre>
-<pre><span class="lineno"><a href="#line_5938" id="line_5938"> 5938.</a></span><span class="count                ">  84178</span><span>//          );</span></pre>
-<pre><span class="lineno"><a href="#line_5939" id="line_5939"> 5939.</a></span><span class="count                ">  84178</span><span>//      }</span></pre>
-<pre><span class="lineno"><a href="#line_5940" id="line_5940"> 5940.</a></span><span class="count                ">  84178</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5941" id="line_5941"> 5941.</a></span><span class="count                ">  84178</span><span>// Unfortunately, incompetent JavaScript engines will sometimes fail to execute</span></pre>
-<pre><span class="lineno"><a href="#line_5942" id="line_5942"> 5942.</a></span><span class="count                ">  84178</span><span>// it correctly. So for now, we do it the old fashioned way.</span></pre>
-<pre><span class="lineno"><a href="#line_5943" id="line_5943"> 5943.</a></span><span class="count                ">  84178</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5916" id="line_5916"> 5916.</a></span><span class="count                ">  84179</span><span>    function lex() {</span></pre>
+<pre><span class="lineno"><a href="#line_5917" id="line_5917"> 5917.</a></span><span class="count                ">  84179</span><span>        let array;</span></pre>
+<pre><span class="lineno"><a href="#line_5918" id="line_5918"> 5918.</a></span><span class="count                ">  84179</span><span>        let i = 0;</span></pre>
+<pre><span class="lineno"><a href="#line_5919" id="line_5919"> 5919.</a></span><span class="count                ">  84179</span><span>        let j = 0;</span></pre>
+<pre><span class="lineno"><a href="#line_5920" id="line_5920"> 5920.</a></span><span class="count                ">  84179</span><span>        let last;</span></pre>
+<pre><span class="lineno"><a href="#line_5921" id="line_5921"> 5921.</a></span><span class="count                ">  84179</span><span>        let result;</span></pre>
+<pre><span class="lineno"><a href="#line_5922" id="line_5922"> 5922.</a></span><span class="count                ">  84179</span><span>        let the_token;</span></pre>
+<pre><span class="lineno"><a href="#line_5923" id="line_5923"> 5923.</a></span><span class="count                ">  84179</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5924" id="line_5924"> 5924.</a></span><span class="count                ">  84179</span><span>// This should properly be a tail recursive function, but sadly, conformant</span></pre>
+<pre><span class="lineno"><a href="#line_5925" id="line_5925"> 5925.</a></span><span class="count                ">  84179</span><span>// implementations of ES6 are still rare. This is the ideal code:</span></pre>
+<pre><span class="lineno"><a href="#line_5926" id="line_5926"> 5926.</a></span><span class="count                ">  84179</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5927" id="line_5927"> 5927.</a></span><span class="count                ">  84179</span><span>//      if (!source_line) {</span></pre>
+<pre><span class="lineno"><a href="#line_5928" id="line_5928"> 5928.</a></span><span class="count                ">  84179</span><span>//          source_line = next_line();</span></pre>
+<pre><span class="lineno"><a href="#line_5929" id="line_5929"> 5929.</a></span><span class="count                ">  84179</span><span>//          from = 0;</span></pre>
+<pre><span class="lineno"><a href="#line_5930" id="line_5930"> 5930.</a></span><span class="count                ">  84179</span><span>//          return (</span></pre>
+<pre><span class="lineno"><a href="#line_5931" id="line_5931"> 5931.</a></span><span class="count                ">  84179</span><span>//              source_line === undefined</span></pre>
+<pre><span class="lineno"><a href="#line_5932" id="line_5932"> 5932.</a></span><span class="count                ">  84179</span><span>//              ? (</span></pre>
+<pre><span class="lineno"><a href="#line_5933" id="line_5933"> 5933.</a></span><span class="count                ">  84179</span><span>//                  mega_mode</span></pre>
+<pre><span class="lineno"><a href="#line_5934" id="line_5934"> 5934.</a></span><span class="count                ">  84179</span><span>//                  ? stop_at(&quot;unclosed_mega&quot;, mega_line, mega_from)</span></pre>
+<pre><span class="lineno"><a href="#line_5935" id="line_5935"> 5935.</a></span><span class="count                ">  84179</span><span>//                  : make(&quot;(end)&quot;)</span></pre>
+<pre><span class="lineno"><a href="#line_5936" id="line_5936"> 5936.</a></span><span class="count                ">  84179</span><span>//              )</span></pre>
+<pre><span class="lineno"><a href="#line_5937" id="line_5937"> 5937.</a></span><span class="count                ">  84179</span><span>//              : lex()</span></pre>
+<pre><span class="lineno"><a href="#line_5938" id="line_5938"> 5938.</a></span><span class="count                ">  84179</span><span>//          );</span></pre>
+<pre><span class="lineno"><a href="#line_5939" id="line_5939"> 5939.</a></span><span class="count                ">  84179</span><span>//      }</span></pre>
+<pre><span class="lineno"><a href="#line_5940" id="line_5940"> 5940.</a></span><span class="count                ">  84179</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5941" id="line_5941"> 5941.</a></span><span class="count                ">  84179</span><span>// Unfortunately, incompetent JavaScript engines will sometimes fail to execute</span></pre>
+<pre><span class="lineno"><a href="#line_5942" id="line_5942"> 5942.</a></span><span class="count                ">  84179</span><span>// it correctly. So for now, we do it the old fashioned way.</span></pre>
+<pre><span class="lineno"><a href="#line_5943" id="line_5943"> 5943.</a></span><span class="count                ">  84179</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_5944" id="line_5944"> 5944.</a></span><span class="count                ">  18224</span><span>        while (!source_line) {</span></pre>
 <pre><span class="lineno"><a href="#line_5945" id="line_5945"> 5945.</a></span><span class="count                ">  18224</span><span>            source_line = next_line();</span></pre>
 <pre><span class="lineno"><a href="#line_5946" id="line_5946"> 5946.</a></span><span class="count                ">  18224</span><span>            from = 0;</span></pre>
@@ -6088,18 +6088,18 @@ body {
 <pre><span class="lineno"><a href="#line_5959" id="line_5959"> 5959.</a></span><span class="count                ">  18224</span><span>                    : make(&quot;(end)&quot;)</span></pre>
 <pre><span class="lineno"><a href="#line_5960" id="line_5960"> 5960.</a></span><span class="count                ">  18224</span><span>                );</span></pre>
 <pre><span class="lineno"><a href="#line_5961" id="line_5961"> 5961.</a></span><span class="count                ">  18224</span><span>            }</span></pre>
-<pre><span class="lineno"><a href="#line_5962" id="line_5962"> 5962.</a></span><span class="count                ">  83734</span><span>        }</span></pre>
-<pre><span class="lineno"><a href="#line_5963" id="line_5963"> 5963.</a></span><span class="count                ">  83734</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5964" id="line_5964"> 5964.</a></span><span class="count                ">  83734</span><span>        from = column;</span></pre>
-<pre><span class="lineno"><a href="#line_5965" id="line_5965"> 5965.</a></span><span class="count                ">  83734</span><span>        result = source_line.match(rx_token);</span></pre>
-<pre><span class="lineno"><a href="#line_5966" id="line_5966"> 5966.</a></span><span class="count                ">  83734</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5967" id="line_5967"> 5967.</a></span><span class="count                ">  83734</span><span>// result[1] token</span></pre>
-<pre><span class="lineno"><a href="#line_5968" id="line_5968"> 5968.</a></span><span class="count                ">  83734</span><span>// result[2] whitespace</span></pre>
-<pre><span class="lineno"><a href="#line_5969" id="line_5969"> 5969.</a></span><span class="count                ">  83734</span><span>// result[3] identifier</span></pre>
-<pre><span class="lineno"><a href="#line_5970" id="line_5970"> 5970.</a></span><span class="count                ">  83734</span><span>// result[4] number</span></pre>
-<pre><span class="lineno"><a href="#line_5971" id="line_5971"> 5971.</a></span><span class="count                ">  83734</span><span>// result[5] rest</span></pre>
-<pre><span class="lineno"><a href="#line_5972" id="line_5972"> 5972.</a></span><span class="count                ">  83734</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5973" id="line_5973"> 5973.</a></span><span class="count                ">  83734</span><span>        if (!result) {</span></pre>
+<pre><span class="lineno"><a href="#line_5962" id="line_5962"> 5962.</a></span><span class="count                ">  83735</span><span>        }</span></pre>
+<pre><span class="lineno"><a href="#line_5963" id="line_5963"> 5963.</a></span><span class="count                ">  83735</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5964" id="line_5964"> 5964.</a></span><span class="count                ">  83735</span><span>        from = column;</span></pre>
+<pre><span class="lineno"><a href="#line_5965" id="line_5965"> 5965.</a></span><span class="count                ">  83735</span><span>        result = source_line.match(rx_token);</span></pre>
+<pre><span class="lineno"><a href="#line_5966" id="line_5966"> 5966.</a></span><span class="count                ">  83735</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5967" id="line_5967"> 5967.</a></span><span class="count                ">  83735</span><span>// result[1] token</span></pre>
+<pre><span class="lineno"><a href="#line_5968" id="line_5968"> 5968.</a></span><span class="count                ">  83735</span><span>// result[2] whitespace</span></pre>
+<pre><span class="lineno"><a href="#line_5969" id="line_5969"> 5969.</a></span><span class="count                ">  83735</span><span>// result[3] identifier</span></pre>
+<pre><span class="lineno"><a href="#line_5970" id="line_5970"> 5970.</a></span><span class="count                ">  83735</span><span>// result[4] number</span></pre>
+<pre><span class="lineno"><a href="#line_5971" id="line_5971"> 5971.</a></span><span class="count                ">  83735</span><span>// result[5] rest</span></pre>
+<pre><span class="lineno"><a href="#line_5972" id="line_5972"> 5972.</a></span><span class="count                ">  83735</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5973" id="line_5973"> 5973.</a></span><span class="count                ">  83735</span><span>        if (!result) {</span></pre>
 <pre><span class="lineno"><a href="#line_5974" id="line_5974"> 5974.</a></span><span class="count                ">      1</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_5975" id="line_5975"> 5975.</a></span><span class="count                ">      1</span><span>// cause: &quot;#&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_5976" id="line_5976"> 5976.</a></span><span class="count                ">      1</span><span></span></pre>
@@ -6109,16 +6109,16 @@ body {
 <pre><span class="lineno"><a href="#line_5980" id="line_5980"> 5980.</a></span><span class="count                ">      1</span><span>                column,</span></pre>
 <pre><span class="lineno"><a href="#line_5981" id="line_5981"> 5981.</a></span><span class="count                ">      1</span><span>                source_line[0]</span></pre>
 <pre><span class="lineno"><a href="#line_5982" id="line_5982"> 5982.</a></span><span class="count                ">      1</span><span>            );</span></pre>
-<pre><span class="lineno"><a href="#line_5983" id="line_5983"> 5983.</a></span><span class="count                ">  83733</span><span>        }</span></pre>
-<pre><span class="lineno"><a href="#line_5984" id="line_5984"> 5984.</a></span><span class="count                ">  83733</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5985" id="line_5985"> 5985.</a></span><span class="count                ">  83733</span><span>        snippet = result[1];</span></pre>
-<pre><span class="lineno"><a href="#line_5986" id="line_5986"> 5986.</a></span><span class="count                ">  83733</span><span>        column += snippet.length;</span></pre>
-<pre><span class="lineno"><a href="#line_5987" id="line_5987"> 5987.</a></span><span class="count                ">  83733</span><span>        source_line = result[5];</span></pre>
-<pre><span class="lineno"><a href="#line_5988" id="line_5988"> 5988.</a></span><span class="count                ">  83733</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5989" id="line_5989"> 5989.</a></span><span class="count                ">  83733</span><span>// Whitespace was matched. Call lex again to get more.</span></pre>
-<pre><span class="lineno"><a href="#line_5990" id="line_5990"> 5990.</a></span><span class="count                ">  83733</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5991" id="line_5991"> 5991.</a></span><span class="count                ">  83733</span><span>        if (result[2]) {</span></pre>
-<pre><span class="lineno"><a href="#line_5992" id="line_5992"> 5992.</a></span><span class="count                ">  26208</span><span>            return lex();</span></pre>
+<pre><span class="lineno"><a href="#line_5983" id="line_5983"> 5983.</a></span><span class="count                ">  83734</span><span>        }</span></pre>
+<pre><span class="lineno"><a href="#line_5984" id="line_5984"> 5984.</a></span><span class="count                ">  83734</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5985" id="line_5985"> 5985.</a></span><span class="count                ">  83734</span><span>        snippet = result[1];</span></pre>
+<pre><span class="lineno"><a href="#line_5986" id="line_5986"> 5986.</a></span><span class="count                ">  83734</span><span>        column += snippet.length;</span></pre>
+<pre><span class="lineno"><a href="#line_5987" id="line_5987"> 5987.</a></span><span class="count                ">  83734</span><span>        source_line = result[5];</span></pre>
+<pre><span class="lineno"><a href="#line_5988" id="line_5988"> 5988.</a></span><span class="count                ">  83734</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5989" id="line_5989"> 5989.</a></span><span class="count                ">  83734</span><span>// Whitespace was matched. Call lex again to get more.</span></pre>
+<pre><span class="lineno"><a href="#line_5990" id="line_5990"> 5990.</a></span><span class="count                ">  83734</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_5991" id="line_5991"> 5991.</a></span><span class="count                ">  83734</span><span>        if (result[2]) {</span></pre>
+<pre><span class="lineno"><a href="#line_5992" id="line_5992"> 5992.</a></span><span class="count                ">  26209</span><span>            return lex();</span></pre>
 <pre><span class="lineno"><a href="#line_5993" id="line_5993"> 5993.</a></span><span class="count                ">  57525</span><span>        }</span></pre>
 <pre><span class="lineno"><a href="#line_5994" id="line_5994"> 5994.</a></span><span class="count                ">  57525</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_5995" id="line_5995"> 5995.</a></span><span class="count                ">  57525</span><span>// The token is an identifier.</span></pre>
