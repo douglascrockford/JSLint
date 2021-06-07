@@ -342,12 +342,22 @@ a:link {
     margin-left: 9em;
 }
 
-.none {
-    display: none;
-}
 .center {
     text-align: center;
 }
+
+.uiLoaderEllipsis span {
+    animation: uiLoaderEllipsis1 1s infinite steps(1);
+}
+.uiLoaderEllipsis span:first-child + span {
+    animation-name: uiLoaderEllipsis2;
+}
+.uiLoaderEllipsis span:first-child + span + span {
+    animation-name: uiLoaderEllipsis3;
+}
+@keyframes uiLoaderEllipsis1 { from { opacity: 0; } 25% { opacity: 1; } }
+@keyframes uiLoaderEllipsis2 { from { opacity: 0; } 50% { opacity: 1; } }
+@keyframes uiLoaderEllipsis3 { from { opacity: 0; } 75% { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -380,6 +390,16 @@ a:link {
     <a href="https://github.com/jslint-org/jslint" style="color: #fff;" target="_blank">
     fork on github
     </a>
+    </div>
+</div>
+<div id="uiLoader1" style="align-items: center; background: lightslategray; color: white; display: flex; height: 50px; justify-content: center; left: 50%; margin: -50px 0px 0px -100px; opacity: 0.95; position: fixed; top: 40%; width: 200px;">
+<div style="">
+    linting
+    <span class="uiLoaderEllipsis">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+    </span>
     </div>
 </div>
 <div id="JSLINT_TITLEBOX">
@@ -421,17 +441,17 @@ a:link {
       <textarea id="JSLINT_GLOBAL" title="global" spellcheck="false" placeholder="imported globals here"></textarea>
     </div>
   </fieldset>
-  <fieldset id="JSLINT_WARNINGS" class="none" style="display: none;">
+  <fieldset id="JSLINT_WARNINGS">
     <legend>Warnings</legend>
-    <div id="JSLINT_WARNINGS_LIST"></div>
+    <div id="JSLINT_WARNINGS_LIST"><center>There are no warnings.</center></div>
   </fieldset>
-  <fieldset id="JSLINT_REPORT" class="none" style="display: block;">
-    <legend>Function Report</legend>
-    <div id="JSLINT_REPORT_LIST"><dl class="level0"><dt>module</dt><dd>Promise, console, https, jslint</dd><dt>import from</dt><dd>./jslint.mjs, https</dd></dl><dl class="level1"><address>15</address><dfn><b>«async»</b>()</dfn><dt>variable</dt><dd>result</dd><dt>closure</dt><dd>result</dd><dt>module</dt><dd>Promise, jslint</dd></dl><dl class="level2"><address>17</address><dfn><b>«Promise»</b>(resolve)</dfn><dt>parameter</dt><dd>resolve</dd><dt>closure</dt><dd>resolve</dd><dt>module</dt><dd>https</dd></dl><dl class="level3"><address>18</address><dfn><b>«request»</b>(res)</dfn><dt>parameter</dt><dd>res</dd><dt>outer</dt><dd>result</dd></dl><dl class="level4"><address>20</address><dfn><b>«data»</b>(chunk)</dfn><dt>parameter</dt><dd>chunk</dd><dt>outer</dt><dd>result</dd></dl><dl class="level4"><address>22</address><dfn><b>«end»</b>()</dfn><dt>outer</dt><dd>resolve, result</dd></dl><dl class="level2"><address>28</address><dfn><b>«forEach»</b>({formatted_message})</dfn><dt>parameter</dt><dd>formatted_message</dd><dt>module</dt><dd>console</dd></dl><center>JSLint edition v2021.6.4-beta</center></div>
-  </fieldset>
-  <fieldset id="JSLINT_PROPERTYFIELDSET" class="none" style="display: block;">
+  <fieldset id="JSLINT_PROPERTYFIELDSET" style="display: block;">
     <legend>Property Directive</legend>
     <textarea id="JSLINT_PROPERTY" rows="8" readonly=""></textarea>
+  </fieldset>
+  <fieldset id="JSLINT_REPORT" style="display: block;">
+    <legend>Function Report</legend>
+    <div id="JSLINT_REPORT_LIST"><dl class="level0"><dt>module</dt><dd>Promise, console, https, jslint</dd><dt>import from</dt><dd>./jslint.mjs, https</dd></dl><dl class="level1"><address>15</address><dfn><b>«async»</b>()</dfn><dt>variable</dt><dd>result</dd><dt>closure</dt><dd>result</dd><dt>module</dt><dd>Promise, jslint</dd></dl><dl class="level2"><address>17</address><dfn><b>«Promise»</b>(resolve)</dfn><dt>parameter</dt><dd>resolve</dd><dt>closure</dt><dd>resolve</dd><dt>module</dt><dd>https</dd></dl><dl class="level3"><address>18</address><dfn><b>«request»</b>(res)</dfn><dt>parameter</dt><dd>res</dd><dt>outer</dt><dd>result</dd></dl><dl class="level4"><address>20</address><dfn><b>«data»</b>(chunk)</dfn><dt>parameter</dt><dd>chunk</dd><dt>outer</dt><dd>result</dd></dl><dl class="level4"><address>22</address><dfn><b>«end»</b>()</dfn><dt>outer</dt><dd>resolve, result</dd></dl><dl class="level2"><address>28</address><dfn><b>«forEach»</b>({formatted_message})</dfn><dt>parameter</dt><dd>formatted_message</dd><dt>module</dt><dd>console</dd></dl><center>JSLint edition v2021.6.4-beta</center></div>
   </fieldset>
 </div>
 <script src="browser.js" type="module"></script>
