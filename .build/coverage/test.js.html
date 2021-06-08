@@ -121,7 +121,7 @@ body {
 </td>
 <td style="text-align: right;">
     100.00 %<br>
-    301 / 301
+    304 / 304
 </td>
 </tr></tbody>
 </table>
@@ -131,14 +131,14 @@ body {
 <pre><span class="lineno"><a href="#line_2" id="line_2">    2.</a></span><span class="count                ">      1</span><span>import fs from &quot;fs&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_3" id="line_3">    3.</a></span><span class="count                ">      1</span><span>import jslint from &quot;./jslint.js&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_4" id="line_4">    4.</a></span><span class="count                ">      1</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_5" id="line_5">    5.</a></span><span class="count                ">   1653</span><span>function assertOrThrow(passed, msg) {</span></pre>
-<pre><span class="lineno"><a href="#line_6" id="line_6">    6.</a></span><span class="count                ">   1653</span><span>/*</span></pre>
-<pre><span class="lineno"><a href="#line_7" id="line_7">    7.</a></span><span class="count                ">   1653</span><span> * this function will throw &lt;msg&gt; if &lt;passed&gt; is falsy</span></pre>
-<pre><span class="lineno"><a href="#line_8" id="line_8">    8.</a></span><span class="count                ">   1653</span><span> */</span></pre>
+<pre><span class="lineno"><a href="#line_5" id="line_5">    5.</a></span><span class="count                ">   1669</span><span>function assertOrThrow(passed, msg) {</span></pre>
+<pre><span class="lineno"><a href="#line_6" id="line_6">    6.</a></span><span class="count                ">   1669</span><span>/*</span></pre>
+<pre><span class="lineno"><a href="#line_7" id="line_7">    7.</a></span><span class="count                ">   1669</span><span> * this function will throw &lt;msg&gt; if &lt;passed&gt; is falsy</span></pre>
+<pre><span class="lineno"><a href="#line_8" id="line_8">    8.</a></span><span class="count                ">   1669</span><span> */</span></pre>
 <pre><span class="lineno"><a href="#line_9" id="line_9">    9.</a></span><span class="count                ">      1</span><span>    if (!passed) {</span></pre>
 <pre><span class="lineno"><a href="#line_10" id="line_10">   10.</a></span><span class="count                ">      1</span><span>        throw new Error(msg);</span></pre>
 <pre><span class="lineno"><a href="#line_11" id="line_11">   11.</a></span><span class="count                ">      1</span><span>    }</span></pre>
-<pre><span class="lineno"><a href="#line_12" id="line_12">   12.</a></span><span class="count                ">   1653</span><span>}</span></pre>
+<pre><span class="lineno"><a href="#line_12" id="line_12">   12.</a></span><span class="count                ">   1669</span><span>}</span></pre>
 <pre><span class="lineno"><a href="#line_13" id="line_13">   13.</a></span><span class="count                ">      1</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_14" id="line_14">   14.</a></span><span class="count                ">      2</span><span>function noop() {</span></pre>
 <pre><span class="lineno"><a href="#line_15" id="line_15">   15.</a></span><span class="count                ">      2</span><span>/*</span></pre>
@@ -202,232 +202,235 @@ body {
 <pre><span class="lineno"><a href="#line_73" id="line_73">   73.</a></span><span class="count                ">      1</span><span>        for: true,</span></pre>
 <pre><span class="lineno"><a href="#line_74" id="line_74">   74.</a></span><span class="count                ">      1</span><span>        getset: true,</span></pre>
 <pre><span class="lineno"><a href="#line_75" id="line_75">   75.</a></span><span class="count                ">      1</span><span>        long: true,</span></pre>
-<pre><span class="lineno"><a href="#line_76" id="line_76">   76.</a></span><span class="count                ">      1</span><span>        node: true,</span></pre>
-<pre><span class="lineno"><a href="#line_77" id="line_77">   77.</a></span><span class="count                ">      1</span><span>        single: true,</span></pre>
-<pre><span class="lineno"><a href="#line_78" id="line_78">   78.</a></span><span class="count                ">      1</span><span>        this: true,</span></pre>
-<pre><span class="lineno"><a href="#line_79" id="line_79">   79.</a></span><span class="count                ">      1</span><span>        white: true</span></pre>
-<pre><span class="lineno"><a href="#line_80" id="line_80">   80.</a></span><span class="count                ">      1</span><span>    }).warnings.length === 0);</span></pre>
-<pre><span class="lineno"><a href="#line_81" id="line_81">   81.</a></span><span class="count                ">      1</span><span>    assertOrThrow(jslint(&quot;&quot;, {</span></pre>
-<pre><span class="lineno"><a href="#line_82" id="line_82">   82.</a></span><span class="count                ">      1</span><span>        test_internal_error: true</span></pre>
-<pre><span class="lineno"><a href="#line_83" id="line_83">   83.</a></span><span class="count                ">      1</span><span>    }).warnings.length === 1);</span></pre>
-<pre><span class="lineno"><a href="#line_84" id="line_84">   84.</a></span><span class="count                ">      1</span><span>}());</span></pre>
-<pre><span class="lineno"><a href="#line_85" id="line_85">   85.</a></span><span class="count                ">      1</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_86" id="line_86">   86.</a></span><span class="count                ">      1</span><span>(function testCaseJslintCodeValidate() {</span></pre>
-<pre><span class="lineno"><a href="#line_87" id="line_87">   87.</a></span><span class="count                ">      1</span><span>/*</span></pre>
-<pre><span class="lineno"><a href="#line_88" id="line_88">   88.</a></span><span class="count                ">      1</span><span> * this function will validate each code is valid in jslint</span></pre>
-<pre><span class="lineno"><a href="#line_89" id="line_89">   89.</a></span><span class="count                ">      1</span><span> */</span></pre>
-<pre><span class="lineno"><a href="#line_90" id="line_90">   90.</a></span><span class="count                ">      1</span><span>    Object.values({</span></pre>
-<pre><span class="lineno"><a href="#line_91" id="line_91">   91.</a></span><span class="count                ">      1</span><span>        array: [</span></pre>
-<pre><span class="lineno"><a href="#line_92" id="line_92">   92.</a></span><span class="count                ">      1</span><span>            &quot;new Array(0);&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_93" id="line_93">   93.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_94" id="line_94">   94.</a></span><span class="count                ">      1</span><span>        async_await: [</span></pre>
-<pre><span class="lineno"><a href="#line_95" id="line_95">   95.</a></span><span class="count                ">      1</span><span>            &quot;async function aa() {\n    await aa();\n}&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_96" id="line_96">   96.</a></span><span class="count                ">      1</span><span>            &quot;async function aa() {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_97" id="line_97">   97.</a></span><span class="count                ">      1</span><span>            + &quot;    try {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_98" id="line_98">   98.</a></span><span class="count                ">      1</span><span>            + &quot;        await aa();\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_99" id="line_99">   99.</a></span><span class="count                ">      1</span><span>            + &quot;    } catch (err) {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_100" id="line_100">  100.</a></span><span class="count                ">      1</span><span>            + &quot;        await err();\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_101" id="line_101">  101.</a></span><span class="count                ">      1</span><span>            + &quot;    }\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_102" id="line_102">  102.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_103" id="line_103">  103.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_104" id="line_104">  104.</a></span><span class="count                ">      1</span><span>        date: [</span></pre>
-<pre><span class="lineno"><a href="#line_105" id="line_105">  105.</a></span><span class="count                ">      1</span><span>            &quot;Date.getTime();&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_106" id="line_106">  106.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa().getTime();&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_107" id="line_107">  107.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa.aa().getTime();&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_108" id="line_108">  108.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_109" id="line_109">  109.</a></span><span class="count                ">      1</span><span>        directives: [</span></pre>
-<pre><span class="lineno"><a href="#line_110" id="line_110">  110.</a></span><span class="count                ">      1</span><span>            &quot;#!\n/*jslint browser:false, node*/\n\&quot;use strict\&quot;;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_111" id="line_111">  111.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint bitwise*/\nlet aa = aa | 0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_112" id="line_112">  112.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint browser*/\n;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_113" id="line_113">  113.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint debug*/\n&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_114" id="line_114">  114.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint devel*/\ndebugger;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_115" id="line_115">  115.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint eval*/\nnew Function();\neval();&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_116" id="line_116">  116.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_117" id="line_117">  117.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_118" id="line_118">  118.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint this*/\nlet aa = this;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_119" id="line_119">  119.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint unordered*/\nlet {bb, aa} = 0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_120" id="line_120">  120.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint white*/\n\t&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_121" id="line_121">  121.</a></span><span class="count                ">      1</span><span>            &quot;/*property aa bb*/&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_122" id="line_122">  122.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_123" id="line_123">  123.</a></span><span class="count                ">      1</span><span>        fart: [</span></pre>
-<pre><span class="lineno"><a href="#line_124" id="line_124">  124.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    return () =&gt; 0;\n}&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_76" id="line_76">   76.</a></span><span class="count                ">      1</span><span>        name: true,</span></pre>
+<pre><span class="lineno"><a href="#line_77" id="line_77">   77.</a></span><span class="count                ">      1</span><span>        node: true,</span></pre>
+<pre><span class="lineno"><a href="#line_78" id="line_78">   78.</a></span><span class="count                ">      1</span><span>        single: true,</span></pre>
+<pre><span class="lineno"><a href="#line_79" id="line_79">   79.</a></span><span class="count                ">      1</span><span>        this: true,</span></pre>
+<pre><span class="lineno"><a href="#line_80" id="line_80">   80.</a></span><span class="count                ">      1</span><span>        white: true</span></pre>
+<pre><span class="lineno"><a href="#line_81" id="line_81">   81.</a></span><span class="count                ">      1</span><span>    }).warnings.length === 0);</span></pre>
+<pre><span class="lineno"><a href="#line_82" id="line_82">   82.</a></span><span class="count                ">      1</span><span>    assertOrThrow(jslint(&quot;&quot;, {</span></pre>
+<pre><span class="lineno"><a href="#line_83" id="line_83">   83.</a></span><span class="count                ">      1</span><span>        test_internal_error: true</span></pre>
+<pre><span class="lineno"><a href="#line_84" id="line_84">   84.</a></span><span class="count                ">      1</span><span>    }).warnings.length === 1);</span></pre>
+<pre><span class="lineno"><a href="#line_85" id="line_85">   85.</a></span><span class="count                ">      1</span><span>}());</span></pre>
+<pre><span class="lineno"><a href="#line_86" id="line_86">   86.</a></span><span class="count                ">      1</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_87" id="line_87">   87.</a></span><span class="count                ">      1</span><span>(function testCaseJslintCodeValidate() {</span></pre>
+<pre><span class="lineno"><a href="#line_88" id="line_88">   88.</a></span><span class="count                ">      1</span><span>/*</span></pre>
+<pre><span class="lineno"><a href="#line_89" id="line_89">   89.</a></span><span class="count                ">      1</span><span> * this function will validate each code is valid in jslint</span></pre>
+<pre><span class="lineno"><a href="#line_90" id="line_90">   90.</a></span><span class="count                ">      1</span><span> */</span></pre>
+<pre><span class="lineno"><a href="#line_91" id="line_91">   91.</a></span><span class="count                ">      1</span><span>    Object.values({</span></pre>
+<pre><span class="lineno"><a href="#line_92" id="line_92">   92.</a></span><span class="count                ">      1</span><span>        array: [</span></pre>
+<pre><span class="lineno"><a href="#line_93" id="line_93">   93.</a></span><span class="count                ">      1</span><span>            &quot;new Array(0);&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_94" id="line_94">   94.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_95" id="line_95">   95.</a></span><span class="count                ">      1</span><span>        async_await: [</span></pre>
+<pre><span class="lineno"><a href="#line_96" id="line_96">   96.</a></span><span class="count                ">      1</span><span>            &quot;async function aa() {\n    await aa();\n}&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_97" id="line_97">   97.</a></span><span class="count                ">      1</span><span>            &quot;async function aa() {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_98" id="line_98">   98.</a></span><span class="count                ">      1</span><span>            + &quot;    try {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_99" id="line_99">   99.</a></span><span class="count                ">      1</span><span>            + &quot;        await aa();\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_100" id="line_100">  100.</a></span><span class="count                ">      1</span><span>            + &quot;    } catch (err) {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_101" id="line_101">  101.</a></span><span class="count                ">      1</span><span>            + &quot;        await err();\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_102" id="line_102">  102.</a></span><span class="count                ">      1</span><span>            + &quot;    }\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_103" id="line_103">  103.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_104" id="line_104">  104.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_105" id="line_105">  105.</a></span><span class="count                ">      1</span><span>        date: [</span></pre>
+<pre><span class="lineno"><a href="#line_106" id="line_106">  106.</a></span><span class="count                ">      1</span><span>            &quot;Date.getTime();&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_107" id="line_107">  107.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa().getTime();&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_108" id="line_108">  108.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa.aa().getTime();&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_109" id="line_109">  109.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_110" id="line_110">  110.</a></span><span class="count                ">      1</span><span>        directives: [</span></pre>
+<pre><span class="lineno"><a href="#line_111" id="line_111">  111.</a></span><span class="count                ">      1</span><span>            &quot;#!\n/*jslint browser:false, node*/\n\&quot;use strict\&quot;;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_112" id="line_112">  112.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint bitwise*/\nlet aa = aa | 0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_113" id="line_113">  113.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint browser*/\n;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_114" id="line_114">  114.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint debug*/\n&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_115" id="line_115">  115.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint devel*/\ndebugger;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_116" id="line_116">  116.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint eval*/\nnew Function();\neval();&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_117" id="line_117">  117.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_118" id="line_118">  118.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_119" id="line_119">  119.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint name*/\nlet aa = aa._;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_120" id="line_120">  120.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint single*/\nlet aa = &apos;aa&apos;;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_121" id="line_121">  121.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint this*/\nlet aa = this;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_122" id="line_122">  122.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint unordered*/\nlet {bb, aa} = 0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_123" id="line_123">  123.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint white*/\n\t&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_124" id="line_124">  124.</a></span><span class="count                ">      1</span><span>            &quot;/*property aa bb*/&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_125" id="line_125">  125.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_126" id="line_126">  126.</a></span><span class="count                ">      1</span><span>        jslint_disable: [</span></pre>
-<pre><span class="lineno"><a href="#line_127" id="line_127">  127.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint-disable*/\n0\n/*jslint-enable*/&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_126" id="line_126">  126.</a></span><span class="count                ">      1</span><span>        fart: [</span></pre>
+<pre><span class="lineno"><a href="#line_127" id="line_127">  127.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    return () =&gt; 0;\n}&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_128" id="line_128">  128.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_129" id="line_129">  129.</a></span><span class="count                ">      1</span><span>        jslint_quiet: [</span></pre>
-<pre><span class="lineno"><a href="#line_130" id="line_130">  130.</a></span><span class="count                ">      1</span><span>            &quot;0 //jslint-quiet&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_129" id="line_129">  129.</a></span><span class="count                ">      1</span><span>        jslint_disable: [</span></pre>
+<pre><span class="lineno"><a href="#line_130" id="line_130">  130.</a></span><span class="count                ">      1</span><span>            &quot;/*jslint-disable*/\n0\n/*jslint-enable*/&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_131" id="line_131">  131.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_132" id="line_132">  132.</a></span><span class="count                ">      1</span><span>        json: [</span></pre>
-<pre><span class="lineno"><a href="#line_133" id="line_133">  133.</a></span><span class="count                ">      1</span><span>            &quot;{\&quot;aa\&quot;:[[],-0,null]}&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_132" id="line_132">  132.</a></span><span class="count                ">      1</span><span>        jslint_quiet: [</span></pre>
+<pre><span class="lineno"><a href="#line_133" id="line_133">  133.</a></span><span class="count                ">      1</span><span>            &quot;0 //jslint-quiet&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_134" id="line_134">  134.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_135" id="line_135">  135.</a></span><span class="count                ">      1</span><span>        label: [</span></pre>
-<pre><span class="lineno"><a href="#line_136" id="line_136">  136.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\nbb:\n    while (true) {\n        if (true) {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_137" id="line_137">  137.</a></span><span class="count                ">      1</span><span>            + &quot;            break bb;\n        }\n    }\n}&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_138" id="line_138">  138.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_139" id="line_139">  139.</a></span><span class="count                ">      1</span><span>        loop: [</span></pre>
-<pre><span class="lineno"><a href="#line_140" id="line_140">  140.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    do {\n        aa();\n    } while (aa());\n}&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_135" id="line_135">  135.</a></span><span class="count                ">      1</span><span>        json: [</span></pre>
+<pre><span class="lineno"><a href="#line_136" id="line_136">  136.</a></span><span class="count                ">      1</span><span>            &quot;{\&quot;aa\&quot;:[[],-0,null]}&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_137" id="line_137">  137.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_138" id="line_138">  138.</a></span><span class="count                ">      1</span><span>        label: [</span></pre>
+<pre><span class="lineno"><a href="#line_139" id="line_139">  139.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\nbb:\n    while (true) {\n        if (true) {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_140" id="line_140">  140.</a></span><span class="count                ">      1</span><span>            + &quot;            break bb;\n        }\n    }\n}&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_141" id="line_141">  141.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_142" id="line_142">  142.</a></span><span class="count                ">      1</span><span>        module: [</span></pre>
-<pre><span class="lineno"><a href="#line_143" id="line_143">  143.</a></span><span class="count                ">      1</span><span>            &quot;export default Object.freeze();&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_144" id="line_144">  144.</a></span><span class="count                ">      1</span><span>            &quot;import {aa, bb} from \&quot;aa\&quot;;\naa(bb);&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_145" id="line_145">  145.</a></span><span class="count                ">      1</span><span>            &quot;import {} from \&quot;aa\&quot;;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_146" id="line_146">  146.</a></span><span class="count                ">      1</span><span>            &quot;import(\&quot;aa\&quot;).then(function () {\n    return;\n});&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_147" id="line_147">  147.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_148" id="line_148">  148.</a></span><span class="count                ">      1</span><span>        number: [</span></pre>
-<pre><span class="lineno"><a href="#line_149" id="line_149">  149.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0.0e0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_150" id="line_150">  150.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0b0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_151" id="line_151">  151.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0o0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_152" id="line_152">  152.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0x0;&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_153" id="line_153">  153.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_154" id="line_154">  154.</a></span><span class="count                ">      1</span><span>        optional_chaining: [</span></pre>
-<pre><span class="lineno"><a href="#line_155" id="line_155">  155.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa?.bb?.cc;&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_142" id="line_142">  142.</a></span><span class="count                ">      1</span><span>        loop: [</span></pre>
+<pre><span class="lineno"><a href="#line_143" id="line_143">  143.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    do {\n        aa();\n    } while (aa());\n}&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_144" id="line_144">  144.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_145" id="line_145">  145.</a></span><span class="count                ">      1</span><span>        module: [</span></pre>
+<pre><span class="lineno"><a href="#line_146" id="line_146">  146.</a></span><span class="count                ">      1</span><span>            &quot;export default Object.freeze();&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_147" id="line_147">  147.</a></span><span class="count                ">      1</span><span>            &quot;import {aa, bb} from \&quot;aa\&quot;;\naa(bb);&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_148" id="line_148">  148.</a></span><span class="count                ">      1</span><span>            &quot;import {} from \&quot;aa\&quot;;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_149" id="line_149">  149.</a></span><span class="count                ">      1</span><span>            &quot;import(\&quot;aa\&quot;).then(function () {\n    return;\n});&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_150" id="line_150">  150.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_151" id="line_151">  151.</a></span><span class="count                ">      1</span><span>        number: [</span></pre>
+<pre><span class="lineno"><a href="#line_152" id="line_152">  152.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0.0e0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_153" id="line_153">  153.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0b0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_154" id="line_154">  154.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0o0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_155" id="line_155">  155.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0x0;&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_156" id="line_156">  156.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_157" id="line_157">  157.</a></span><span class="count                ">      1</span><span>        property: [</span></pre>
-<pre><span class="lineno"><a href="#line_158" id="line_158">  158.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa[`!`];&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_157" id="line_157">  157.</a></span><span class="count                ">      1</span><span>        optional_chaining: [</span></pre>
+<pre><span class="lineno"><a href="#line_158" id="line_158">  158.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa?.bb?.cc;&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_159" id="line_159">  159.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_160" id="line_160">  160.</a></span><span class="count                ">      1</span><span>        regexp: [</span></pre>
-<pre><span class="lineno"><a href="#line_161" id="line_161">  161.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    return /./;\n}&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_162" id="line_162">  162.</a></span><span class="count                ">      1</span><span>            &quot;let aa = /(?!.)(?:.)(?=.)/;&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_163" id="line_163">  163.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_164" id="line_164">  164.</a></span><span class="count                ">      1</span><span>        ternary: [</span></pre>
-<pre><span class="lineno"><a href="#line_165" id="line_165">  165.</a></span><span class="count                ">      1</span><span>            &quot;let aa = (\n    aa()\n    ? 0\n    : 1\n) &quot;</span></pre>
-<pre><span class="lineno"><a href="#line_166" id="line_166">  166.</a></span><span class="count                ">      1</span><span>            + &quot;&amp;&amp; (\n    aa()\n    ? 0\n    : 1\n);&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_167" id="line_167">  167.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_168" id="line_168">  168.</a></span><span class="count                ">      1</span><span>        try_catch: [</span></pre>
-<pre><span class="lineno"><a href="#line_169" id="line_169">  169.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0;\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_170" id="line_170">  170.</a></span><span class="count                ">      1</span><span>            + &quot;try {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_171" id="line_171">  171.</a></span><span class="count                ">      1</span><span>            + &quot;    aa();\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_172" id="line_172">  172.</a></span><span class="count                ">      1</span><span>            + &quot;} catch (err) {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_173" id="line_173">  173.</a></span><span class="count                ">      1</span><span>            + &quot;    aa = err;\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_174" id="line_174">  174.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_175" id="line_175">  175.</a></span><span class="count                ">      1</span><span>            + &quot;try {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_176" id="line_176">  176.</a></span><span class="count                ">      1</span><span>            + &quot;    aa();\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_177" id="line_177">  177.</a></span><span class="count                ">      1</span><span>            + &quot;} catch (err) {\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_178" id="line_178">  178.</a></span><span class="count                ">      1</span><span>            + &quot;    aa = err;\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_179" id="line_179">  179.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_180" id="line_180">  180.</a></span><span class="count                ">      1</span><span>            + &quot;aa();\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_181" id="line_181">  181.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
-<pre><span class="lineno"><a href="#line_182" id="line_182">  182.</a></span><span class="count                ">      1</span><span>        var: [</span></pre>
-<pre><span class="lineno"><a href="#line_183" id="line_183">  183.</a></span><span class="count                ">      1</span><span>            &quot;let [\n    aa, bb = 0\n] = 0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_184" id="line_184">  184.</a></span><span class="count                ">      1</span><span>            &quot;let [...aa] = [...aa];&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_185" id="line_185">  185.</a></span><span class="count                ">      1</span><span>            &quot;let {\n    aa: bb\n} = 0;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_186" id="line_186">  186.</a></span><span class="count                ">      1</span><span>            &quot;let {aa, bb} = 0;&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_187" id="line_187">  187.</a></span><span class="count                ">      1</span><span>        ]</span></pre>
-<pre><span class="lineno"><a href="#line_188" id="line_188">  188.</a></span><span class="count                ">     18</span><span>    }).forEach(function (codeList) {</span></pre>
-<pre><span class="lineno"><a href="#line_189" id="line_189">  189.</a></span><span class="count                ">     18</span><span>        let code0 = &quot;&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_190" id="line_190">  190.</a></span><span class="count                ">     42</span><span>        codeList.forEach(function (code) {</span></pre>
-<pre><span class="lineno"><a href="#line_191" id="line_191">  191.</a></span><span class="count                ">     42</span><span>            let warnings;</span></pre>
-<pre><span class="lineno"><a href="#line_192" id="line_192">  192.</a></span><span class="count                ">     42</span><span>            // Assert codeList is sorted.</span></pre>
-<pre><span class="lineno"><a href="#line_193" id="line_193">  193.</a></span><span class="count                ">     42</span><span>            assertOrThrow(code0 &lt; code, JSON.stringify([</span></pre>
-<pre><span class="lineno"><a href="#line_194" id="line_194">  194.</a></span><span class="count                ">     42</span><span>                code0, code</span></pre>
-<pre><span class="lineno"><a href="#line_195" id="line_195">  195.</a></span><span class="count                ">     42</span><span>            ], undefined, 4));</span></pre>
-<pre><span class="lineno"><a href="#line_196" id="line_196">  196.</a></span><span class="count                ">     42</span><span>            code0 = code;</span></pre>
-<pre><span class="lineno"><a href="#line_197" id="line_197">  197.</a></span><span class="count                ">     42</span><span>            warnings = jslint(code).warnings;</span></pre>
-<pre><span class="lineno"><a href="#line_198" id="line_198">  198.</a></span><span class="count                ">     42</span><span>            assertOrThrow(</span></pre>
-<pre><span class="lineno"><a href="#line_199" id="line_199">  199.</a></span><span class="count                ">     42</span><span>                warnings.length === 0,</span></pre>
-<pre><span class="lineno"><a href="#line_200" id="line_200">  200.</a></span><span class="count                ">     42</span><span>                JSON.stringify([code, warnings])</span></pre>
-<pre><span class="lineno"><a href="#line_201" id="line_201">  201.</a></span><span class="count                ">     42</span><span>            );</span></pre>
-<pre><span class="lineno"><a href="#line_202" id="line_202">  202.</a></span><span class="count                ">     42</span><span>        });</span></pre>
-<pre><span class="lineno"><a href="#line_203" id="line_203">  203.</a></span><span class="count                ">     18</span><span>    });</span></pre>
-<pre><span class="lineno"><a href="#line_204" id="line_204">  204.</a></span><span class="count                ">      1</span><span>}());</span></pre>
-<pre><span class="lineno"><a href="#line_205" id="line_205">  205.</a></span><span class="count                ">      1</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_206" id="line_206">  206.</a></span><span class="count                ">      1</span><span>(async function testCaseJslintWarningsValidate() {</span></pre>
-<pre><span class="lineno"><a href="#line_207" id="line_207">  207.</a></span><span class="count                ">      1</span><span>/*</span></pre>
-<pre><span class="lineno"><a href="#line_208" id="line_208">  208.</a></span><span class="count                ">      1</span><span> * this function will validate each jslint &lt;warning&gt; is raised with given</span></pre>
-<pre><span class="lineno"><a href="#line_209" id="line_209">  209.</a></span><span class="count                ">      1</span><span> * malformed &lt;code&gt;</span></pre>
-<pre><span class="lineno"><a href="#line_210" id="line_210">  210.</a></span><span class="count                ">      1</span><span> */</span></pre>
-<pre><span class="lineno"><a href="#line_211" id="line_211">  211.</a></span><span class="count                ">      1</span><span>    Array.from(String(</span></pre>
-<pre><span class="lineno"><a href="#line_212" id="line_212">  212.</a></span><span class="count                ">      1</span><span>        await fs.promises.readFile(&quot;jslint.js&quot;, &quot;utf8&quot;)</span></pre>
-<pre><span class="lineno"><a href="#line_213" id="line_213">  213.</a></span><span class="count                ">      1</span><span>    ).matchAll(new RegExp((</span></pre>
-<pre><span class="lineno"><a href="#line_214" id="line_214">  214.</a></span><span class="count                ">      1</span><span>        &quot;\\s*?&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_215" id="line_215">  215.</a></span><span class="count                ">      1</span><span>        + &quot;(\\/\\/\\s*?cause:.*?\\n(?:\\/\\/.*?\\n)*?)&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_216" id="line_216">  216.</a></span><span class="count                ">      1</span><span>        + &quot;(\\s*?^[^\\/].*?(?:\\n\\s*?\&quot;.*?)?$)&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_217" id="line_217">  217.</a></span><span class="count                ">    317</span><span>    ), &quot;gm&quot;))).forEach(function ([</span></pre>
-<pre><span class="lineno"><a href="#line_218" id="line_218">  218.</a></span><span class="count                ">    317</span><span>        match0, causeList, warning</span></pre>
-<pre><span class="lineno"><a href="#line_219" id="line_219">  219.</a></span><span class="count                ">    317</span><span>    ]) {</span></pre>
-<pre><span class="lineno"><a href="#line_220" id="line_220">  220.</a></span><span class="count                ">    317</span><span>        let cause0 = &quot;&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_221" id="line_221">  221.</a></span><span class="count                ">    317</span><span>        let expectedWarningCode;</span></pre>
-<pre><span class="lineno"><a href="#line_222" id="line_222">  222.</a></span><span class="count                ">    317</span><span>        let fnc;</span></pre>
-<pre><span class="lineno"><a href="#line_223" id="line_223">  223.</a></span><span class="count                ">    317</span><span>        // debug match0</span></pre>
-<pre><span class="lineno"><a href="#line_224" id="line_224">  224.</a></span><span class="count                ">    317</span><span>        // console.error(match0.trim().replace((/\n\n/g), &quot;\n&quot;));</span></pre>
-<pre><span class="lineno"><a href="#line_225" id="line_225">  225.</a></span><span class="count                ">    317</span><span>        assertOrThrow(</span></pre>
-<pre><span class="lineno"><a href="#line_226" id="line_226">  226.</a></span><span class="count                ">    317</span><span>            match0.indexOf(&quot;\n\n&quot; + causeList + &quot;\n    &quot;) === 0,</span></pre>
-<pre><span class="lineno"><a href="#line_227" id="line_227">  227.</a></span><span class="count                ">    317</span><span>            JSON.stringify([</span></pre>
-<pre><span class="lineno"><a href="#line_228" id="line_228">  228.</a></span><span class="count                ">    317</span><span>                match0, causeList</span></pre>
-<pre><span class="lineno"><a href="#line_229" id="line_229">  229.</a></span><span class="count                ">    317</span><span>            ], undefined, 4)</span></pre>
-<pre><span class="lineno"><a href="#line_230" id="line_230">  230.</a></span><span class="count                ">    317</span><span>        );</span></pre>
-<pre><span class="lineno"><a href="#line_231" id="line_231">  231.</a></span><span class="count                ">    317</span><span>        warning = warning.match(</span></pre>
-<pre><span class="lineno"><a href="#line_232" id="line_232">  232.</a></span><span class="count                ">    317</span><span>            &quot;(&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_233" id="line_233">  233.</a></span><span class="count                ">    317</span><span>            + &quot;at_margin&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_234" id="line_234">  234.</a></span><span class="count                ">    317</span><span>            + &quot;|expected_at&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_235" id="line_235">  235.</a></span><span class="count                ">    317</span><span>            + &quot;|left_check&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_236" id="line_236">  236.</a></span><span class="count                ">    317</span><span>            + &quot;|no_space_only&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_237" id="line_237">  237.</a></span><span class="count                ">    317</span><span>            + &quot;|one_space&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_238" id="line_238">  238.</a></span><span class="count                ">    317</span><span>            + &quot;|one_space_only&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_239" id="line_239">  239.</a></span><span class="count                ">    317</span><span>            + &quot;|semicolon&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_240" id="line_240">  240.</a></span><span class="count                ">    317</span><span>            + &quot;|stop&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_241" id="line_241">  241.</a></span><span class="count                ">    317</span><span>            + &quot;|stop_at&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_242" id="line_242">  242.</a></span><span class="count                ">    317</span><span>            + &quot;|warn&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_243" id="line_243">  243.</a></span><span class="count                ">    317</span><span>            + &quot;|warn_at&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_244" id="line_244">  244.</a></span><span class="count                ">    317</span><span>            + &quot;)&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_245" id="line_245">  245.</a></span><span class="count                ">    317</span><span>            + &quot;\\\u0028\\s*?\&quot;?&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_246" id="line_246">  246.</a></span><span class="count                ">    317</span><span>            + &quot;(\\S[^\n\&quot;]+)&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_247" id="line_247">  247.</a></span><span class="count                ">    317</span><span>        );</span></pre>
-<pre><span class="lineno"><a href="#line_248" id="line_248">  248.</a></span><span class="count                ">    253</span><span>        if (warning) {</span></pre>
-<pre><span class="lineno"><a href="#line_249" id="line_249">  249.</a></span><span class="count                ">    253</span><span>            expectedWarningCode = warning[2];</span></pre>
-<pre><span class="lineno"><a href="#line_250" id="line_250">  250.</a></span><span class="count                ">    253</span><span>            fnc = warning[1];</span></pre>
-<pre><span class="lineno"><a href="#line_251" id="line_251">  251.</a></span><span class="count                ">    253</span><span>            switch (fnc) {</span></pre>
-<pre><span class="lineno"><a href="#line_252" id="line_252">  252.</a></span><span class="count                ">    253</span><span>            case &quot;at_margin&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_253" id="line_253">  253.</a></span><span class="count                ">    253</span><span>            case &quot;expected_at&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_254" id="line_254">  254.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_a_at_b_c&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_255" id="line_255">  255.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_256" id="line_256">  256.</a></span><span class="count                ">    253</span><span>            case &quot;left_check&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_257" id="line_257">  257.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;unexpected_a&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_160" id="line_160">  160.</a></span><span class="count                ">      1</span><span>        property: [</span></pre>
+<pre><span class="lineno"><a href="#line_161" id="line_161">  161.</a></span><span class="count                ">      1</span><span>            &quot;let aa = aa[`!`];&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_162" id="line_162">  162.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_163" id="line_163">  163.</a></span><span class="count                ">      1</span><span>        regexp: [</span></pre>
+<pre><span class="lineno"><a href="#line_164" id="line_164">  164.</a></span><span class="count                ">      1</span><span>            &quot;function aa() {\n    return /./;\n}&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_165" id="line_165">  165.</a></span><span class="count                ">      1</span><span>            &quot;let aa = /(?!.)(?:.)(?=.)/;&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_166" id="line_166">  166.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_167" id="line_167">  167.</a></span><span class="count                ">      1</span><span>        ternary: [</span></pre>
+<pre><span class="lineno"><a href="#line_168" id="line_168">  168.</a></span><span class="count                ">      1</span><span>            &quot;let aa = (\n    aa()\n    ? 0\n    : 1\n) &quot;</span></pre>
+<pre><span class="lineno"><a href="#line_169" id="line_169">  169.</a></span><span class="count                ">      1</span><span>            + &quot;&amp;&amp; (\n    aa()\n    ? 0\n    : 1\n);&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_170" id="line_170">  170.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_171" id="line_171">  171.</a></span><span class="count                ">      1</span><span>        try_catch: [</span></pre>
+<pre><span class="lineno"><a href="#line_172" id="line_172">  172.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0;\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_173" id="line_173">  173.</a></span><span class="count                ">      1</span><span>            + &quot;try {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_174" id="line_174">  174.</a></span><span class="count                ">      1</span><span>            + &quot;    aa();\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_175" id="line_175">  175.</a></span><span class="count                ">      1</span><span>            + &quot;} catch (err) {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_176" id="line_176">  176.</a></span><span class="count                ">      1</span><span>            + &quot;    aa = err;\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_177" id="line_177">  177.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_178" id="line_178">  178.</a></span><span class="count                ">      1</span><span>            + &quot;try {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_179" id="line_179">  179.</a></span><span class="count                ">      1</span><span>            + &quot;    aa();\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_180" id="line_180">  180.</a></span><span class="count                ">      1</span><span>            + &quot;} catch (err) {\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_181" id="line_181">  181.</a></span><span class="count                ">      1</span><span>            + &quot;    aa = err;\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_182" id="line_182">  182.</a></span><span class="count                ">      1</span><span>            + &quot;}\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_183" id="line_183">  183.</a></span><span class="count                ">      1</span><span>            + &quot;aa();\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_184" id="line_184">  184.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
+<pre><span class="lineno"><a href="#line_185" id="line_185">  185.</a></span><span class="count                ">      1</span><span>        var: [</span></pre>
+<pre><span class="lineno"><a href="#line_186" id="line_186">  186.</a></span><span class="count                ">      1</span><span>            &quot;let [\n    aa, bb = 0\n] = 0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_187" id="line_187">  187.</a></span><span class="count                ">      1</span><span>            &quot;let [...aa] = [...aa];&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_188" id="line_188">  188.</a></span><span class="count                ">      1</span><span>            &quot;let {\n    aa: bb\n} = 0;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_189" id="line_189">  189.</a></span><span class="count                ">      1</span><span>            &quot;let {aa, bb} = 0;&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_190" id="line_190">  190.</a></span><span class="count                ">      1</span><span>        ]</span></pre>
+<pre><span class="lineno"><a href="#line_191" id="line_191">  191.</a></span><span class="count                ">     18</span><span>    }).forEach(function (codeList) {</span></pre>
+<pre><span class="lineno"><a href="#line_192" id="line_192">  192.</a></span><span class="count                ">     18</span><span>        let code0 = &quot;&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_193" id="line_193">  193.</a></span><span class="count                ">     44</span><span>        codeList.forEach(function (code) {</span></pre>
+<pre><span class="lineno"><a href="#line_194" id="line_194">  194.</a></span><span class="count                ">     44</span><span>            let warnings;</span></pre>
+<pre><span class="lineno"><a href="#line_195" id="line_195">  195.</a></span><span class="count                ">     44</span><span>            // Assert codeList is sorted.</span></pre>
+<pre><span class="lineno"><a href="#line_196" id="line_196">  196.</a></span><span class="count                ">     44</span><span>            assertOrThrow(code0 &lt; code, JSON.stringify([</span></pre>
+<pre><span class="lineno"><a href="#line_197" id="line_197">  197.</a></span><span class="count                ">     44</span><span>                code0, code</span></pre>
+<pre><span class="lineno"><a href="#line_198" id="line_198">  198.</a></span><span class="count                ">     44</span><span>            ], undefined, 4));</span></pre>
+<pre><span class="lineno"><a href="#line_199" id="line_199">  199.</a></span><span class="count                ">     44</span><span>            code0 = code;</span></pre>
+<pre><span class="lineno"><a href="#line_200" id="line_200">  200.</a></span><span class="count                ">     44</span><span>            warnings = jslint(code).warnings;</span></pre>
+<pre><span class="lineno"><a href="#line_201" id="line_201">  201.</a></span><span class="count                ">     44</span><span>            assertOrThrow(</span></pre>
+<pre><span class="lineno"><a href="#line_202" id="line_202">  202.</a></span><span class="count                ">     44</span><span>                warnings.length === 0,</span></pre>
+<pre><span class="lineno"><a href="#line_203" id="line_203">  203.</a></span><span class="count                ">     44</span><span>                JSON.stringify([code, warnings])</span></pre>
+<pre><span class="lineno"><a href="#line_204" id="line_204">  204.</a></span><span class="count                ">     44</span><span>            );</span></pre>
+<pre><span class="lineno"><a href="#line_205" id="line_205">  205.</a></span><span class="count                ">     44</span><span>        });</span></pre>
+<pre><span class="lineno"><a href="#line_206" id="line_206">  206.</a></span><span class="count                ">     18</span><span>    });</span></pre>
+<pre><span class="lineno"><a href="#line_207" id="line_207">  207.</a></span><span class="count                ">      1</span><span>}());</span></pre>
+<pre><span class="lineno"><a href="#line_208" id="line_208">  208.</a></span><span class="count                ">      1</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_209" id="line_209">  209.</a></span><span class="count                ">      1</span><span>(async function testCaseJslintWarningsValidate() {</span></pre>
+<pre><span class="lineno"><a href="#line_210" id="line_210">  210.</a></span><span class="count                ">      1</span><span>/*</span></pre>
+<pre><span class="lineno"><a href="#line_211" id="line_211">  211.</a></span><span class="count                ">      1</span><span> * this function will validate each jslint &lt;warning&gt; is raised with given</span></pre>
+<pre><span class="lineno"><a href="#line_212" id="line_212">  212.</a></span><span class="count                ">      1</span><span> * malformed &lt;code&gt;</span></pre>
+<pre><span class="lineno"><a href="#line_213" id="line_213">  213.</a></span><span class="count                ">      1</span><span> */</span></pre>
+<pre><span class="lineno"><a href="#line_214" id="line_214">  214.</a></span><span class="count                ">      1</span><span>    Array.from(String(</span></pre>
+<pre><span class="lineno"><a href="#line_215" id="line_215">  215.</a></span><span class="count                ">      1</span><span>        await fs.promises.readFile(&quot;jslint.js&quot;, &quot;utf8&quot;)</span></pre>
+<pre><span class="lineno"><a href="#line_216" id="line_216">  216.</a></span><span class="count                ">      1</span><span>    ).matchAll(new RegExp((</span></pre>
+<pre><span class="lineno"><a href="#line_217" id="line_217">  217.</a></span><span class="count                ">      1</span><span>        &quot;\\s*?&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_218" id="line_218">  218.</a></span><span class="count                ">      1</span><span>        + &quot;(\\/\\/\\s*?cause:.*?\\n(?:\\/\\/.*?\\n)*?)&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_219" id="line_219">  219.</a></span><span class="count                ">      1</span><span>        + &quot;(\\s*?^[^\\/].*?(?:\\n\\s*?\&quot;.*?)?$)&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_220" id="line_220">  220.</a></span><span class="count                ">    317</span><span>    ), &quot;gm&quot;))).forEach(function ([</span></pre>
+<pre><span class="lineno"><a href="#line_221" id="line_221">  221.</a></span><span class="count                ">    317</span><span>        match0, causeList, warning</span></pre>
+<pre><span class="lineno"><a href="#line_222" id="line_222">  222.</a></span><span class="count                ">    317</span><span>    ]) {</span></pre>
+<pre><span class="lineno"><a href="#line_223" id="line_223">  223.</a></span><span class="count                ">    317</span><span>        let cause0 = &quot;&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_224" id="line_224">  224.</a></span><span class="count                ">    317</span><span>        let expectedWarningCode;</span></pre>
+<pre><span class="lineno"><a href="#line_225" id="line_225">  225.</a></span><span class="count                ">    317</span><span>        let fnc;</span></pre>
+<pre><span class="lineno"><a href="#line_226" id="line_226">  226.</a></span><span class="count                ">    317</span><span>        // debug match0</span></pre>
+<pre><span class="lineno"><a href="#line_227" id="line_227">  227.</a></span><span class="count                ">    317</span><span>        // console.error(match0.trim().replace((/\n\n/g), &quot;\n&quot;));</span></pre>
+<pre><span class="lineno"><a href="#line_228" id="line_228">  228.</a></span><span class="count                ">    317</span><span>        assertOrThrow(</span></pre>
+<pre><span class="lineno"><a href="#line_229" id="line_229">  229.</a></span><span class="count                ">    317</span><span>            match0.indexOf(&quot;\n\n&quot; + causeList + &quot;\n    &quot;) === 0,</span></pre>
+<pre><span class="lineno"><a href="#line_230" id="line_230">  230.</a></span><span class="count                ">    317</span><span>            JSON.stringify([</span></pre>
+<pre><span class="lineno"><a href="#line_231" id="line_231">  231.</a></span><span class="count                ">    317</span><span>                match0, causeList</span></pre>
+<pre><span class="lineno"><a href="#line_232" id="line_232">  232.</a></span><span class="count                ">    317</span><span>            ], undefined, 4)</span></pre>
+<pre><span class="lineno"><a href="#line_233" id="line_233">  233.</a></span><span class="count                ">    317</span><span>        );</span></pre>
+<pre><span class="lineno"><a href="#line_234" id="line_234">  234.</a></span><span class="count                ">    317</span><span>        warning = warning.match(</span></pre>
+<pre><span class="lineno"><a href="#line_235" id="line_235">  235.</a></span><span class="count                ">    317</span><span>            &quot;(&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_236" id="line_236">  236.</a></span><span class="count                ">    317</span><span>            + &quot;at_margin&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_237" id="line_237">  237.</a></span><span class="count                ">    317</span><span>            + &quot;|expected_at&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_238" id="line_238">  238.</a></span><span class="count                ">    317</span><span>            + &quot;|left_check&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_239" id="line_239">  239.</a></span><span class="count                ">    317</span><span>            + &quot;|no_space_only&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_240" id="line_240">  240.</a></span><span class="count                ">    317</span><span>            + &quot;|one_space&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_241" id="line_241">  241.</a></span><span class="count                ">    317</span><span>            + &quot;|one_space_only&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_242" id="line_242">  242.</a></span><span class="count                ">    317</span><span>            + &quot;|semicolon&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_243" id="line_243">  243.</a></span><span class="count                ">    317</span><span>            + &quot;|stop&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_244" id="line_244">  244.</a></span><span class="count                ">    317</span><span>            + &quot;|stop_at&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_245" id="line_245">  245.</a></span><span class="count                ">    317</span><span>            + &quot;|warn&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_246" id="line_246">  246.</a></span><span class="count                ">    317</span><span>            + &quot;|warn_at&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_247" id="line_247">  247.</a></span><span class="count                ">    317</span><span>            + &quot;)&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_248" id="line_248">  248.</a></span><span class="count                ">    317</span><span>            + &quot;\\\u0028\\s*?\&quot;?&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_249" id="line_249">  249.</a></span><span class="count                ">    317</span><span>            + &quot;(\\S[^\n\&quot;]+)&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_250" id="line_250">  250.</a></span><span class="count                ">    317</span><span>        );</span></pre>
+<pre><span class="lineno"><a href="#line_251" id="line_251">  251.</a></span><span class="count                ">    253</span><span>        if (warning) {</span></pre>
+<pre><span class="lineno"><a href="#line_252" id="line_252">  252.</a></span><span class="count                ">    253</span><span>            expectedWarningCode = warning[2];</span></pre>
+<pre><span class="lineno"><a href="#line_253" id="line_253">  253.</a></span><span class="count                ">    253</span><span>            fnc = warning[1];</span></pre>
+<pre><span class="lineno"><a href="#line_254" id="line_254">  254.</a></span><span class="count                ">    253</span><span>            switch (fnc) {</span></pre>
+<pre><span class="lineno"><a href="#line_255" id="line_255">  255.</a></span><span class="count                ">    253</span><span>            case &quot;at_margin&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_256" id="line_256">  256.</a></span><span class="count                ">    253</span><span>            case &quot;expected_at&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_257" id="line_257">  257.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_a_at_b_c&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_258" id="line_258">  258.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_259" id="line_259">  259.</a></span><span class="count                ">    253</span><span>            case &quot;no_space_only&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_260" id="line_260">  260.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;unexpected_space_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_259" id="line_259">  259.</a></span><span class="count                ">    253</span><span>            case &quot;left_check&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_260" id="line_260">  260.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;unexpected_a&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_261" id="line_261">  261.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_262" id="line_262">  262.</a></span><span class="count                ">    253</span><span>            case &quot;one_space&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_263" id="line_263">  263.</a></span><span class="count                ">    253</span><span>            case &quot;one_space_only&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_264" id="line_264">  264.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_space_a_b&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_265" id="line_265">  265.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_266" id="line_266">  266.</a></span><span class="count                ">    253</span><span>            case &quot;semicolon&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_267" id="line_267">  267.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_262" id="line_262">  262.</a></span><span class="count                ">    253</span><span>            case &quot;no_space_only&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_263" id="line_263">  263.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;unexpected_space_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_264" id="line_264">  264.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_265" id="line_265">  265.</a></span><span class="count                ">    253</span><span>            case &quot;one_space&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_266" id="line_266">  266.</a></span><span class="count                ">    253</span><span>            case &quot;one_space_only&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_267" id="line_267">  267.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_space_a_b&quot;;</span></pre>
 <pre><span class="lineno"><a href="#line_268" id="line_268">  268.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_269" id="line_269">  269.</a></span><span class="count                ">    253</span><span>            }</span></pre>
-<pre><span class="lineno"><a href="#line_270" id="line_270">  270.</a></span><span class="count                ">    253</span><span>        }</span></pre>
-<pre><span class="lineno"><a href="#line_271" id="line_271">  271.</a></span><span class="count                ">    317</span><span>        causeList.split(</span></pre>
-<pre><span class="lineno"><a href="#line_272" id="line_272">  272.</a></span><span class="count                ">    317</span><span>            /\/\/\u0020cause:[\n|\u0020]/</span></pre>
-<pre><span class="lineno"><a href="#line_273" id="line_273">  273.</a></span><span class="count                ">    416</span><span>        ).slice(1).forEach(function (cause) {</span></pre>
-<pre><span class="lineno"><a href="#line_274" id="line_274">  274.</a></span><span class="count                ">    416</span><span>            assertOrThrow(cause === cause.trim() + &quot;\n&quot;, JSON.stringify(cause));</span></pre>
-<pre><span class="lineno"><a href="#line_275" id="line_275">  275.</a></span><span class="count                ">    416</span><span>            cause = (</span></pre>
-<pre><span class="lineno"><a href="#line_276" id="line_276">  276.</a></span><span class="count                ">    416</span><span>                expectedWarningCode === &quot;too_long&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_277" id="line_277">  277.</a></span><span class="count                ">      1</span><span>                ? &quot;//&quot;.repeat(100)</span></pre>
-<pre><span class="lineno"><a href="#line_278" id="line_278">  278.</a></span><span class="count                ">    415</span><span>                : cause[0] === &quot;\&quot;&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_279" id="line_279">  279.</a></span><span class="count                ">    415</span><span>                ? JSON.parse(cause)</span></pre>
-<pre><span class="lineno"><a href="#line_280" id="line_280">  280.</a></span><span class="count                ">    415</span><span>                : cause.replace((</span></pre>
-<pre><span class="lineno"><a href="#line_281" id="line_281">  281.</a></span><span class="count                ">    415</span><span>                    /^\/\/\u0020/gm</span></pre>
-<pre><span class="lineno"><a href="#line_282" id="line_282">  282.</a></span><span class="count                ">    415</span><span>                ), &quot;&quot;)</span></pre>
-<pre><span class="lineno"><a href="#line_283" id="line_283">  283.</a></span><span class="count                ">    416</span><span>            );</span></pre>
-<pre><span class="lineno"><a href="#line_284" id="line_284">  284.</a></span><span class="count                ">    416</span><span>            // Assert causeList is sorted.</span></pre>
-<pre><span class="lineno"><a href="#line_285" id="line_285">  285.</a></span><span class="count                ">    416</span><span>            assertOrThrow(cause0 &lt; cause, JSON.stringify([</span></pre>
-<pre><span class="lineno"><a href="#line_286" id="line_286">  286.</a></span><span class="count                ">    416</span><span>                cause0, cause</span></pre>
-<pre><span class="lineno"><a href="#line_287" id="line_287">  287.</a></span><span class="count                ">    416</span><span>            ], undefined, 4));</span></pre>
-<pre><span class="lineno"><a href="#line_288" id="line_288">  288.</a></span><span class="count                ">    416</span><span>            cause0 = cause;</span></pre>
-<pre><span class="lineno"><a href="#line_289" id="line_289">  289.</a></span><span class="count                ">    416</span><span>            // Assert expectedWarningCode from cause.</span></pre>
-<pre><span class="lineno"><a href="#line_290" id="line_290">  290.</a></span><span class="count                ">    416</span><span>            assertOrThrow(</span></pre>
-<pre><span class="lineno"><a href="#line_291" id="line_291">  291.</a></span><span class="count                ">    689</span><span>                jslint(cause).warnings.some(function ({</span></pre>
-<pre><span class="lineno"><a href="#line_292" id="line_292">  292.</a></span><span class="count                ">    689</span><span>                    code</span></pre>
-<pre><span class="lineno"><a href="#line_293" id="line_293">  293.</a></span><span class="count                ">    689</span><span>                }) {</span></pre>
-<pre><span class="lineno"><a href="#line_294" id="line_294">  294.</a></span><span class="count                ">    689</span><span>                    return code === expectedWarningCode;</span></pre>
-<pre><span class="lineno"><a href="#line_295" id="line_295">  295.</a></span><span class="count                ">    689</span><span>                }) || !expectedWarningCode,</span></pre>
-<pre><span class="lineno"><a href="#line_296" id="line_296">  296.</a></span><span class="count                ">    416</span><span>                &quot;\n&quot; + cause.trim()</span></pre>
-<pre><span class="lineno"><a href="#line_297" id="line_297">  297.</a></span><span class="count                ">    416</span><span>            );</span></pre>
-<pre><span class="lineno"><a href="#line_298" id="line_298">  298.</a></span><span class="count                ">    416</span><span>        });</span></pre>
-<pre><span class="lineno"><a href="#line_299" id="line_299">  299.</a></span><span class="count                ">    317</span><span>    });</span></pre>
-<pre><span class="lineno"><a href="#line_300" id="line_300">  300.</a></span><span class="count                ">      1</span><span>}());</span></pre>
-<pre><span class="lineno"><a href="#line_301" id="line_301">  301.</a></span><span class="count                ">      1</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_269" id="line_269">  269.</a></span><span class="count                ">    253</span><span>            case &quot;semicolon&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_270" id="line_270">  270.</a></span><span class="count                ">    253</span><span>                expectedWarningCode = &quot;expected_a_b&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_271" id="line_271">  271.</a></span><span class="count                ">    253</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_272" id="line_272">  272.</a></span><span class="count                ">    253</span><span>            }</span></pre>
+<pre><span class="lineno"><a href="#line_273" id="line_273">  273.</a></span><span class="count                ">    253</span><span>        }</span></pre>
+<pre><span class="lineno"><a href="#line_274" id="line_274">  274.</a></span><span class="count                ">    317</span><span>        causeList.split(</span></pre>
+<pre><span class="lineno"><a href="#line_275" id="line_275">  275.</a></span><span class="count                ">    317</span><span>            /\/\/\u0020cause:[\n|\u0020]/</span></pre>
+<pre><span class="lineno"><a href="#line_276" id="line_276">  276.</a></span><span class="count                ">    420</span><span>        ).slice(1).forEach(function (cause) {</span></pre>
+<pre><span class="lineno"><a href="#line_277" id="line_277">  277.</a></span><span class="count                ">    420</span><span>            assertOrThrow(cause === cause.trim() + &quot;\n&quot;, JSON.stringify(cause));</span></pre>
+<pre><span class="lineno"><a href="#line_278" id="line_278">  278.</a></span><span class="count                ">    420</span><span>            cause = (</span></pre>
+<pre><span class="lineno"><a href="#line_279" id="line_279">  279.</a></span><span class="count                ">    420</span><span>                expectedWarningCode === &quot;too_long&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_280" id="line_280">  280.</a></span><span class="count                ">      1</span><span>                ? &quot;//&quot;.repeat(100)</span></pre>
+<pre><span class="lineno"><a href="#line_281" id="line_281">  281.</a></span><span class="count                ">    419</span><span>                : cause[0] === &quot;\&quot;&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_282" id="line_282">  282.</a></span><span class="count                ">    419</span><span>                ? JSON.parse(cause)</span></pre>
+<pre><span class="lineno"><a href="#line_283" id="line_283">  283.</a></span><span class="count                ">    419</span><span>                : cause.replace((</span></pre>
+<pre><span class="lineno"><a href="#line_284" id="line_284">  284.</a></span><span class="count                ">    419</span><span>                    /^\/\/\u0020/gm</span></pre>
+<pre><span class="lineno"><a href="#line_285" id="line_285">  285.</a></span><span class="count                ">    419</span><span>                ), &quot;&quot;)</span></pre>
+<pre><span class="lineno"><a href="#line_286" id="line_286">  286.</a></span><span class="count                ">    420</span><span>            );</span></pre>
+<pre><span class="lineno"><a href="#line_287" id="line_287">  287.</a></span><span class="count                ">    420</span><span>            // Assert causeList is sorted.</span></pre>
+<pre><span class="lineno"><a href="#line_288" id="line_288">  288.</a></span><span class="count                ">    420</span><span>            assertOrThrow(cause0 &lt; cause, JSON.stringify([</span></pre>
+<pre><span class="lineno"><a href="#line_289" id="line_289">  289.</a></span><span class="count                ">    420</span><span>                cause0, cause</span></pre>
+<pre><span class="lineno"><a href="#line_290" id="line_290">  290.</a></span><span class="count                ">    420</span><span>            ], undefined, 4));</span></pre>
+<pre><span class="lineno"><a href="#line_291" id="line_291">  291.</a></span><span class="count                ">    420</span><span>            cause0 = cause;</span></pre>
+<pre><span class="lineno"><a href="#line_292" id="line_292">  292.</a></span><span class="count                ">    420</span><span>            // Assert expectedWarningCode from cause.</span></pre>
+<pre><span class="lineno"><a href="#line_293" id="line_293">  293.</a></span><span class="count                ">    420</span><span>            assertOrThrow(</span></pre>
+<pre><span class="lineno"><a href="#line_294" id="line_294">  294.</a></span><span class="count                ">    701</span><span>                jslint(cause).warnings.some(function ({</span></pre>
+<pre><span class="lineno"><a href="#line_295" id="line_295">  295.</a></span><span class="count                ">    701</span><span>                    code</span></pre>
+<pre><span class="lineno"><a href="#line_296" id="line_296">  296.</a></span><span class="count                ">    701</span><span>                }) {</span></pre>
+<pre><span class="lineno"><a href="#line_297" id="line_297">  297.</a></span><span class="count                ">    701</span><span>                    return code === expectedWarningCode;</span></pre>
+<pre><span class="lineno"><a href="#line_298" id="line_298">  298.</a></span><span class="count                ">    701</span><span>                }) || !expectedWarningCode,</span></pre>
+<pre><span class="lineno"><a href="#line_299" id="line_299">  299.</a></span><span class="count                ">    420</span><span>                &quot;\n&quot; + cause.trim()</span></pre>
+<pre><span class="lineno"><a href="#line_300" id="line_300">  300.</a></span><span class="count                ">    420</span><span>            );</span></pre>
+<pre><span class="lineno"><a href="#line_301" id="line_301">  301.</a></span><span class="count                ">    420</span><span>        });</span></pre>
+<pre><span class="lineno"><a href="#line_302" id="line_302">  302.</a></span><span class="count                ">    317</span><span>    });</span></pre>
+<pre><span class="lineno"><a href="#line_303" id="line_303">  303.</a></span><span class="count                ">      1</span><span>}());</span></pre>
+<pre><span class="lineno"><a href="#line_304" id="line_304">  304.</a></span><span class="count                ">      1</span><span></span></pre>
 
 </div>
 <div class="coverageFooter">
