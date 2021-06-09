@@ -1,5 +1,5 @@
-<svg height="1394px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="1394px" fill="#222" width="800px"></rect>
+<svg height="1372px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="1372px" fill="#222" width="800px"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
@@ -197,187 +197,181 @@
     textLength="768"
     x="10"
     y="714"
->- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
+>- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="736"
->   them into jslint().                                                                           </tspan>
+>- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="758"
->- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
+>   them into jslint().                                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="780"
->   into code.                                                                                    </tspan>
+>- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="802"
->- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
+>   into code.                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="824"
->  y into code.                                                                                   </tspan>
+>- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="846"
->- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
+>  y into code.                                                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="868"
->    - remove unnecessary variables nr.                                                           </tspan>
+>- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="890"
->    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
+>    - remove unnecessary variables nr.                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="912"
->    - rename functions make() to token_create().                                                 </tspan>
+>    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="934"
->    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
+>    - rename functions make() to token_create().                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="956"
->        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
+>    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="978"
->- website - add ui-loader-animation.                                                             </tspan>
+>        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1000"
->                                                                                                 </tspan>
+>- website - add ui-loader-animation.                                                             </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1022"
->## v2021.6.3                                                                                     </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1044"
->- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1066"
->- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1088"
->  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1110"
->- doc - add svg changelog.                                                                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1132"
->- doc - add svg package-listing.                                                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1154"
->- doc - document cli-feature to jslint entire directory.                                         </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1176"
->- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1198"
->  t-quiet`.                                                                                      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1220"
->- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1242"
->  .                                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1264"
->- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1286"
->  .                                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1308"
->- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.               </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1330"
->- website - move options-ui to top of page after editor-ui                                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1352"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1374"
->## v2021.5.30                                                                                    </tspan>
+    y="1044"
+>## v2021.6.3                                                                                     </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1066"
+>- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1088"
+>- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1110"
+>  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1132"
+>- doc - add svg changelog.                                                                       </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1154"
+>- doc - add svg package-listing.                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1176"
+>- doc - document cli-feature to jslint entire directory.                                         </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1198"
+>- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1220"
+>  t-quiet`.                                                                                      </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1242"
+>- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1264"
+>  .                                                                                              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1286"
+>- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1308"
+>  .                                                                                              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1330"
+>- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.               </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1352"
+>- website - move options-ui to top of page after editor-ui                                       </tspan>
 
 </text>
 </svg>
