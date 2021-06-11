@@ -1,5 +1,5 @@
-<svg height="1416px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="1416px" fill="#222" width="800px"></rect>
+<svg height="1372px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="1372px" fill="#222" width="800px"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
@@ -89,301 +89,289 @@
     textLength="768"
     x="10"
     y="318"
->- jslint-refactor - group/localize code together by phases.                                      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="340"
 >- jslint-refactor - migrate recursive-loops to for/while loops.                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="362"
+    y="340"
 >    - inline functions number(), string().                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="384"
+    y="362"
 >- node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises"\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="406"
+    y="384"
 >  )`.                                                                                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="428"
+    y="406"
 >- node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejec\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="450"
+    y="428"
 >  tions=strict"`.                                                                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="472"
+    y="450"
 >- tests - update function warn_at() with assertion-check matching column with artifact.          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="494"
+    y="472"
 >- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="516"
+    y="494"
 >  m `Programma` to `Consolas, Menlo, monospace`.                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="538"
+    y="516"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="560"
+    y="538"
 >## v2021.6.4-beta                                                                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="582"
+    y="560"
 >- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="604"
+    y="582"
 >  wait.                                                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="626"
+    y="604"
 >- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="648"
+    y="626"
 >- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="670"
+    y="648"
 >- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="692"
+    y="670"
 >- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="714"
+    y="692"
 >- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="736"
+    y="714"
 >- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="758"
+    y="736"
 >- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="780"
+    y="758"
 >- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="802"
+    y="780"
 >- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="824"
+    y="802"
 >   them into jslint().                                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="846"
+    y="824"
 >- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="868"
+    y="846"
 >   into code.                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="890"
+    y="868"
 >- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="912"
+    y="890"
 >  y into code.                                                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="934"
+    y="912"
 >- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="956"
+    y="934"
 >    - remove unnecessary variables nr.                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="978"
+    y="956"
 >    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1000"
+    y="978"
 >    - rename functions make() to token_create().                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1022"
+    y="1000"
 >    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1044"
+    y="1022"
 >        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="1044"
+>- jslint-refactor-5 - split jslint-core-logic into 5-phases.                                     </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="1066"
->- website - add ui-loader-animation.                                                             </tspan>
+>    - move phase-sub-functions out of function-jslint().                                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1088"
->                                                                                                 </tspan>
+>    - move global-vars into state-object, that can be passed between functions.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1110"
->## v2021.6.3                                                                                     </tspan>
+>    - migrate recursive-loops to while-loops in sub-function phase2_lex().                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1132"
->- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
+>    - move remaining global-vars into sub-functions or hardcode.                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1154"
->- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
+>    - update functions artifact(), stop(), warn() with fallback-code `the_token = the_token || s\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1176"
->  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
+>  tate.token_nxt;`.                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1198"
->- doc - add svg changelog.                                                                       </tspan>
+>- website - add ui-loader-animation.                                                             </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1220"
->- doc - add svg package-listing.                                                                 </tspan>
+>                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1242"
->- doc - document cli-feature to jslint entire directory.                                         </tspan>
+>## v2021.6.3                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1264"
->- jslint - add eslint-like ignore-directives `/*jslint-disable*/`, `/*jslint-enable*/`, `//jslin\</tspan>
+>- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1286"
->  t-quiet`.                                                                                      </tspan>
+>- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1308"
->- jslint - add new warning `Directive /*jslint-disable*/ was not closed with /*jslint-enable*/.`\</tspan>
+>  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1330"
->  .                                                                                              </tspan>
+>- doc - add svg changelog.                                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1352"
->- jslint - add new warning `Directive /*jslint-enable*/ was not opened with /*jslint-disable*/.`\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1374"
->  .                                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1396"
->- jslint - remove obsolete ie-era warning about duplicate names for caught-errors.               </tspan>
+>- doc - add svg package-listing.                                                                 </tspan>
 
 </text>
 </svg>
