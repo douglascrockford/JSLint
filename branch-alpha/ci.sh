@@ -149,12 +149,12 @@ curl -# -L https://www.jslint.com/jslint.js > jslint.mjs
 '
     mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-download.svg
     # screenshot install - cli-file
-    printf "console.log('hello worldl');\n" > hello.js
+    printf "console.log('hello world');\n" > hello.js
     shRunWithScreenshotTxt sh -c '
 node jslint.mjs hello.js
 ' || true
     mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-file.svg
-    # screenshot install - esm
+    # screenshot install - import
     shRunWithScreenshotTxt node --input-type=module -e '
 /*jslint devel*/
 import jslint from "./jslint.mjs";
@@ -166,7 +166,7 @@ result.warnings.forEach(function ({
     console.error(formatted_message);
 });
 ' || true
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-esm.svg
+    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-import.svg
     # screenshot install - cli-dir
     shRunWithScreenshotTxt sh -c '
 node jslint.mjs .
@@ -246,6 +246,8 @@ shCiBase() {(set -e
     mkdir -p .test-dir.js
     # coverage-hack - test jslint's ignore-file handling-behavior
     touch .test-min.js
+    # coverage-hack - test jslint's esm handling-behavior
+    touch .test.mjs
     # test jslint's cli handling-behavior
     ./jslint.js .
     (set -e

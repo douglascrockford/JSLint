@@ -23,7 +23,7 @@
     textLength="768"
     x="10"
     y="76"
->    console.log('hello worldl');                                                                 </tspan>
+>    console.log('hello world');                                                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -35,7 +35,7 @@
     textLength="768"
     x="10"
     y="120"
->    console.log('hello worldl');                                                                 </tspan>
+>    console.log('hello world');                                                                  </tspan>
 
 </text>
 </svg>

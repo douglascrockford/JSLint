@@ -7067,10 +7067,15 @@ async function jslint_cli({
                 /\.\w+?$|$/m
             ).exec(file2)[0]) {
             case ".html":
+                break;
             case ".js":
+                break;
             case ".json":
+                break;
             case ".md":
+                break;
             case ".mjs":
+                break;
             case ".sh":
                 break;
             default:
