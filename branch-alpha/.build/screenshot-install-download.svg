@@ -1,0 +1,29 @@
+<svg height="96px" width="800px" xmlns="http://www.w3.org/2000/svg">
+<rect height="96px" fill="#222" width="800px"></rect>
+<text
+    fill="#7f7"
+    font-family="consolas, menlo, monospace"
+    font-size="14px"
+    xml:space="preserve"
+>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="32"
+>                                                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="54"
+>#################                                                         24.1%################\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="76"
+>  ######################################################## 100.0%                                </tspan>
+
+</text>
+</svg>
