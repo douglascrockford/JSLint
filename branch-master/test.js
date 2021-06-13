@@ -25,15 +25,15 @@ function noop() {
     process.exit = function (exitCode) {
         assertOrThrow(!exitCode, exitCode);
     };
-    jslint.cli({
+    jslint.jslint_cli({
         file: "jslint.js"
     });
-    jslint.cli({
+    jslint.jslint_cli({
         // suppress error
         console_error: noop,
         file: "undefined"
     });
-    jslint.cli({
+    jslint.jslint_cli({
         // suppress error
         console_error: noop,
         file: "syntax_error.js",
@@ -42,7 +42,7 @@ function noop() {
         },
         source: "syntax error"
     });
-    jslint.cli({
+    jslint.jslint_cli({
         file: "aa.html",
         source: "<script>\nlet aa = 0;\n</script>\n"
     });
@@ -73,6 +73,7 @@ function noop() {
         for: true,
         getset: true,
         long: true,
+        name: true,
         node: true,
         single: true,
         this: true,
@@ -92,14 +93,28 @@ function noop() {
             "new Array(0);"
         ],
         async_await: [
-            "async function aa() {\n    await aa();\n}"
+            "async function aa() {\n    await aa();\n}",
+            "async function aa() {\n"
+            + "    try {\n"
+            + "        aa();\n"
+            + "    } catch (err) {\n"
+            + "        await err();\n"
+            + "    }\n"
+            + "}\n",
+            "async function aa() {\n"
+            + "    try {\n"
+            + "        await aa();\n"
+            + "    } catch (err) {\n"
+            + "        await err();\n"
+            + "    }\n"
+            + "}\n"
         ],
         date: [
             "Date.getTime();",
             "let aa = aa().getTime();",
             "let aa = aa.aa().getTime();"
         ],
-        directives: [
+        directive: [
             "#!\n/*jslint browser:false, node*/\n\"use strict\";",
             "/*jslint bitwise*/\nlet aa = aa | 0;",
             "/*jslint browser*/\n;",
@@ -108,7 +123,22 @@ function noop() {
             "/*jslint eval*/\nnew Function();\neval();",
             "/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};",
             "/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};",
+            "/*jslint name*/\nlet aa = aa._;",
+            "/*jslint single*/\nlet aa = 'aa';",
             "/*jslint this*/\nlet aa = this;",
+            (
+                "/*jslint unordered*/\n"
+                + "function aa({bb, aa}) {\n"
+                + "    switch (aa) {\n"
+                + "    case 1:\n"
+                + "        break;\n"
+                + "    case 0:\n"
+                + "        break;\n"
+                + "    default:\n"
+                + "        return {bb, aa};\n"
+                + "    }\n"
+                + "}\n"
+            ),
             "/*jslint unordered*/\nlet {bb, aa} = 0;",
             "/*jslint white*/\n\t",
             "/*property aa bb*/"
@@ -126,8 +156,14 @@ function noop() {
             "{\"aa\":[[],-0,null]}"
         ],
         label: [
-            "function aa() {\nbb:\n    while (true) {\n        if (true) {\n"
-            + "            break bb;\n        }\n    }\n}"
+            "function aa() {\n"
+            + "bb:\n"
+            + "    while (true) {\n"
+            + "        if (true) {\n"
+            + "            break bb;\n"
+            + "        }\n"
+            + "    }\n"
+            + "}\n"
         ],
         loop: [
             "function aa() {\n    do {\n        aa();\n    } while (aa());\n}"
@@ -136,7 +172,8 @@ function noop() {
             "export default Object.freeze();",
             "import {aa, bb} from \"aa\";\naa(bb);",
             "import {} from \"aa\";",
-            "import(\"aa\").then(function () {\n    return;\n});"
+            "import(\"aa\").then(function () {\n    return;\n});",
+            "let aa = 0;\nimport(aa).then(aa).then(aa).catch(aa).finally(aa);"
         ],
         number: [
             "let aa = 0.0e0;",
@@ -147,12 +184,21 @@ function noop() {
         optional_chaining: [
             "let aa = aa?.bb?.cc;"
         ],
+        param: [
+            "function aa({aa, bb}) {\n"
+            + "    return {aa, bb};\n"
+            + "}\n",
+            "function aa({constructor}) {\n"
+            + "    return {constructor};\n"
+            + "}\n"
+        ],
         property: [
             "let aa = aa[`!`];"
         ],
         regexp: [
             "function aa() {\n    return /./;\n}",
-            "let aa = /(?!.)(?:.)(?=.)/;"
+            "let aa = /(?!.)(?:.)(?=.)/;",
+            "let aa = /./gimuy;"
         ],
         ternary: [
             "let aa = (\n    aa()\n    ? 0\n    : 1\n) "
@@ -173,14 +219,22 @@ function noop() {
             + "aa();\n"
         ],
         var: [
-            "let [...aa] = [...aa];",
             "let [\n    aa, bb = 0\n] = 0;",
+            "let [...aa] = [...aa];",
+            "let constructor = 0;",
+            "let {\n    aa: bb\n} = 0;",
             "let {aa, bb} = 0;",
-            "let {\n    aa: bb\n} = 0;"
+            "let {constructor} = 0;"
         ]
     }).forEach(function (codeList) {
+        let code0 = "";
         codeList.forEach(function (code) {
             let warnings;
+            // Assert codeList is sorted.
+            assertOrThrow(code0 < code, JSON.stringify([
+                code0, code
+            ], undefined, 4));
+            code0 = code;
             warnings = jslint(code).warnings;
             assertOrThrow(
                 warnings.length === 0,
@@ -204,7 +258,7 @@ function noop() {
     ), "gm"))).forEach(function ([
         match0, causeList, warning
     ]) {
-        let cause0;
+        let cause0 = "";
         let expectedWarningCode;
         let fnc;
         // debug match0
@@ -228,6 +282,8 @@ function noop() {
             + "|stop_at"
             + "|warn"
             + "|warn_at"
+            + "|warn_if_unordered"
+            + "|warn_if_unordered_case_statement"
             + ")"
             + "\\\u0028\\s*?\"?"
             + "(\\S[^\n\"]+)"
@@ -253,9 +309,12 @@ function noop() {
             case "semicolon":
                 expectedWarningCode = "expected_a_b";
                 break;
+            case "warn_if_unordered":
+            case "warn_if_unordered_case_statement":
+                expectedWarningCode = "expected_a_b_before_c_d";
+                break;
             }
         }
-        cause0 = "";
         causeList.split(
             /\/\/\u0020cause:[\n|\u0020]/
         ).slice(1).forEach(function (cause) {
@@ -269,7 +328,7 @@ function noop() {
                     /^\/\/\u0020/gm
                 ), "")
             );
-            // Assert causes are sorted.
+            // Assert causeList is sorted.
             assertOrThrow(cause0 < cause, JSON.stringify([
                 cause0, cause
             ], undefined, 4));

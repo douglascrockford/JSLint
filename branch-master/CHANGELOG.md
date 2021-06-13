@@ -4,14 +4,45 @@
 - app - deploy jslint as chrome-extension.
 - jslint - add `for...of` syntax support.
 - jslint - add html and css linting back into jslint.
-- jslint - add new warning if case-statements are not sorted.
 - jslint - add new warning if const/let/var statements are not declared at top of function-scope.
 - jslint - add new warning if const/let/var statements are not sorted.
-- jslint - migrate code away from recursive-loops to for/while loops.
+- jslint - remove directive "eval" (use line-specific ignore-directive "//jslint-quiet" instead).
+- jslint - simplify comments/docs by removing unnecessary grammar-article "the".
+- jslint-refactor - migrate recursive-loops to for/while loops.
+    - inline functions number(), string().
 - node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises")`.
 - node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
 - tests - update function warn_at() with assertion-check matching column with artifact.
 - website - replace current-editor with CodeMirror-editor and change programming-font-family from `Programma` to `Consolas, Menlo, monospace`.
+
+## v2021.6.12
+- bugfix - fix await expression/statement inside catch-statement not registered by functionage.await.
+- bugfix - fix cli appending slash "/" to normalized filename.
+- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.
+- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.
+- bugfix - fix off-by-one-column bug in missing-semicolon-warning.
+- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.
+- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.
+- doc - add install-screenshots.
+- jslint - add new warning if case-statements are not sorted.
+- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.
+- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.
+- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving them into jslint().
+- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly into code.
+- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directly into code.
+- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.
+    - remove unnecessary variables nr.
+    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.
+    - rename functions make() to token_create().
+    - reorganize/rename "global" variables by topical-prefixes:
+        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx
+- jslint-refactor-5 - split jslint-core-logic into 5-phases.
+    - move phase-sub-functions out of function-jslint().
+    - move global-vars into state-object, that can be passed between functions.
+    - migrate recursive-loops to while-loops in sub-function phase2_lex().
+    - move remaining global-vars into sub-functions or hardcode.
+    - update functions artifact(), stop(), warn() with fallback-code `the_token = the_token || state.token_nxt;`.
+- website - add ui-loader-animation.
 
 ## v2021.6.3
 - breaking-change - hardcode `const fudge = 1`
@@ -106,6 +137,9 @@
 
 ## v2017.11.6
 - last jslint version written in es5.
+
+## v2014.7.8
+- last jslint version before 2 year hiatus.
 
 ## v2013.3.13
 - last jslint version that can lint .html and .css files.

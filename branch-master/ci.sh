@@ -7,6 +7,7 @@
 # git fetch upstream "refs/tags/*:refs/tags/*"
 # head CHANGELOG.md -n50
 # sh ci.sh shCiBranchPromote origin alpha beta
+# sh ci.sh shRunWithScreenshotTxt head -n50 CHANGELOG.md
 
 shBrowserScreenshot() {(set -e
 # this function will run headless-chrome to screenshot url $1 with
@@ -142,6 +143,35 @@ process.exit(
     # screenshot live-web-demo
     shBrowserScreenshot \
         https://jslint-org.github.io/jslint/branch-beta/index.html
+    # screenshot install - download
+    shRunWithScreenshotTxt sh -c '
+curl -L https://www.jslint.com/jslint.js > jslint.mjs
+'
+    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-download.svg
+    # screenshot install - cli-file
+    printf "console.log('hello world');\n" > hello.js
+    shRunWithScreenshotTxt sh -c '
+node jslint.mjs hello.js
+' || true
+    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-file.svg
+    # screenshot install - import
+    shRunWithScreenshotTxt node --input-type=module -e '
+/*jslint devel*/
+import jslint from "./jslint.mjs";
+let code = "console.log(\u0027hello world\u0027);\n";
+let result = jslint(code);
+result.warnings.forEach(function ({
+    formatted_message
+}) {
+    console.error(formatted_message);
+});
+' || true
+    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-import.svg
+    # screenshot install - cli-dir
+    shRunWithScreenshotTxt sh -c '
+node jslint.mjs .
+' || true
+    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-dir.svg
     # screenshot files
     shRunWithScreenshotTxt shGitLsTree
     mv .build/shRunWithScreenshotTxt.svg .build/screenshot-files.svg
@@ -216,6 +246,8 @@ shCiBase() {(set -e
     mkdir -p .test-dir.js
     # coverage-hack - test jslint's ignore-file handling-behavior
     touch .test-min.js
+    # coverage-hack - test jslint's esm handling-behavior
+    touch .test.mjs
     # test jslint's cli handling-behavior
     ./jslint.js .
     (set -e
@@ -743,7 +775,7 @@ body {
 <rect fill="${fill}" height="20" width="${xx2}" x="${xx1}"/>
 <g
     fill="#fff"
-    font-family="dejavu sans,verdana,geneva,sans-serif"
+    font-family="dejavu sans, verdana, geneva, sans-serif"
     font-size="11px"
     font-weight="bold"
     text-anchor="middle"
@@ -1078,13 +1110,11 @@ shRunWithScreenshotTxt() {(set -e
     node -e '
 (async function () {
     "use strict";
-    let result;
-    let yy;
-    yy = 10;
-    result = await require("fs").promises.readFile(
+    let result = await require("fs").promises.readFile(
         process.argv[1] + ".txt",
         "utf8"
     );
+    let yy = 10;
     // remove ansi escape-code
     result = result.replace((
         /\u001b.*?m/g
@@ -1094,36 +1124,46 @@ shRunWithScreenshotTxt() {(set -e
         /\\u[0-9a-f]{4}/g
     ), function (match0) {
         return String.fromCharCode("0x" + match0.slice(-4));
-    }).trimEnd();
-    // 100 column wordwrap
+    });
+    // normalize "\r\n"
     result = result.replace((
-        /^.*?$/gm
-    ), function (line) {
-        return line.replace((
-            /.{0,100}/g
-        ), function (line, ii) {
-            if (ii && !line) {
-                return "";
-            }
-            yy += 20;
-            return `<tspan x="10" y="${yy}">` + line.replace((
-                /&/g
-            ), "&amp;").replace((
-                /</g
-            ), "&lt;").replace((
-                />/g
-            ), "&gt;") + "</tspan>";
-        }).replace((
-            /(<\/tspan><tspan)/g
-        ), "\\$1").slice();
-    }) + "\n";
+        /\r\n?/
+    ), "\n").trimEnd();
+    // 96-column wordwrap
+    result = result.split("\n").map(function (line) {
+        let wordwrap = line.slice(0, 96).padEnd(96, " ");
+        line = line.slice(96);
+        while (line) {
+            wordwrap += "\\\n  " + line.slice(0, 96 - 2).padEnd(96 - 2, " ");
+            line = line.slice(96 - 2);
+        }
+        return wordwrap + " ";
+    }).join("\n");
+    // html-escape
+    result = result.replace((
+        /&/g
+    ), "&amp;").replace((
+        /</g
+    ), "&lt;").replace((
+        />/g
+    ), "&gt;");
+    // convert text to svg-tspan
+    result = result.split("\n").map(function (line) {
+        yy += 22;
+        return `<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="${96 * 8}"
+    x="10"
+    y="${yy}"
+>${line}</tspan>\n`;
+    }).join("");
     result = String(`
   <svg height="${yy + 20}px" width="800px" xmlns="http://www.w3.org/2000/svg">
 <rect height="${yy + 20}px" fill="#222" width="800px"></rect>
 <text
-    fill="#7d7"
+    fill="#7f7"
     font-family="consolas, menlo, monospace"
-    font-size="12px"
+    font-size="14px"
     xml:space="preserve"
 >
 ${result}
