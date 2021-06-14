@@ -1,5 +1,5 @@
-<svg height="1350" width="800" xmlns="http://www.w3.org/2000/svg">
-<rect height="1350" fill="#222" width="800"></rect>
+<svg height="1328" width="800" xmlns="http://www.w3.org/2000/svg">
+<rect height="1328" fill="#222" width="800"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
@@ -131,241 +131,235 @@
     textLength="768"
     x="10"
     y="472"
->- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
+>                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="494"
->  m `Programma` to `Consolas, Menlo, monospace`.                                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="516"
->                                                                                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="538"
 >## v2021.6.14-beta                                                                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="560"
+    y="516"
+>- bugfix - fix global_list being ignored by jslint.                                              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="538"
 >- ci - migrate ci-scripts from cjs to esm.                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="560"
+>- website - invalidate url-cache with each deployment.                                           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="582"
->- website - replace .png logo with .svg logo                                                     </tspan>
+>- website - replace .png logo with .svg logo.                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="604"
->                                                                                                 </tspan>
+>- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="626"
->## v2021.6.12                                                                                    </tspan>
+>  m `Programma` to `consolas, menlo, monospace`.                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="648"
->- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
+>                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="670"
->  wait.                                                                                          </tspan>
+>## v2021.6.12                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="692"
->- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
+>- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="714"
->- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
+>  wait.                                                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="736"
->- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
+>- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="758"
->- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
+>- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="780"
->- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
+>- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="802"
->- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
+>- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="824"
->- doc - add install-screenshots.                                                                 </tspan>
+>- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="846"
->- jslint - add new warning if case-statements are not sorted.                                    </tspan>
+>- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="868"
->- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.                                 </tspan>
+>- doc - add install-screenshots.                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="890"
->- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
+>- jslint - add new warning if case-statements are not sorted.                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="912"
->- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
+>- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="934"
->   them into jslint().                                                                           </tspan>
+>- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="956"
->- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
+>- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="978"
->   into code.                                                                                    </tspan>
+>   them into jslint().                                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1000"
->- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
+>- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1022"
->  y into code.                                                                                   </tspan>
+>   into code.                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1044"
->- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
+>- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1066"
->    - remove unnecessary variables nr.                                                           </tspan>
+>  y into code.                                                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1088"
->    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
+>- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1110"
->    - rename functions make() to token_create().                                                 </tspan>
+>    - remove unnecessary variables nr.                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1132"
->    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
+>    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1154"
->        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
+>    - rename functions make() to token_create().                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1176"
->- jslint-refactor-5 - split jslint-core-logic into 5-phases.                                     </tspan>
+>    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1198"
->    - move phase-sub-functions out of function-jslint().                                         </tspan>
+>        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1220"
->    - move global-vars into state-object, that can be passed between functions.                  </tspan>
+>- jslint-refactor-5 - split jslint-core-logic into 5-phases.                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1242"
->    - migrate recursive-loops to while-loops in sub-function phase2_lex().                       </tspan>
+>    - move phase-sub-functions out of function-jslint().                                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1264"
->    - move remaining global-vars into sub-functions or hardcode.                                 </tspan>
+>    - move global-vars into state-object, that can be passed between functions.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1286"
->    - update functions artifact(), stop(), warn() with fallback-code `the_token = the_token || s\</tspan>
+>    - migrate recursive-loops to while-loops in sub-function phase2_lex().                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1308"
->  tate.token_nxt;`.                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1330"
->- website - add ui-loader-animation.                                                             </tspan>
+>    - move remaining global-vars into sub-functions or hardcode.                                 </tspan>
 
 </text>
 </svg>
