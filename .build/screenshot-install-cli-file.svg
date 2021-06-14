@@ -1,9 +1,9 @@
-<svg height="140px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="140px" fill="#222" width="800px"></rect>
+<svg height="140" width="800" xmlns="http://www.w3.org/2000/svg">
+<rect height="140" fill="#222" width="800"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
-    font-size="14px"
+    font-size="14"
     xml:space="preserve"
 >
 <tspan
