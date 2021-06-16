@@ -27,7 +27,7 @@
     warnings
 */
 
-import jslint from "./jslint.js?aa=1623792682";
+import jslint from "./jslint.js?aa=1623866635";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -379,8 +379,8 @@ import https from "https";
 // ........................................... handling-ability.
 // .... /*jslint this*/ .......... Allow 'this'.
 // .... /*jslint unordered*/ ..... Allow unordered cases, params, properties.
-// .... /*jslint variable*/ ...... Allow unordered variable-declarations that
-// ................................... are not at top of function-scope.
+// .... /*jslint variable*/ ...... Allow unordered const and let declarations
+// ................................... that are not at top of function-scope.
 // .... /*jslint white: true...... Allow messy whitespace.
 
 /*jslint-disable*/
