@@ -89,8 +89,7 @@
 
 /*property
     beta,
-    catch_list, catch_stack,
-    cli,
+    catch_list, catch_stack, cli,
     function_stack,
     global_dict,
     last_statement,
