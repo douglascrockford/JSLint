@@ -21,7 +21,7 @@
     warnings
 */
 
-import jslint from "./jslint.js?cc=bkvq";
+import jslint from "./jslint.js?cc=1lg6";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
