@@ -25,15 +25,15 @@ function noop() {
     process.exit = function (exitCode) {
         assertOrThrow(!exitCode, exitCode);
     };
-    jslint.jslint_cli({
+    jslint.cli({
         file: "jslint.js"
     });
-    jslint.jslint_cli({
+    jslint.cli({
         // suppress error
         console_error: noop,
         file: "undefined"
     });
-    jslint.jslint_cli({
+    jslint.cli({
         // suppress error
         console_error: noop,
         file: "syntax_error.js",
@@ -42,7 +42,7 @@ function noop() {
         },
         source: "syntax error"
     });
-    jslint.jslint_cli({
+    jslint.cli({
         file: "aa.html",
         source: "<script>\nlet aa = 0;\n</script>\n"
     });
@@ -62,23 +62,102 @@ function noop() {
 /*
  * this function will test jslint's option handling-behavior
  */
-    assertOrThrow(jslint("", {
-        bitwise: true,
-        browser: true,
-        convert: true,
-        couch: true,
-        debug: true,
-        devel: true,
-        eval: true,
-        for: true,
-        getset: true,
-        long: true,
-        name: true,
-        node: true,
-        single: true,
-        this: true,
-        white: true
-    }).warnings.length === 0);
+    [
+        [
+            "let aa = aa | 0;", {bitwise: true}, []
+        ], [
+            ";\naa(new XMLHttpRequest());", {browser: true}, ["aa"]
+        ], [
+            "let aa = \"aa\" + 0;", {convert: true}, []
+        ], [
+            "registerType();", {couch: true}, []
+        ], [
+            "", {debug: true}, []
+        ], [
+            "debugger;", {devel: true}, []
+        ], [
+            "new Function();\neval();", {eval: true}, []
+        ], [
+            (
+                "function aa(aa) {\n"
+                + "    for (aa = 0; aa < 0; aa += 1) {\n"
+                + "        aa();\n"
+                + "    }\n"
+                + "}\n"
+            ), {for: true}, []
+        ], [
+            "let aa = {get aa() {\n    return;\n}};", {getset: true}, []
+        ], [
+            "let aa = {set aa(aa) {\n    return aa;\n}};", {getset: true}, []
+        ], [
+            "/".repeat(100), {long: true}, []
+        ], [
+            "let aa = aa._;", {name: true}, []
+        ], [
+            "require();", {node: true}, []
+        ], [
+            "let aa = 'aa';", {single: true}, []
+        ], [
+            "let aa = this;", {this: true}, []
+        ], [
+            (
+                "function aa({bb, aa}) {\n"
+                + "    switch (aa) {\n"
+                + "    case 1:\n"
+                + "        break;\n"
+                + "    case 0:\n"
+                + "        break;\n"
+                + "    default:\n"
+                + "        return {bb, aa};\n"
+                + "    }\n"
+                + "}\n"
+            ), {unordered: true}, []
+        ], [
+            "let {bb, aa} = 0;", {unordered: true}, []
+        ], [
+            "let bb = 0;\nlet aa = 0;", {beta: true, variable: true}, []
+        ], [
+            (
+                "function aa() {\n"
+                + "    if (aa) {\n"
+                + "        let bb = 0;\n"
+                + "        return bb;\n"
+                + "    }\n"
+                + "}\n"
+            ), {beta: true, variable: true}, []
+        ], [
+            "\t", {white: true}, []
+        ]
+    ].forEach(function ([
+        source, option_dict, global_list
+    ]) {
+        // test jslint's option handling-behavior
+        assertOrThrow(
+            jslint(source, option_dict, global_list).warnings.length === 0,
+            "jslint(" + JSON.stringify([
+                source, option_dict, global_list
+            ]) + ")"
+        );
+        // test jslint's directive handling-behavior
+        source = (
+            "/*jslint\n"
+            + JSON.stringify(option_dict).slice(1, -1).replace((
+                /"/g
+            ), "") + "\n"
+            + "*/\n"
+            + (
+                global_list.length === 0
+                ? ""
+                : (
+                    "/*global\n"
+                    + global_list.join(",") + "\n"
+                    + "*/\n"
+                )
+            )
+            + source
+        );
+        assertOrThrow(jslint(source).warnings.length === 0, source);
+    });
     assertOrThrow(jslint("", {
         test_internal_error: true
     }).warnings.length === 1);
@@ -116,31 +195,6 @@ function noop() {
         ],
         directive: [
             "#!\n/*jslint browser:false, node*/\n\"use strict\";",
-            "/*jslint bitwise*/\nlet aa = aa | 0;",
-            "/*jslint browser*/\n;",
-            "/*jslint debug*/\n",
-            "/*jslint devel*/\ndebugger;",
-            "/*jslint eval*/\nnew Function();\neval();",
-            "/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};",
-            "/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};",
-            "/*jslint name*/\nlet aa = aa._;",
-            "/*jslint single*/\nlet aa = 'aa';",
-            "/*jslint this*/\nlet aa = this;",
-            (
-                "/*jslint unordered*/\n"
-                + "function aa({bb, aa}) {\n"
-                + "    switch (aa) {\n"
-                + "    case 1:\n"
-                + "        break;\n"
-                + "    case 0:\n"
-                + "        break;\n"
-                + "    default:\n"
-                + "        return {bb, aa};\n"
-                + "    }\n"
-                + "}\n"
-            ),
-            "/*jslint unordered*/\nlet {bb, aa} = 0;",
-            "/*jslint white*/\n\t",
             "/*property aa bb*/"
         ],
         fart: [
@@ -219,6 +273,7 @@ function noop() {
             + "aa();\n"
         ],
         var: [
+            "\"use strict\";\nvar aa = 0;",
             "let [\n    aa, bb = 0\n] = 0;",
             "let [...aa] = [...aa];",
             "let constructor = 0;",

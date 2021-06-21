@@ -3,56 +3,42 @@
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 /*jslint
+    beta
     browser
 */
 
 /*property
-    addEventListener, ctrlKey, key, querySelector, line_source, stack_trace,
-    checked, closure, column, context, create, disable, display, edition,
-    exports, filter, focus, forEach, froms, functions, getElementById,
-    global, id, innerHTML, isArray, join, json, keys, length, level, line,
-    lines, map, message, module, name, names, onchange, onclick, onscroll,
-    option, parameters, parent, property, push, querySelectorAll, replace, role,
-    scrollTop, select, signature, sort, split, stop, style, title, trim, value,
+    click,
+    CodeMirror, Tab, addEventListener, checked, closure, column, context,
+    create, ctrlKey, display, edition, exports, extraKeys, filter, forEach,
+    fromTextArea, froms, functions, getElementById, getValue, global, id,
+    indentUnit, indentWithTabs, innerHTML, isArray, join, jslint_result, json,
+    key, keys, length, level, line, lineNumbers, lineWrapping, line_source,
+    matchBrackets, message, metaKey, mode, module, name, names, onclick,
+    parameters, parent, property, push, querySelector, querySelectorAll,
+    replace, replaceSelection, role, scrollTop, setValue, showTrailingSpace,
+    signature, sort, split, stack_trace, stop, style, textContent, title, value,
     warnings
 */
 
-import jslint from "./jslint.js";
+import jslint from "./jslint.js?cc=ygqb";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
 
-const elem_boxes = document.querySelectorAll("[type=checkbox]");
-const elem_global = document.getElementById("JSLINT_GLOBAL");
-const elem_number = document.getElementById("JSLINT_NUMBER");
-const elem_property = document.getElementById("JSLINT_PROPERTY");
-const elem_property_fieldset = document.getElementById(
-    "JSLINT_PROPERTYFIELDSET"
-);
-const elem_report_field = document.getElementById("JSLINT_REPORT");
-const elem_report_list = document.getElementById("JSLINT_REPORT_LIST");
-const rx_amp = /&/g;
-const rx_gt = />/g;
-const rx_lt = /</g;
-const elem_source = document.getElementById("JSLINT_SOURCE");
-const elem_warnings_list = document.getElementById("JSLINT_WARNINGS_LIST");
+let editor;
 
 function entityify(string) {
 
 // Replace & < > with less destructive entities.
 
-    return String(
-        string
-    ).replace(
-        rx_amp,
-        "&amp;"
-    ).replace(
-        rx_lt,
-        "&lt;"
-    ).replace(
-        rx_gt,
-        "&gt;"
-    );
+    return String(string).replace((
+        /&/g
+    ), "&amp;").replace((
+        /</g
+    ), "&lt;").replace((
+        />/g
+    ), "&gt;");
 }
 
 function error_report(data) {
@@ -99,6 +85,9 @@ function function_report(data) {
 //     <dt>DETAIL</dt><dd>NAMES</dd>
 // </dl>
 
+    let exports;
+    let froms;
+    let global;
     let mode = (
         data.module
         ? "module"
@@ -129,9 +118,9 @@ function function_report(data) {
     if (data.functions.length === 0) {
         output.push("<center>There are no functions.</center>");
     }
-    let global = Object.keys(data.global.context).sort();
-    let froms = data.froms.sort();
-    let exports = Object.keys(data.exports).sort();
+    global = Object.keys(data.global.context).sort();
+    froms = data.froms.sort();
+    exports = Object.keys(data.exports).sort();
     if (global.length + froms.length + exports.length > 0) {
         output.push("<dl class=level0>");
         detail(mode, global);
@@ -144,6 +133,7 @@ function function_report(data) {
         data.functions.forEach(function (the_function) {
             let context = the_function.context;
             let list = Object.keys(context);
+            let params;
             output.push(
                 "<dl class=level",
                 entityify(the_function.level),
@@ -155,14 +145,17 @@ function function_report(data) {
                     ? entityify(the_function.signature) + " =>"
                     : (
                         typeof the_function.name === "string"
-                        ? "<b>«" + entityify(the_function.name) + "»</b>"
+                        ? (
+                            "<b>\u00ab" + entityify(the_function.name)
+                            + "\u00bb</b>"
+                        )
                         : "<b>" + entityify(the_function.name.id) + "</b>"
                     )
                 ) + entityify(the_function.signature),
                 "</dfn>"
             );
             if (Array.isArray(the_function.parameters)) {
-                let params = [];
+                params = [];
                 the_function.parameters.forEach(function extract(name) {
                     if (name.id === "{" || name.id === "[") {
                         name.names.forEach(extract);
@@ -211,11 +204,6 @@ function function_report(data) {
             output.push("</dl>");
         });
     }
-    output.push(
-        "<center>JSLint edition ",
-        entityify(data.edition),
-        "</center>"
-    );
     return output.join("");
 }
 
@@ -223,9 +211,9 @@ function property_directive(data) {
 
 // Produce the /*property*/ directive.
 
+    let length = 1111;
     let not_first = false;
     let output = ["/*property"];
-    let length = 1111;
     let properties = Object.keys(data.property);
 
     properties.sort().forEach(function (key) {
@@ -245,44 +233,29 @@ function property_directive(data) {
     return output.join("");
 }
 
-function show_numbers() {
-    elem_number.value = elem_source.value.split(
-        /\n|\r\n?/
-    ).map(function (
-        ignore,
-        index
-    ) {
-        return index + 1;
-    }).join("\n");
-}
-
-function clear_options() {
-    elem_boxes.forEach(function (node) {
-        node.checked = false;
-    });
-    elem_global.innerHTML = "";
-}
-
 function call_jslint() {
+    let global_string;
+    let option;
+    let result;
 
 // Show ui-loader-animation.
 
-    document.querySelector("#uiLoader1").style.display = "flex";
+    document.getElementById("uiLoader1").style.display = "flex";
 
 // First build the option object.
 
-    let option = Object.create(null);
-    elem_boxes.forEach(function (node) {
-        if (node.checked) {
-            option[node.title] = true;
+    option = Object.create(null);
+    document.querySelectorAll("input[type=checkbox]").forEach(function (elem) {
+        if (elem.checked) {
+            option[elem.title] = true;
         }
     });
 
 // Call JSLint with the source text, the options, and the predefined globals.
 
-    let global_string = elem_global.value;
-    let result = jslint(
-        elem_source.value,
+    global_string = document.getElementById("JSLINT_GLOBAL").value;
+    result = jslint(
+        editor.getValue(),
         option,
         (
             global_string === ""
@@ -293,76 +266,118 @@ function call_jslint() {
         )
     );
 
+// Debug result.
+
+    globalThis.jslint_result = result;
+
 // Generate the reports.
-
-    let error_html = error_report(result);
-    let function_html = function_report(result);
-    let property_text = property_directive(result);
-
 // Display the reports.
 
-    elem_warnings_list.innerHTML = error_html;
-
-    elem_report_list.innerHTML = function_html;
-    elem_report_field.style.display = "block";
-    elem_source.select();
-    elem_property.value = property_text;
-    elem_property_fieldset.style.display = "block";
-    elem_property.scrollTop = 0;
+    document.getElementById(
+        "JSLINT_WARNINGS_LIST"
+    ).innerHTML = error_report(result);
+    document.getElementById(
+        "JSLINT_REPORT_LIST"
+    ).innerHTML = function_report(result);
+    document.getElementById(
+        "JSLINT_PROPERTY"
+    ).value = property_directive(result);
+    document.getElementById("JSLINT_PROPERTY").scrollTop = 0;
 
 // Hide ui-loader-animation.
 
     setTimeout(function () {
-        document.querySelector("#uiLoader1").style.display = "none";
+        document.getElementById("uiLoader1").style.display = "none";
     }, 500);
 }
 
-function clear() {
-    elem_source.focus();
-    elem_source.value = "";
-    call_jslint();
-}
+(function () {
 
-elem_source.onchange = function (ignore) {
-    show_numbers();
-};
+// Init edition.
 
-elem_source.onscroll = function () {
-    let ss = elem_source.scrollTop;
-    elem_number.scrollTop = ss;
-    let sn = elem_number.scrollTop;
-    if (ss > sn) {
-        show_numbers();
-        elem_number.scrollTop = ss;
-    }
-};
+    document.getElementById("JSLINT_EDITION").textContent = (
+        `Edition: ${jslint.edition}`
+    );
 
-document.addEventListener("keydown", function (evt) {
-    if (evt.ctrlKey && evt.key === "Enter") {
-        call_jslint();
-    }
-});
+// Init event-handling.
 
-document.querySelectorAll("[name='JSLint']").forEach(function (node) {
-    node.onclick = call_jslint;
-});
+    document.addEventListener("keydown", function (evt) {
+        if ((evt.ctrlKey || evt.metaKey) && evt.key === "Enter") {
+            call_jslint();
+        }
+    });
+    document.querySelector("button[name='JSLint']").onclick = call_jslint;
+    document.querySelector(
+        "button[name='clear_source']"
+    ).onclick = function () {
+        editor.setValue("");
+    };
+    document.querySelector(
+        "button[name='clear_options']"
+    ).onclick = function () {
+        document.querySelectorAll(
+            "input[type=checkbox]"
+        ).forEach(function (elem) {
+            elem.checked = false;
+        });
+        document.getElementById("JSLINT_GLOBAL").value = "";
+    };
 
-document.querySelectorAll("[name='clear']").forEach(function (node) {
-    node.onclick = clear;
-});
+// Init CodeMirror editor.
 
-document.getElementById("JSLINT_CLEAR_OPTIONS").onclick = clear_options;
+    editor = globalThis.CodeMirror.fromTextArea(document.getElementById(
+        "JSLINT_SOURCE"
+    ), {
+        extraKeys: {
+            Tab: function (editor) {
+                editor.replaceSelection("    ");
+            }
+        },
+        indentUnit: 4,
+        indentWithTabs: false,
+        lineNumbers: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        mode: "text/javascript",
+        showTrailingSpace: true
+    });
+    editor.setValue(`#!/usr/bin/env node
 
-elem_source.value = `#!/usr/bin/env node
-/*jslint node*/
-import jslint from "./jslint.mjs";
+/*jslint beta node*/
+
+import jslint from \u0022./jslint.mjs\u0022;
 import https from "https";
 
+// Optional directives.
+// .... /*jslint beta*/ .......... Enable extra warnings currently in beta.
+// .... /*jslint bitwise*/ ....... Allow bitwise operators.
+// .... /*jslint browser*/ ....... Assume browser environment.
+// .... /*jslint convert*/ ....... Allow conversion operators.
+// .... /*jslint couch*/ ......... Assume CouchDb environment.
+// .... /*jslint debug*/ ......... Include jslint stack-trace in warnings.
+// .... /*jslint devel*/ ......... Allow console.log() and friends.
+// .... /*jslint eval*/ .......... Allow eval().
+// .... /*jslint for*/ ........... Allow for-statement.
+// .... /*jslint getset*/ ........ Allow get() and set().
+// .... /*jslint long*/ .......... Allow long lines.
+// .... /*jslint name*/ .......... Allow weird property names.
+// .... /*jslint node*/ .......... Assume Node.js environment.
+// .... /*jslint single*/ ........ Allow single-quote strings.
+// .... /*jslint test_internal_error*/ ... Test jslint's internal-error
+// ........................................... handling-ability.
+// .... /*jslint this*/ .......... Allow 'this'.
+// .... /*jslint unordered*/ ..... Allow unordered cases, params, properties,
+// ................................... and variables.
+// .... /*jslint variable*/ ...... Allow unordered const and let declarations
+// ................................... that are not at top of function-scope.
+// .... /*jslint white: true...... Allow messy whitespace.
+
 /*jslint-disable*/
-// TODO: jslint this code-block in the future.
+// TODO: jslint this code-block in future.
 console.log('hello world');
 /*jslint-enable*/
 
+// Suppress warnings on next-line.
 eval( //jslint-quiet
     "console.log('hello world');"
 );
@@ -385,6 +400,7 @@ eval( //jslint-quiet
     }) {
         console.error(formatted_message);
     });
-}());`;
-elem_source.onchange();
-call_jslint();
+}());
+`);
+    document.querySelector("button[name='JSLint']").click();
+}());

@@ -19,113 +19,600 @@
 <link
     rel="icon"
     type="image/png"
-    href="image-jslint-64x64.png"
+    href="asset-image-jslint-512.svg"
 />
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
+<!-- Google PageSpeed - reduce Largest Contentful Paint -->
+<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=ygqb">
+<link rel="modulepreload" href="browser.js?cc=ygqb">
+<link rel="modulepreload" href="jslint.js?cc=ygqb">
 <style>
-@font-face {
-    font-family: "Programma";
-    font-weight: bold;
-    src: url("font-programma-bold.woff2") format("woff2");
+/*jslint-disable*/
+/*
+shRawLibFetch
+{
+    "fetchList": [
+        {
+            "url": "https://github.com/codemirror/CodeMirror/blob/5.58.3/lib/codemirror.css"
+        }
+    ]
 }
-@font-face {
-    font-family: "Daley";
-    font-weight: bold;
-    src: url("font-daley-bold.woff2") format("woff2");
+*/
+
+
+/*
+repo https://github.com/codemirror/CodeMirror/tree/5.58.3
+committed 2020-11-19T08:38:15Z
+*/
+
+
+/*
+file https://github.com/codemirror/CodeMirror/blob/5.58.3/lib/codemirror.css
+*/
+/* BASICS */
+
+.CodeMirror {
+  /* Set height, width, borders, and global font properties here */
+  font-family: monospace;
+  height: 300px;
+  color: black;
+  direction: ltr;
 }
 
+/* PADDING */
+
+.CodeMirror-lines {
+  padding: 4px 0; /* Vertical padding around content */
+}
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  padding: 0 4px; /* Horizontal padding of content */
+}
+
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: white; /* The little square between H and V scrollbars */
+}
+
+/* GUTTER */
+
+.CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+  background-color: #f7f7f7;
+  white-space: nowrap;
+}
+.CodeMirror-linenumbers {}
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  min-width: 20px;
+  text-align: right;
+  color: #999;
+  white-space: nowrap;
+}
+
+.CodeMirror-guttermarker { color: black; }
+.CodeMirror-guttermarker-subtle { color: #999; }
+
+/* CURSOR */
+
+.CodeMirror-cursor {
+  border-left: 1px solid black;
+  border-right: none;
+  width: 0;
+}
+/* Shown when moving in bi-directional text */
+.CodeMirror div.CodeMirror-secondarycursor {
+  border-left: 1px solid silver;
+}
+.cm-fat-cursor .CodeMirror-cursor {
+  width: auto;
+  border: 0 !important;
+  background: #7e7;
+}
+.cm-fat-cursor div.CodeMirror-cursors {
+  z-index: 1;
+}
+.cm-fat-cursor-mark {
+  background-color: rgba(20, 255, 20, 0.5);
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+}
+.cm-animate-fat-cursor {
+  width: auto;
+  border: 0;
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+  background-color: #7e7;
+}
+@-moz-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@-webkit-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+
+/* Can style cursor different in overwrite (non-insert) mode */
+.CodeMirror-overwrite .CodeMirror-cursor {}
+
+.cm-tab { display: inline-block; text-decoration: inherit; }
+
+.CodeMirror-rulers {
+  position: absolute;
+  left: 0; right: 0; top: -50px; bottom: 0;
+  overflow: hidden;
+}
+.CodeMirror-ruler {
+  border-left: 1px solid #ccc;
+  top: 0; bottom: 0;
+  position: absolute;
+}
+
+/* DEFAULT THEME */
+
+.cm-s-default .cm-header {color: blue;}
+.cm-s-default .cm-quote {color: #090;}
+.cm-negative {color: #d44;}
+.cm-positive {color: #292;}
+.cm-header, .cm-strong {font-weight: bold;}
+.cm-em {font-style: italic;}
+.cm-link {text-decoration: underline;}
+.cm-strikethrough {text-decoration: line-through;}
+
+.cm-s-default .cm-keyword {color: #708;}
+.cm-s-default .cm-atom {color: #219;}
+.cm-s-default .cm-number {color: #164;}
+.cm-s-default .cm-def {color: #00f;}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {}
+.cm-s-default .cm-variable-2 {color: #05a;}
+.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}
+.cm-s-default .cm-comment {color: #a50;}
+.cm-s-default .cm-string {color: #a11;}
+.cm-s-default .cm-string-2 {color: #f50;}
+.cm-s-default .cm-meta {color: #555;}
+.cm-s-default .cm-qualifier {color: #555;}
+.cm-s-default .cm-builtin {color: #30a;}
+.cm-s-default .cm-bracket {color: #997;}
+.cm-s-default .cm-tag {color: #170;}
+.cm-s-default .cm-attribute {color: #00c;}
+.cm-s-default .cm-hr {color: #999;}
+.cm-s-default .cm-link {color: #00c;}
+
+.cm-s-default .cm-error {color: #f00;}
+.cm-invalidchar {color: #f00;}
+
+.CodeMirror-composing { border-bottom: 2px solid; }
+
+/* Default styles for common addons */
+
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
+.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+.CodeMirror-activeline-background {background: #e8f2ff;}
+
+/* STOP */
+
+/* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+
+.CodeMirror {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.CodeMirror-scroll {
+  overflow: scroll !important; /* Things will break if this is overridden */
+  /* 50px is the magic margin used to hide the element's real scrollbars */
+  /* See overflow: hidden in .CodeMirror */
+  margin-bottom: -50px; margin-right: -50px;
+  padding-bottom: 50px;
+  height: 100%;
+  outline: none; /* Prevent dragging from highlighting the element */
+  position: relative;
+}
+.CodeMirror-sizer {
+  position: relative;
+  border-right: 50px solid transparent;
+}
+
+/* The fake, visible scrollbars. Used to force redraw during scrolling
+   before actual scrolling happens, thus preventing shaking and
+   flickering artifacts. */
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  position: absolute;
+  z-index: 6;
+  display: none;
+  outline: none;
+}
+.CodeMirror-vscrollbar {
+  right: 0; top: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.CodeMirror-hscrollbar {
+  bottom: 0; left: 0;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.CodeMirror-scrollbar-filler {
+  right: 0; bottom: 0;
+}
+.CodeMirror-gutter-filler {
+  left: 0; bottom: 0;
+}
+
+.CodeMirror-gutters {
+  position: absolute; left: 0; top: 0;
+  min-height: 100%;
+  z-index: 3;
+}
+.CodeMirror-gutter {
+  white-space: normal;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: -50px;
+}
+.CodeMirror-gutter-wrapper {
+  position: absolute;
+  z-index: 4;
+  background: none !important;
+  border: none !important;
+}
+.CodeMirror-gutter-background {
+  position: absolute;
+  top: 0; bottom: 0;
+  z-index: 4;
+}
+.CodeMirror-gutter-elt {
+  position: absolute;
+  cursor: default;
+  z-index: 4;
+}
+.CodeMirror-gutter-wrapper ::selection { background-color: transparent }
+.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }
+
+.CodeMirror-lines {
+  cursor: text;
+  min-height: 1px; /* prevents collapsing before first draw */
+}
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  /* Reset some styles that the rest of the page might have set */
+  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+  border-width: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+  line-height: inherit;
+  color: inherit;
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual;
+}
+.CodeMirror-wrap pre.CodeMirror-line,
+.CodeMirror-wrap pre.CodeMirror-line-like {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.CodeMirror-linebackground {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 0;
+}
+
+.CodeMirror-linewidget {
+  position: relative;
+  z-index: 2;
+  padding: 0.1px; /* Force widget margins to stay inside of the container */
+}
+
+.CodeMirror-widget {}
+
+.CodeMirror-rtl pre { direction: rtl; }
+
+.CodeMirror-code {
+  outline: none;
+}
+
+/* Force content-box sizing for the elements where we expect it */
+.CodeMirror-scroll,
+.CodeMirror-sizer,
+.CodeMirror-gutter,
+.CodeMirror-gutters,
+.CodeMirror-linenumber {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.CodeMirror-measure {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.CodeMirror-cursor {
+  position: absolute;
+  pointer-events: none;
+}
+.CodeMirror-measure pre { position: static; }
+
+div.CodeMirror-cursors {
+  visibility: hidden;
+  position: relative;
+  z-index: 3;
+}
+div.CodeMirror-dragcursors {
+  visibility: visible;
+}
+
+.CodeMirror-focused div.CodeMirror-cursors {
+  visibility: visible;
+}
+
+.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.CodeMirror-crosshair { cursor: crosshair; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+
+.cm-searching {
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, .4);
+}
+
+/* Used to force a border model for a node */
+.cm-force-border { padding-right: .1px; }
+
+@media print {
+  /* Hide the cursor when printing */
+  .CodeMirror div.CodeMirror-cursors {
+    visibility: hidden;
+  }
+}
+
+/* See issue #2901 */
+.cm-tab-wrap-hack:after { content: ''; }
+
+/* Help users use markselection to safely style text background */
+span.CodeMirror-selectedtext { background: none; }
+
+
+/*
+file none
+*/
+/*jslint-enable*/
+</style>
+<style>
+/*csslint
+    ids:false,
+    overqualified-elements: false
+*/
+/*csslint ignore:start*/
+@font-face {
+    font-display: swap;
+    font-family: "Programma";
+    font-weight: bold;
+    src: url("asset-font-programma-bold.woff2") format("woff2");
+}
+@font-face {
+    font-display: swap;
+    font-family: "Daley";
+    font-weight: bold;
+    src: url("asset-font-daley-bold.woff2") format("woff2");
+}
+@keyframes uiLoaderEllipsis1 {
+    from {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+}
+@keyframes uiLoaderEllipsis2 {
+    from {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+@keyframes uiLoaderEllipsis3 {
+    from {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+/*csslint ignore:end*/
+body,
+#JSLINT_ button {
+    font-family: daley, sans-serif;
+}
+.uiLoaderEllipsis span {
+    animation: uiLoaderEllipsis1 1s infinite steps(1);
+}
+.uiLoaderEllipsis span:first-child + span {
+    animation-name: uiLoaderEllipsis2;
+}
+.uiLoaderEllipsis span:first-child + span + span {
+    animation-name: uiLoaderEllipsis3;
+}
+#JSLINT_ address,
+#JSLINT_ dt,
+#JSLINT_WARNINGS cite {
+    font-family: serif;
+}
+#JSLINT_ dd,
+#JSLINT_ dfn,
+#JSLINT_WARNINGS samp {
+    font-family: programma, monospace;
+}
+#JSLINT_ label {
+    font-family: sans-serif;
+}
+#JSLINT_ textarea,
+#JSLINT_ .CodeMirror pre.CodeMirror-line,
+#JSLINT_ .CodeMirror pre.CodeMirror-line-like {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+
+a:link {
+    color: black;
+}
+a:visited {
+    color: #69565c;
+}
 body {
     background-color: antiquewhite;
     color: black;
-    font-family: "Daley", sans-serif;
     margin: 0;
     padding: 0;
 }
-
-#JSLINT_TITLEBOX {
-    font-family: "Daley", sans-serif;
-    margin: 10px 40px 0 40px;
-    padding: 0;
-}
-
-#JSLINT_TITLEBOX ul {
+#JSLINT_ address {
+    color: black;
     float: right;
-    font-size: 12pt;
-}
-
-#JSLINT_TITLEBOX div {
-    color: darkslategray;
-    float: left;
-    font-size: 48pt;
-}
-
-#JSLINT_ fieldset {
-    background-color: gainsboro;
-    border: 0;
-    clear: both;
-    margin-bottom: 1em;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 1em;
-    padding: 0;
-    width: auto;
-}
-#JSLINT_  legend {
-    background-color: darkslategray;
-    border: 0;
-    color: white;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: normal;
-    margin: 0;
-    padding-bottom: 0.25em;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0.25em;
-    text-align: center;
-    width: 100%;
+    font-size: 90%;
+    margin-left: 1em;
 }
 #JSLINT_ button {
     background-color: darkslategray;
     border: 0;
     color: white;
     cursor: pointer;
-    font-family: "Daley", sans-serif;
     font-size: 100%;
     font-style: normal;
     margin-left: 1em;
     margin-right: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 0.25em;
-    padding-top: 0.25em;
+    padding: 0.25em 1em;
     text-align: center;
 }
-#JSLINT_ button:hover {
-    background-color: slategray;
-    color: white;
-    border: 0;
-}
-
 #JSLINT_ button:active {
     border: 0;
     color: black;
 }
-
-#JSLINT_ button:disabled {
-    background-color: gray;
+#JSLINT_ button:hover {
+    background-color: slategray;
     border: 0;
-    color: gainsboro;
+    color: white;
 }
-
-a:visited {
-    color: #69565c;
+#JSLINT_ dd {
+    color: black;
+    font-weight: bold;
+    margin-left: 8em;
+    padding-bottom: 2pt;
 }
-
-a:link {
+#JSLINT_ dfn {
+    color: black;
+    display: block;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: 2pt;
+}
+#JSLINT_ dl {
+    background-color: cornsilk;
+    color: white;
+    margin: 0;
+    padding: 2pt 1em;
+}
+#JSLINT_ dl.level0 {
+    background-color: white;
     color: black;
 }
-
+#JSLINT_ dl.level1 {
+    /* yellow */
+    background-color: #ffffe0;
+    color: black;
+    margin-left: 1em;
+}
+#JSLINT_ dl.level2 {
+    /* green */
+    background-color: #e0ffe0;
+    color: black;
+    margin-left: 2em;
+}
+#JSLINT_ dl.level3 {
+    /* blue */
+    background-color: #D0D0ff;
+    color: black;
+    margin-left: 3em;
+}
+#JSLINT_ dl.level4 {
+    /* purple */
+    background-color: #ffe0ff;
+    color: black;
+    margin-left: 4em;
+}
+#JSLINT_ dl.level5 {
+    /* red */
+    background-color: #ffe0e0;
+    color: black;
+    margin-left: 5em;
+}
+#JSLINT_ dl.level6 {
+    /* orange */
+    background-color: #ffe390;
+    color: black;
+    margin-left: 6em;
+}
+#JSLINT_ dl.level7 {
+    /* gray */
+    background-color: #e0e0e0;
+    color: black;
+    margin-left: 7em;
+}
+#JSLINT_ dl.level8 {
+    color: black;
+    margin-left: 8em;
+}
+#JSLINT_ dl.level9 {
+    color: black;
+    margin-left: 9em;
+}
+#JSLINT_ dt {
+    color: black;
+    float: left;
+    font-size: 75%;
+    font-style: italic;
+    margin: 0;
+    text-align: right;
+    width: 8em;
+}
+#JSLINT_ fieldset {
+    background-color: gainsboro;
+    border: 0;
+    clear: both;
+    margin: 1em 40px;
+    padding: 0;
+    width: auto;
+}
 #JSLINT_ input[type="text"] {
     background-color: white;
     border: 0;
@@ -137,241 +624,102 @@ a:link {
     text-align: right;
     width: 3em;
 }
-
+#JSLINT_ label {
+    font-size: 90%;
+    padding-left: 0.25em;
+}
+#JSLINT_ legend {
+    background-color: darkslategray;
+    border: 0;
+    color: white;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 0;
+    text-align: center;
+    width: 100%;
+}
 #JSLINT_ textarea {
-    border: 0;
-    background-color: white;
-    border: 0;
-    font-family: Programma, monospace;
-    font-size: 100%;
-    font-weight: bold;
-    resize: none;
-}
-
-#JSLINT_ textarea::selection {
-    background-color: yellow;
-    color: black;
-}
-
-#JSLINT_NUMBER {
-    color: darkgray;
-    display: inline-block;
-    height: 4in;
-    margin: 2%;
-    margin-right: 0;
-    overflow: hidden;
-    padding-right: 0.5%;
-    text-align: right;
-    white-space: pre;
-    width: 4%;
-}
-
-#JSLINT_SOURCE {
-    color: black;
-    display: inline-block;
-    font-size: 100%;
-    height: 4in;
-    margin: 2%;
-    margin-left: 0;
-    margin-right: 0;
-    overflow: auto;
-    padding-left: 0.5%;
-    white-space: pre;
-    width: 91%;
-}
-
-#JSLINT_PROPERTY {
-    background-color: honeydew;
     border: 0;
     margin: 2%;
     padding: 0.5%;
+    resize: none;
     white-space: pre;
     width: 95%;
 }
-
+#JSLINT_ textarea::selection,
+#JSLINT_ .CodeMirror-selected {
+    background-color: wheat;
+    color: black;
+}
+#JSLINT_ .CodeMirror .cm-trailingspace {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUXCToH00Y1UgAAACFJREFUCNdjPMDBUc/AwNDAAAFMTAwMDA0OP34wQgX/AQBYgwYEx4f9lQAAAABJRU5ErkJggg==");
+    background-position: bottom left;
+    background-repeat: repeat-x;
+}
 #JSLINT_GLOBAL {
     white-space: normal;
     width: 95%;
 }
-#JSLINT_ label {
-    font-family: sans-serif;
-    font-size: 90%;
-    padding-left: 0.25em;
-}
-#JSLINT_OPTIONS>div {
+#JSLINT_OPTIONS > div {
     float: left;
     margin: 0.5em;
 }
-
-#JSLINT_ address {
-    color: black;
-    display: block;
-    float: right;
-    font-family: serif;
-    font-size: 90%;
-    margin-left: 1em;
+#JSLINT_PROPERTY {
+    background-color: honeydew;
 }
-#JSLINT_ dl {
-    background-color: cornsilk;
-    color: white;
-    margin: 0;
-    padding-bottom: 2pt;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 2pt;
+#JSLINT_REPORT center {
+    margin-top: 1em;
 }
-#JSLINT_ dfn {
-    color: black;
-    display: block;
-    font-family: Programma, monospace;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: bold;
-    margin-bottom: 2pt;
-}
-#JSLINT_ dt {
-    color: black;
-    display: block;
-    float: left;
-    font-family: serif;
-    font-size: 75%;
-    font-style: italic;
-    margin: 0;
-    width: 8em;
-    text-align: right;
-}
-#JSLINT_ dd {
-    color: black;
-    display: block;
-    font-family: Programma, monospace;
-    font-weight: bold;
-    margin-left: 8em;
-    padding-bottom: 2pt;
-}
-#JSLINT_WARNINGS>legend {
-    background-color: indianred;
-}
-#JSLINT_WARNINGS>div {
-    background-color: pink;
+#JSLINT_REPORT > div {
     padding: 1em;
+}
+#JSLINT_TITLEBOX {
+    margin: 10px 40px 0 40px;
+    padding: 0;
+}
+#JSLINT_TITLEBOX div {
+    color: darkslategray;
+    float: left;
+    font-size: 48pt;
+}
+#JSLINT_TITLEBOX ul {
+    float: right;
+    font-size: 12pt;
 }
 #JSLINT_WARNINGS cite {
     color: black;
     display: block;
-    font-family: serif;
     font-size: 100%;
     font-style: normal;
-    margin-bottom: 4pt;
-    margin-left: 20pt;
-    margin-right: 20pt;
-    margin-top: 4pt;
+    margin: 4pt 20px;
     overflow-x: hidden;
 }
-#JSLINT_WARNINGS samp {
-    background-color: lavenderblush;
-    color: black;
-    display: block;
-    font-family: Programma, monospace;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: bold;
-    padding: 4pt;
-    margin-bottom: 0;
-    margin-left: 16pt;
-    margin-right: 16pt;
-    margin-top: 0;
-    white-space: pre-wrap;
-}
-
-#JSLINT_REPORT center {
-    margin-top: 1em;
-}
-
 #JSLINT_WARNINGS dl address {
     color: black;
     display: inline;
     float: none;
     font-size: 80%;
-    margin: 0;
 }
-
-#JSLINT_REPORT>div {
+#JSLINT_WARNINGS samp {
+    background-color: lavenderblush;
+    color: black;
+    display: block;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: bold;
+    margin: 0 16pt;
+    padding: 4pt;
+    white-space: pre-wrap;
+}
+#JSLINT_WARNINGS > div {
+    background-color: pink;
     padding: 1em;
 }
-
-#JSLINT_ dl.level0 {
-    color: black;
-    background-color: white;
+#JSLINT_WARNINGS > legend {
+    background-color: indianred;
 }
-
-#JSLINT_ dl.level1 {
-    color: black;
-    background-color: #ffffe0;  /* yellow */
-    margin-left: 1em;
-}
-
-#JSLINT_ dl.level2 {
-    color: black;
-    background-color: #e0ffe0;  /* green */
-    margin-left: 2em;
-}
-
-#JSLINT_ dl.level3 {
-    color: black;
-    background-color: #D0D0ff;  /* blue */
-    margin-left: 3em;
-}
-
-#JSLINT_ dl.level4 {
-    background-color: #ffe0ff;  /* purple */
-    color: black;
-    margin-left: 4em;
-}
-
-#JSLINT_ dl.level5 {
-    background-color: #ffe0e0;  /* red */
-    color: black;
-    margin-left: 5em;
-}
-
-#JSLINT_ dl.level6 {
-    background-color: #ffe390;  /* orange */
-    color: black;
-    margin-left: 6em;
-}
-
-#JSLINT_ dl.level7 {
-    background-color: #e0e0e0;  /* gray */
-    color: black;
-    margin-left: 7em;
-}
-
-#JSLINT_ dl.level8 {
-    color: black;
-    margin-left: 8em;
-}
-
-#JSLINT_ dl.level9 {
-    color: black;
-    margin-left: 9em;
-}
-
-.center {
-    text-align: center;
-}
-
-.uiLoaderEllipsis span {
-    animation: uiLoaderEllipsis1 1s infinite steps(1);
-}
-.uiLoaderEllipsis span:first-child + span {
-    animation-name: uiLoaderEllipsis2;
-}
-.uiLoaderEllipsis span:first-child + span + span {
-    animation-name: uiLoaderEllipsis3;
-}
-@keyframes uiLoaderEllipsis1 { from { opacity: 0; } 25% { opacity: 1; } }
-@keyframes uiLoaderEllipsis2 { from { opacity: 0; } 50% { opacity: 1; } }
-@keyframes uiLoaderEllipsis3 { from { opacity: 0; } 75% { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -421,13 +769,14 @@ style="
     justify-content: center;
     left: 50%;
     margin: -50px 0 0 -100px;
-    opacity: 0.95;
+    opacity: 0.85;
     position: fixed;
     top: 40%;
     width: 200px;
+    z-index: 99;
 ">
 <div style="">
-    linting
+    Linting
     <span class="uiLoaderEllipsis">
         <span>.</span>
         <span>.</span>
@@ -445,50 +794,60 @@ style="
     </ul>
 </div>
 <div id="JSLINT_">
-  <fieldset><legend>Source</legend><textarea
-      id="JSLINT_NUMBER"
-      rows="18"
-      readonly
-  ></textarea><textarea
-      id="JSLINT_SOURCE"
-      rows="18"
-      autofocus
-      spellcheck="false"
-      placeholder="// Paste JavaScript source or JSON text here."
-  ></textarea></fieldset>
-  <div class="center">
-      <button name=JSLint title="Ctrl + Enter">JSLint</button>
-      <button name=clear>clear</button>
-      <button name=options id=JSLINT_CLEAR_OPTIONS>clear options</button>
+  <fieldset><legend>Source</legend>
+
+<!-- Google PageSpeed - reduce Cumulative Layout Shift -->
+
+    <textarea id="JSLINT_SOURCE"
+style="
+    border: 0;
+    height: 300px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+"></textarea>
+  </fieldset>
+  <div style="text-align: center;">
+      <p id="JSLINT_EDITION">&nbsp;</p>
+      <button name="JSLint" title="Ctrl + Enter">JSLint</button>
+      <button name="clear_source">Clear</button>
+      <button name="clear_options">Clear options</button>
   </div>
-  <fieldset id=JSLINT_OPTIONS><legend>Options</legend>
-    <div>Assume...
-      <div><label><input title=devel type=checkbox>in development</label></div>
-      <div><label><input title=browser type=checkbox>browser</label></div>
-      <div><label><input title=couch type=checkbox>CouchDB</label></div>
-      <div><label><input title=node type=checkbox>Node.js</label></div>
+  <fieldset id="JSLINT_OPTIONS"><legend>Options</legend>
+    <div>Env...
+      <div><label><input title="browser" type="checkbox">browser</label></div>
+      <div><label><input title="couch" type="checkbox">couch</label></div>
+      <div><label><input title="devel" type="checkbox">devel</label></div>
+      <div><label><input title="node" type="checkbox">node</label></div>
     </div>
-    <div>Tolerate...
-      <div><label><input title=bitwise type=checkbox>bitwise operators</label></div>
-      <div><label><input title=convert type=checkbox>conversion operators</label></div>
-      <div><label><input title=eval type=checkbox>eval</label></div>
-      <div><label><input title=for type=checkbox>for statement</label></div>
-      <div><label><input title=getset type=checkbox>get and set</label></div>
-      <div><label><input title=long type=checkbox>long lines</label></div>
-      <div><label><input title=name type=checkbox>bad property names</label></div>
-      <div><label><input title=single type=checkbox>single quote strings</label></div>
-      <div><label><input title=this type=checkbox>this</label></div>
-      <div><label><input title=unordered type=checkbox>unordered case/param/prop</label></div>
-      <div><label><input title=white type=checkbox>whitespace mess</label></div>
+    <div>Allow...
+      <div><label><input title="beta" type="checkbox">beta</label></div>
+      <div><label><input title="bitwise" type="checkbox">bitwise</label></div>
+      <div><label><input title="convert" type="checkbox">convert</label></div>
+      <div><label><input title="debug" type="checkbox">debug</label></div>
     </div>
-    <div>Global variables...
-      <textarea
-        id=JSLINT_GLOBAL
-        title=global
-        spellcheck="false"
-        placeholder="imported globals here"
+    <div>&nbsp;
+      <div><label><input title="eval" type="checkbox">eval</label></div>
+      <div><label><input title="for" type="checkbox">for</label></div>
+      <div><label><input title="getset" type="checkbox">getset</label></div>
+      <div><label><input title="long" type="checkbox">long</label></div>
+    </div>
+    <div>&nbsp;
+      <div><label><input title="name" type="checkbox">name</label></div>
+      <div><label><input title="single" type="checkbox">single</label></div>
+      <div><label><input title="this" type="checkbox">this</label></div>
+      <div><label><input title="unordered" type="checkbox">unordered</label></div>
+    </div>
+    <div>&nbsp;
+      <div><label><input title="variable" type="checkbox">variable</label></div>
+      <div><label><input title="white" type="checkbox">white</label></div>
+    </div>
+    <textarea
+      id="JSLINT_GLOBAL"
+      placeholder="imported globals (e.g. atob, btoa)"
+      spellcheck="false"
+      title="global"
     ></textarea>
-    </div>
   </fieldset>
   <fieldset id="JSLINT_WARNINGS">
     <legend>Warnings</legend>
@@ -503,5 +862,6 @@ style="
     <div id="JSLINT_REPORT_LIST"></div>
   </fieldset>
 </div>
-<script src="browser.js" type="module"></script>
+<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=ygqb"></script>
+<script src="browser.js?cc=ygqb" type="module"></script>
 </body></html>

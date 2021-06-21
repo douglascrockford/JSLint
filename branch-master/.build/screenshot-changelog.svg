@@ -1,9 +1,9 @@
-<svg height="1372px" width="800px" xmlns="http://www.w3.org/2000/svg">
-<rect height="1372px" fill="#222" width="800px"></rect>
+<svg height="1350" width="800" xmlns="http://www.w3.org/2000/svg">
+<rect height="1350" fill="#222" width="800"></rect>
 <text
     fill="#7f7"
     font-family="consolas, menlo, monospace"
-    font-size="14px"
+    font-size="14"
     xml:space="preserve"
 >
 <tspan
@@ -47,37 +47,37 @@
     textLength="768"
     x="10"
     y="164"
->- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan>
+>- jslint - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint. </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="186"
->  .                                                                                              </tspan>
+>- jslint - reintroduce directive `/*jslint indent2*/` - allow 2-space indent.                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="208"
->- jslint - add new warning if const/let/var statements are not sorted.                           </tspan>
+>- jslint - remove directive `/*jslint eval*/` (use line-specific ignore-directive "//jslint-quie\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="230"
->- jslint - remove directive "eval" (use line-specific ignore-directive "//jslint-quiet" instead)\</tspan>
+>  t" instead).                                                                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="252"
->  .                                                                                              </tspan>
+>- jslint - simplify comments/docs by removing unnecessary grammar-article "the".                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="274"
->- jslint - simplify comments/docs by removing unnecessary grammar-article "the".                 </tspan>
+>- jslint - try to improve parser to be able to parse jquery.js without stopping.                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -89,289 +89,283 @@
     textLength="768"
     x="10"
     y="318"
->    - inline functions number(), string().                                                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="340"
 >- node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises"\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="362"
+    y="340"
 >  )`.                                                                                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="384"
+    y="362"
 >- node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejec\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="406"
+    y="384"
 >  tions=strict"`.                                                                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="428"
+    y="406"
 >- tests - update function warn_at() with assertion-check matching column with artifact.          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="428"
+>                                                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="450"
->- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
+>## v2021.6.22                                                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="472"
->  m `Programma` to `Consolas, Menlo, monospace`.                                                 </tspan>
+>- bugfix - fix global_list being ignored by jslint.                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="494"
->                                                                                                 </tspan>
+>- bugfix - fix no-warning when exception in catch-block is unused.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="516"
->## v2021.6.12                                                                                    </tspan>
+>- ci - migrate ci-scripts from cjs to esm.                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="538"
->- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
+>- cli - add env-variable \$JSLINT_BETA.                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="560"
->  wait.                                                                                          </tspan>
+>- jslint - add new directive `/*jslint beta*/` - enable features currently in beta.              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="582"
->- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
+>- jslint - add new directive `/*jslint variable*/` - allow unordered variable-declarations that \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="604"
->- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
+>  are not at top of function-scope.                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="626"
->- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
+>- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="648"
->- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
+>  .                                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="670"
->- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
+>- jslint - add new warning if const/let/var statements are unordered.                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="692"
->- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
+>- website - invalidate url-cache with each deployment.                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="714"
->- doc - add install-screenshots.                                                                 </tspan>
+>- website - replace .png logo with .svg logo.                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="736"
->- jslint - add new warning if case-statements are not sorted.                                    </tspan>
+>- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="758"
->- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.                                 </tspan>
+>  m `Programma` to `consolas, menlo, monospace`.                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="780"
->- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="802"
->- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="824"
->   them into jslint().                                                                           </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="846"
->- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="868"
->   into code.                                                                                    </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="890"
->- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="912"
->  y into code.                                                                                   </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="934"
->- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="956"
->    - remove unnecessary variables nr.                                                           </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="978"
->    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1000"
->    - rename functions make() to token_create().                                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1022"
->    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1044"
->        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1066"
->- jslint-refactor-5 - split jslint-core-logic into 5-phases.                                     </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1088"
->    - move phase-sub-functions out of function-jslint().                                         </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1110"
->    - move global-vars into state-object, that can be passed between functions.                  </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1132"
->    - migrate recursive-loops to while-loops in sub-function phase2_lex().                       </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1154"
->    - move remaining global-vars into sub-functions or hardcode.                                 </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1176"
->    - update functions artifact(), stop(), warn() with fallback-code `the_token = the_token || s\</tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1198"
->  tate.token_nxt;`.                                                                              </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1220"
->- website - add ui-loader-animation.                                                             </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1242"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="802"
+>## v2021.6.12                                                                                    </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="824"
+>- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="846"
+>  wait.                                                                                          </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="868"
+>- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="890"
+>- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="912"
+>- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="934"
+>- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="956"
+>- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="978"
+>- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1000"
+>- doc - add install-screenshots.                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1022"
+>- jslint - add new warning if case-statements are not sorted.                                    </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1044"
+>- jslint - add warning for unexpected ? in example `aa=/.{0}?/`.                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1066"
+>- jslint - add warning for unexpected-expr in example `async function aa(){await 0;}`.           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1088"
+>- jslint-refactor-1 - make "stateful" variables scoped outside of jslint() "stateless" by moving\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1110"
+>   them into jslint().                                                                           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1132"
+>- jslint-refactor-2 - inline constants anticondition, bitwiseop, escapeable, and opener directly\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1154"
+>   into code.                                                                                    </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1176"
+>- jslint-refactor-3 - inline regexp-functions quantifier(), ranges(), klass(), choice(), directl\</tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1198"
+>  y into code.                                                                                   </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1220"
+>- jslint-refactor-4 - document jslint process and each recursion-loop converted to while-loop.   </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1242"
+>    - remove unnecessary variables nr.                                                           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="1264"
->## v2021.6.3                                                                                     </tspan>
+>    - rename artifact-related variables a, b to let artifact_now, artifact_nxt.                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1286"
->- breaking-change - hardcode `const fudge = 1`                                                   </tspan>
+>    - rename functions make() to token_create().                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1308"
->- breaking-change - remove little-used-feature allowing jslint to accept array-of-strings as sou\</tspan>
+>    - reorganize/rename "global" variables by topical-prefixes:                                  </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1330"
->  rce b/c internal lines-object has been changed from array-of-strings to array-of-objects.      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="1352"
->- doc - add svg changelog.                                                                       </tspan>
+>        artifact_xxx, export_xxx, from_xxx, import_xxx, line_xxx, mode_xxx, token_xxx            </tspan>
 
 </text>
 </svg>

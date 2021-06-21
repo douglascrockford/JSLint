@@ -4,16 +4,28 @@
 - app - deploy jslint as chrome-extension.
 - jslint - add `for...of` syntax support.
 - jslint - add html and css linting back into jslint.
-- jslint - add new warning if const/let/var statements are not declared at top of function-scope.
-- jslint - add new warning if const/let/var statements are not sorted.
-- jslint - remove directive "eval" (use line-specific ignore-directive "//jslint-quiet" instead).
+- jslint - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint.
+- jslint - reintroduce directive `/*jslint indent2*/` - allow 2-space indent.
+- jslint - remove directive `/*jslint eval*/` (use line-specific ignore-directive "//jslint-quiet" instead).
 - jslint - simplify comments/docs by removing unnecessary grammar-article "the".
+- jslint - try to improve parser to be able to parse jquery.js without stopping.
 - jslint-refactor - migrate recursive-loops to for/while loops.
-    - inline functions number(), string().
 - node - after node-v12 is deprecated, change `require("fs").promises` to `require("fs/promises")`.
 - node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
 - tests - update function warn_at() with assertion-check matching column with artifact.
-- website - replace current-editor with CodeMirror-editor and change programming-font-family from `Programma` to `Consolas, Menlo, monospace`.
+
+## v2021.6.22
+- bugfix - fix global_list being ignored by jslint.
+- bugfix - fix no-warning when exception in catch-block is unused.
+- ci - migrate ci-scripts from cjs to esm.
+- cli - add env-variable \$JSLINT_BETA.
+- jslint - add new directive `/*jslint beta*/` - enable features currently in beta.
+- jslint - add new directive `/*jslint variable*/` - allow unordered variable-declarations that are not at top of function-scope.
+- jslint - add new warning if const/let/var statements are not declared at top of function-scope.
+- jslint - add new warning if const/let/var statements are unordered.
+- website - invalidate url-cache with each deployment.
+- website - replace .png logo with .svg logo.
+- website - replace current-editor with CodeMirror-editor and change programming-font-family from `Programma` to `consolas, menlo, monospace`.
 
 ## v2021.6.12
 - bugfix - fix await expression/statement inside catch-statement not registered by functionage.await.
