@@ -284,6 +284,7 @@ shCiBase() {(set -e
     ./jslint.js .
     (set -e
         # coverage-hack - test jslint's cli handling-behavior
+        export JSLINT_BETA=1
         export JSLINT_CLI=1
         shRunWithCoverage node test.js .
     )
@@ -1064,8 +1065,8 @@ import modulePath from "path";
     // parse fetched data
     process.on("exit", function () {
         var header;
-        var result0;
         var result;
+        var result0;
         result = "";
         fetchList.forEach(function (elem, ii, list) {
             var prefix;
@@ -1565,8 +1566,8 @@ body {
             }, ii) {
                 var chunk;
                 var inHole;
-                var lineId;
                 var lineHtml;
+                var lineId;
                 lineHtml = "";
                 lineId = "line_" + (ii + 1);
                 switch (count) {
