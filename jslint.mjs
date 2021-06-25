@@ -90,13 +90,16 @@
 /*property
     JSLINT_BETA,
     beta,
-    catch_list, catch_stack, cli,
+    catch_list, catch_stack, cjs_module, cjs_require, cli,
     function_stack,
     global_dict,
     last_statement,
+    main, mode_force, mode_noop,
+    process_exit,
+    toString,
     variable,
     execArgv, fileURLToPath, filter, meta, order, reduce, stringify, token, url,
-    JSLINT_CLI, a, all, allowed_option, argv, arity, artifact, assign, async, b,
+    a, all, allowed_option, argv, arity, artifact, assign, async, b,
     bind, bitwise, block, body, browser, c, calls, catch, closer, closure, code,
     column, concat, console_error, constant, context, convert, couch, create,
     cwd, d, dead, debug, default, devel, directive, directive_list,
@@ -123,6 +126,9 @@
 const edition = "v2021.6.24-beta";
 
 const line_fudge = 1;   // Fudge starting line and starting column to 1.
+
+let import_meta_url = "";
+let jslint_export;
 
 function assert_or_throw(passed, message) {
 
@@ -163,7 +169,7 @@ function noop() {
     return;
 }
 
-// coverage-hack
+// Coverage-hack.
 noop();
 
 function populate(array, object = empty(), value = true) {
@@ -2832,6 +2838,13 @@ function jslint_phase3_parse(state) {
                     break;
                 }
                 advance(",");
+                if (token_nxt.id === "]") {
+
+// cause: let aa=[0,]
+
+                    warn("unexpected_a", token_now);
+                    break;
+                }
             }
         }
         advance("]");
@@ -3453,6 +3466,13 @@ function jslint_phase3_parse(state) {
 // cause: aa={"aa":0,"bb":0}
 
                 advance(",");
+                if (token_nxt.id === "}") {
+
+// cause: let aa={aa:0,}
+
+                    warn("unexpected_a", token_now);
+                    break;
+                }
             }
         }
 
@@ -7198,18 +7218,24 @@ function jslint(
 }
 
 async function jslint_cli({
+    cjs_module,
+    cjs_require,
     console_error,
     file,
+    mode_force,
+    mode_noop,
     option,
+    process_exit,
     source
 }) {
 
 // This function will run jslint from nodejs-cli.
 
-    const module_fs = await import("fs");
-    const module_path = await import("path");
     let data;
-    let exit_code;
+    let exit_code = 0;
+    let module_fs;
+    let module_path;
+    let module_url;
 
     function string_line_count(code) {
 
@@ -7325,10 +7351,53 @@ async function jslint_cli({
         }
     }
 
+// Feature-detect nodejs.
+
+    if (!(
+        typeof process === "object"
+        && process
+        && process.versions
+        && typeof process.versions.node === "string"
+        && !mode_noop
+    )) {
+        return exit_code;
+    }
     console_error = console_error || console.error;
+    module_fs = await import("fs");
+    module_path = await import("path");
+    module_url = await import("url");
+    process_exit = process_exit || process.exit;
+    if (!(
+
+// Feature-detect nodejs-cjs-cli.
+
+        (cjs_module && cjs_require)
+        ? cjs_module === cjs_require.main
+
+// Feature-detect nodejs-esm-cli.
+
+        : (
+            process.execArgv.indexOf("--eval") === -1
+            && process.execArgv.indexOf("-e") === -1
+            && (
+                (
+                    /[\/|\\]jslint(?:\.[cm]?js)?$/m
+                ).test(process.argv[1])
+                || mode_force
+            )
+            && module_url.fileURLToPath(import_meta_url)
+            === module_path.resolve(process.argv[1])
+        )
+    ) && !mode_force) {
+        return exit_code;
+    }
 
 // Normalize file relative to process.cwd().
 
+    file = file || process.argv[2];
+    if (!file) {
+        return;
+    }
     file = module_path.resolve(file) + "/";
     if (file.startsWith(process.cwd() + "/")) {
         file = file.replace(process.cwd() + "/", "").slice(0, -1) || ".";
@@ -7344,7 +7413,8 @@ async function jslint_cli({
             file,
             option
         });
-        return;
+        process_exit(exit_code);
+        return exit_code;
     }
 
 // jslint_cli - jslint directory.
@@ -7360,16 +7430,12 @@ async function jslint_cli({
             switch ((
                 /\.\w+?$|$/m
             ).exec(file2)[0]) {
+            case ".cjs":
             case ".html":
-                break;
             case ".js":
-                break;
             case ".json":
-                break;
             case ".md":
-                break;
             case ".mjs":
-                break;
             case ".sh":
                 break;
             default:
@@ -7396,6 +7462,7 @@ async function jslint_cli({
                 "jslint - " + (Date.now() - time_start) + "ms - " + file2
             );
         }));
+        process_exit(exit_code);
         return exit_code;
     }
 
@@ -7405,51 +7472,48 @@ async function jslint_cli({
         data = await module_fs.promises.readFile(file, "utf8");
     } catch (err) {
         console_error(err);
-        return 1;
+        exit_code = 1;
+        process_exit(exit_code);
+        return exit_code;
     }
     jslint_from_file({
         code: data,
         file,
         option
     });
+    process_exit(exit_code);
     return exit_code;
 }
-export default Object.freeze(Object.assign(jslint, {
+
+jslint_export = Object.freeze(Object.assign(jslint, {
     cli: Object.freeze(jslint_cli),
     edition,
     jslint: Object.freeze(jslint.bind(undefined))
 }));
 
-(async function () {
+// Export jslint as commonjs/es-module.
 
-// Feature-detect nodejs-cli.
-
-    if (
-        typeof process === "object" && process && process.versions
-        && typeof process.versions.node === "string"
-        && process.execArgv.indexOf("--eval") === -1
-        && process.execArgv.indexOf("-e") === -1
-        && (
-            (
-                /[\/|\\]jslint(?:\.[cm]?js)?$/m
-            ).test(process.argv[1])
-            || process.env.JSLINT_CLI === "1"
-        )
-        && (
-            identity(await import("url")).fileURLToPath(import.meta.url)
-            === identity(await import("path")).resolve(process.argv[1])
-            || process.env.JSLINT_CLI === "1"
-        )
-    ) {
+// module.exports = jslint_export;
+export default Object.freeze(jslint_export);
+import_meta_url = import.meta.url;
 
 // Run jslint_cli.
 
-        jslint_cli({
-            file: process.argv[2]
-        }).then(function (exit_code) {
-            if (exit_code !== 0) {
-                process.exit(exit_code);
-            }
-        });
-    }
+(function () {
+    let cjs_module;
+    let cjs_require;
+
+// Coverage-hack.
+// Init commonjs builtins in try-catch-block in case we're in es-module-mode.
+
+    try {
+        cjs_module = module;
+    } catch (ignore) {}
+    try {
+        cjs_require = require;
+    } catch (ignore) {}
+    jslint_cli({
+        cjs_module,
+        cjs_require
+    });
 }());
