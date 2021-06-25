@@ -123,7 +123,7 @@ process.exit(Number(
     git config --local user.email "github-actions@users.noreply.github.com"
     git config --local user.name "github-actions"
     # screenshot asset-image-jslint
-    shImageJslintCreate
+    shImageJslintCreate &
     # screenshot web-demo
     shBrowserScreenshot \
         https://jslint-org.github.io/jslint/branch-beta/index.html
