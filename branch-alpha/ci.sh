@@ -123,16 +123,45 @@ process.exit(Number(
     git config --local user.email "github-actions@users.noreply.github.com"
     git config --local user.name "github-actions"
     # screenshot asset-image-jslint
-    shImageJslintCreate &
-    # screenshot example-shell-commands
+    shImageJslintCreate
+    # screenshot web-demo
+    shBrowserScreenshot \
+        https://jslint-org.github.io/jslint/branch-beta/index.html
     node --input-type=module -e '
 import moduleFs from "fs";
 import moduleChildProcess from "child_process";
 (async function () {
     "use strict";
-    var result;
-    result = await moduleFs.promises.readFile("README.md", "utf8");
-    Array.from(result.matchAll(
+    [
+        // parallel-task - screenshot files
+        [
+            "shRunWithScreenshotTxt",
+            ".build/screenshot-files.svg",
+            "shGitLsTree"
+        ],
+        // parallel-task - screenshot changelog
+        [
+            "shRunWithScreenshotTxt",
+            ".build/screenshot-changelog.svg",
+            "head",
+            "-n50",
+            "CHANGELOG.md"
+        ]
+    ].forEach(function (argList) {
+        moduleChildProcess.spawn("./ci.sh", argList, {
+            stdio: [
+                "ignore", 1, 2
+            ]
+        }).on("exit", function (exitCode) {
+            if (exitCode) {
+                process.exit(exitCode);
+            }
+        });
+    });
+    // parallel-task - screenshot example-shell-commands in README.md
+    Array.from(String(
+        await moduleFs.promises.readFile("README.md", "utf8")
+    ).matchAll(
         /\n```shell\u0020<!--\u0020shRunWithScreenshotTxt\u0020(.*?)\u0020-->\n([\S\s]*?\n)```\n/g
     )).forEach(async function ([
         ignore, file, script
@@ -165,16 +194,7 @@ import moduleChildProcess from "child_process";
         );
     });
 }());
-' "$1" # '
-    # screenshot files
-    shRunWithScreenshotTxt .build/screenshot-files.svg shGitLsTree &
-    # screenshot changelog
-    shRunWithScreenshotTxt .build/screenshot-changelog.svg \
-        head -n50 CHANGELOG.md &
-    # screenshot web-demo
-    shBrowserScreenshot \
-        https://jslint-org.github.io/jslint/branch-beta/index.html \
-        --timeout=5000
+' # '
     # seo - invalidate cached-assets and inline css
     node --input-type=module -e '
 import moduleFs from "fs";
@@ -927,14 +947,15 @@ div {
     cp asset-font-daley-bold.woff2 .build
     # screenshot asset-image-jslint-512.png
     shBrowserScreenshot .build/asset-image-jslint-512.html \
-        --timeout=5000 \
         --window-size=512x512 \
-        -screenshot=.build/aset-image-jslint-512.png
+        -screenshot=.build/asset-image-jslint-512.png
     # create various smaller thumbnails
     for SIZE in 32 64 128 256
     do
         convert -resize "${SIZE}x${SIZE}" .build/asset-image-jslint-512.png \
             ".build/asset-image-jslint-$SIZE.png"
+        printf \
+"shImageJslintCreate - wrote - .build/asset-image-jslint-$SIZE.png\n" 1>&2
     done
     # convert to svg @ https://convertio.co/png-svg/
 )}
@@ -998,7 +1019,7 @@ import moduleFs from "fs";
         ) + "\n"
     );
 }());
-' "$1" # '
+' "$@" # '
 )}
 
 shRawLibFetch() {(set -e
