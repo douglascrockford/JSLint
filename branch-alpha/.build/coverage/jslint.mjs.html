@@ -895,81 +895,81 @@ body {
 <pre><span class="lineno"><a href="#line_766" id="line_766">  766.</a></span><span class="count                ">    738</span><span>// the end of file, a closing `, or a ${ indicting an expression within the</span></pre>
 <pre><span class="lineno"><a href="#line_767" id="line_767">  767.</a></span><span class="count                ">    738</span><span>// string.</span></pre>
 <pre><span class="lineno"><a href="#line_768" id="line_768">  768.</a></span><span class="count                ">    738</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_769" id="line_769">  769.</a></span><span class="count                ">   1481</span><span>        while (true) {</span></pre>
-<pre><span class="lineno"><a href="#line_770" id="line_770">  770.</a></span><span class="count                ">   1481</span><span>            match = line_source.match(</span></pre>
-<pre><span class="lineno"><a href="#line_771" id="line_771">  771.</a></span><span class="count                ">   1481</span><span>                //rx_mega</span></pre>
-<pre><span class="lineno"><a href="#line_772" id="line_772">  772.</a></span><span class="count                ">   1481</span><span>                /[`\\]|\$\{/</span></pre>
-<pre><span class="lineno"><a href="#line_773" id="line_773">  773.</a></span><span class="count                ">   1481</span><span>            ) || {</span></pre>
-<pre><span class="lineno"><a href="#line_774" id="line_774">  774.</a></span><span class="count                ">   1481</span><span>                &quot;0&quot;: &quot;&quot;,</span></pre>
-<pre><span class="lineno"><a href="#line_775" id="line_775">  775.</a></span><span class="count                ">   1481</span><span>                index: 0</span></pre>
-<pre><span class="lineno"><a href="#line_776" id="line_776">  776.</a></span><span class="count                ">   1481</span><span>            };</span></pre>
-<pre><span class="lineno"><a href="#line_777" id="line_777">  777.</a></span><span class="count                ">   1481</span><span>            snippet += line_source.slice(0, match.index);</span></pre>
-<pre><span class="lineno"><a href="#line_778" id="line_778">  778.</a></span><span class="count                ">   1481</span><span>            column += match.index;</span></pre>
-<pre><span class="lineno"><a href="#line_779" id="line_779">  779.</a></span><span class="count                ">   1481</span><span>            line_source = line_source.slice(match.index);</span></pre>
-<pre><span class="lineno"><a href="#line_780" id="line_780">  780.</a></span><span class="count                ">   1481</span><span>            match = match[0];</span></pre>
-<pre><span class="lineno"><a href="#line_781" id="line_781">  781.</a></span><span class="count                ">   1481</span><span>            switch (match) {</span></pre>
-<pre><span class="lineno"><a href="#line_782" id="line_782">  782.</a></span><span class="count                ">   1481</span><span>            case &quot;${&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_783" id="line_783">  783.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_784" id="line_784">  784.</a></span><span class="count                ">   1481</span><span>// if either ` or ${ was found, then the preceding joins the snippet to become</span></pre>
-<pre><span class="lineno"><a href="#line_785" id="line_785">  785.</a></span><span class="count                ">   1481</span><span>// a string token.</span></pre>
-<pre><span class="lineno"><a href="#line_786" id="line_786">  786.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_787" id="line_787">  787.</a></span><span class="count                ">   1481</span><span>                token_create(&quot;(string)&quot;, snippet).quote = &quot;`&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_788" id="line_788">  788.</a></span><span class="count                ">   1481</span><span>                snippet = &quot;&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_789" id="line_789">  789.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_790" id="line_790">  790.</a></span><span class="count                ">   1481</span><span>// If ${, then create tokens that will become part of an expression until</span></pre>
-<pre><span class="lineno"><a href="#line_791" id="line_791">  791.</a></span><span class="count                ">   1481</span><span>// a } token is made.</span></pre>
-<pre><span class="lineno"><a href="#line_792" id="line_792">  792.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_793" id="line_793">  793.</a></span><span class="count                ">   1481</span><span>                column += 2;</span></pre>
-<pre><span class="lineno"><a href="#line_794" id="line_794">  794.</a></span><span class="count                ">   1481</span><span>                token_create(&quot;${&quot;);</span></pre>
-<pre><span class="lineno"><a href="#line_795" id="line_795">  795.</a></span><span class="count                ">   1481</span><span>                line_source = line_source.slice(2);</span></pre>
-<pre><span class="lineno"><a href="#line_796" id="line_796">  796.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_797" id="line_797">  797.</a></span><span class="count                ">   1481</span><span>// Lex/loop through each token inside megastring-expression `${...}`.</span></pre>
-<pre><span class="lineno"><a href="#line_798" id="line_798">  798.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_799" id="line_799">  799.</a></span><span class="count                ">   1481</span><span>                while (true) {</span></pre>
-<pre><span class="lineno"><a href="#line_800" id="line_800">  800.</a></span><span class="count                ">   1481</span><span>                    id = lex_token().id;</span></pre>
-<pre><span class="lineno"><a href="#line_801" id="line_801">  801.</a></span><span class="count                ">   1481</span><span>                    if (id === &quot;{&quot;) {</span></pre>
-<pre><span class="lineno"><a href="#line_802" id="line_802">  802.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_803" id="line_803">  803.</a></span><span class="count                ">   1481</span><span>// cause: &quot;`${{&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_804" id="line_804">  804.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_805" id="line_805">  805.</a></span><span class="count                ">   1481</span><span>                        return stop_at(&quot;expected_a_b&quot;, line, column, &quot;}&quot;, &quot;{&quot;);</span></pre>
-<pre><span class="lineno"><a href="#line_806" id="line_806">  806.</a></span><span class="count                ">   1481</span><span>                    }</span></pre>
-<pre><span class="lineno"><a href="#line_807" id="line_807">  807.</a></span><span class="count                ">   1481</span><span>                    if (id === &quot;}&quot;) {</span></pre>
-<pre><span class="lineno"><a href="#line_808" id="line_808">  808.</a></span><span class="count                ">   1481</span><span>                        break;</span></pre>
-<pre><span class="lineno"><a href="#line_809" id="line_809">  809.</a></span><span class="count                ">   1481</span><span>                    }</span></pre>
-<pre><span class="lineno"><a href="#line_810" id="line_810">  810.</a></span><span class="count                ">   1481</span><span>                }</span></pre>
-<pre><span class="lineno"><a href="#line_811" id="line_811">  811.</a></span><span class="count                ">   1481</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_812" id="line_812">  812.</a></span><span class="count                ">   1481</span><span>            case &quot;\\&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_813" id="line_813">  813.</a></span><span class="count                ">   1481</span><span>                snippet += line_source.slice(0, 2);</span></pre>
-<pre><span class="lineno"><a href="#line_814" id="line_814">  814.</a></span><span class="count                ">   1481</span><span>                line_source = line_source.slice(2);</span></pre>
-<pre><span class="lineno"><a href="#line_815" id="line_815">  815.</a></span><span class="count                ">   1481</span><span>                column += 2;</span></pre>
-<pre><span class="lineno"><a href="#line_816" id="line_816">  816.</a></span><span class="count                ">   1481</span><span>                break;</span></pre>
-<pre><span class="lineno"><a href="#line_817" id="line_817">  817.</a></span><span class="count                ">   1481</span><span>            case &quot;`&quot;:</span></pre>
-<pre><span class="lineno"><a href="#line_818" id="line_818">  818.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_819" id="line_819">  819.</a></span><span class="count                ">   1481</span><span>// if either ` or ${ was found, then the preceding joins the snippet to become</span></pre>
-<pre><span class="lineno"><a href="#line_820" id="line_820">  820.</a></span><span class="count                ">   1481</span><span>// a string token.</span></pre>
-<pre><span class="lineno"><a href="#line_821" id="line_821">  821.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_822" id="line_822">  822.</a></span><span class="count                ">   1481</span><span>                token_create(&quot;(string)&quot;, snippet).quote = &quot;`&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_823" id="line_823">  823.</a></span><span class="count                ">   1481</span><span>                snippet = &quot;&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_824" id="line_824">  824.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_825" id="line_825">  825.</a></span><span class="count                ">   1481</span><span>// Terminate megastring with `.</span></pre>
-<pre><span class="lineno"><a href="#line_826" id="line_826">  826.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_827" id="line_827">  827.</a></span><span class="count                ">   1481</span><span>                line_source = line_source.slice(1);</span></pre>
-<pre><span class="lineno"><a href="#line_828" id="line_828">  828.</a></span><span class="count                ">   1481</span><span>                column += 1;</span></pre>
-<pre><span class="lineno"><a href="#line_829" id="line_829">  829.</a></span><span class="count                ">   1481</span><span>                mode_mega = false;</span></pre>
-<pre><span class="lineno"><a href="#line_830" id="line_830">  830.</a></span><span class="count                ">   1481</span><span>                return token_create(&quot;`&quot;);</span></pre>
-<pre><span class="lineno"><a href="#line_831" id="line_831">  831.</a></span><span class="count                ">   1481</span><span>            default:</span></pre>
-<pre><span class="lineno"><a href="#line_832" id="line_832">  832.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_833" id="line_833">  833.</a></span><span class="count                ">   1481</span><span>// If neither ` nor ${ is seen, then the whole line joins the snippet.</span></pre>
-<pre><span class="lineno"><a href="#line_834" id="line_834">  834.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_835" id="line_835">  835.</a></span><span class="count                ">   1481</span><span>                snippet += line_source + &quot;\n&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_836" id="line_836">  836.</a></span><span class="count                ">   1481</span><span>                if (read_line() === undefined) {</span></pre>
-<pre><span class="lineno"><a href="#line_837" id="line_837">  837.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_838" id="line_838">  838.</a></span><span class="count                ">   1481</span><span>// cause: &quot;`&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_839" id="line_839">  839.</a></span><span class="count                ">   1481</span><span></span></pre>
-<pre><span class="lineno"><a href="#line_840" id="line_840">  840.</a></span><span class="count                ">   1481</span><span>                    return stop_at(&quot;unclosed_mega&quot;, line_mega, from_mega);</span></pre>
-<pre><span class="lineno"><a href="#line_841" id="line_841">  841.</a></span><span class="count                ">   1481</span><span>                }</span></pre>
-<pre><span class="lineno"><a href="#line_842" id="line_842">  842.</a></span><span class="count                ">   1481</span><span>            }</span></pre>
-<pre><span class="lineno"><a href="#line_843" id="line_843">  843.</a></span><span class="count                ">   1481</span><span>        }</span></pre>
+<pre><span class="lineno"><a href="#line_769" id="line_769">  769.</a></span><span class="count                ">   1483</span><span>        while (true) {</span></pre>
+<pre><span class="lineno"><a href="#line_770" id="line_770">  770.</a></span><span class="count                ">   1483</span><span>            match = line_source.match(</span></pre>
+<pre><span class="lineno"><a href="#line_771" id="line_771">  771.</a></span><span class="count                ">   1483</span><span>                //rx_mega</span></pre>
+<pre><span class="lineno"><a href="#line_772" id="line_772">  772.</a></span><span class="count                ">   1483</span><span>                /[`\\]|\$\{/</span></pre>
+<pre><span class="lineno"><a href="#line_773" id="line_773">  773.</a></span><span class="count                ">   1483</span><span>            ) || {</span></pre>
+<pre><span class="lineno"><a href="#line_774" id="line_774">  774.</a></span><span class="count                ">   1483</span><span>                &quot;0&quot;: &quot;&quot;,</span></pre>
+<pre><span class="lineno"><a href="#line_775" id="line_775">  775.</a></span><span class="count                ">   1483</span><span>                index: 0</span></pre>
+<pre><span class="lineno"><a href="#line_776" id="line_776">  776.</a></span><span class="count                ">   1483</span><span>            };</span></pre>
+<pre><span class="lineno"><a href="#line_777" id="line_777">  777.</a></span><span class="count                ">   1483</span><span>            snippet += line_source.slice(0, match.index);</span></pre>
+<pre><span class="lineno"><a href="#line_778" id="line_778">  778.</a></span><span class="count                ">   1483</span><span>            column += match.index;</span></pre>
+<pre><span class="lineno"><a href="#line_779" id="line_779">  779.</a></span><span class="count                ">   1483</span><span>            line_source = line_source.slice(match.index);</span></pre>
+<pre><span class="lineno"><a href="#line_780" id="line_780">  780.</a></span><span class="count                ">   1483</span><span>            match = match[0];</span></pre>
+<pre><span class="lineno"><a href="#line_781" id="line_781">  781.</a></span><span class="count                ">   1483</span><span>            switch (match) {</span></pre>
+<pre><span class="lineno"><a href="#line_782" id="line_782">  782.</a></span><span class="count                ">   1483</span><span>            case &quot;${&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_783" id="line_783">  783.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_784" id="line_784">  784.</a></span><span class="count                ">   1483</span><span>// if either ` or ${ was found, then the preceding joins the snippet to become</span></pre>
+<pre><span class="lineno"><a href="#line_785" id="line_785">  785.</a></span><span class="count                ">   1483</span><span>// a string token.</span></pre>
+<pre><span class="lineno"><a href="#line_786" id="line_786">  786.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_787" id="line_787">  787.</a></span><span class="count                ">   1483</span><span>                token_create(&quot;(string)&quot;, snippet).quote = &quot;`&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_788" id="line_788">  788.</a></span><span class="count                ">   1483</span><span>                snippet = &quot;&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_789" id="line_789">  789.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_790" id="line_790">  790.</a></span><span class="count                ">   1483</span><span>// If ${, then create tokens that will become part of an expression until</span></pre>
+<pre><span class="lineno"><a href="#line_791" id="line_791">  791.</a></span><span class="count                ">   1483</span><span>// a } token is made.</span></pre>
+<pre><span class="lineno"><a href="#line_792" id="line_792">  792.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_793" id="line_793">  793.</a></span><span class="count                ">   1483</span><span>                column += 2;</span></pre>
+<pre><span class="lineno"><a href="#line_794" id="line_794">  794.</a></span><span class="count                ">   1483</span><span>                token_create(&quot;${&quot;);</span></pre>
+<pre><span class="lineno"><a href="#line_795" id="line_795">  795.</a></span><span class="count                ">   1483</span><span>                line_source = line_source.slice(2);</span></pre>
+<pre><span class="lineno"><a href="#line_796" id="line_796">  796.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_797" id="line_797">  797.</a></span><span class="count                ">   1483</span><span>// Lex/loop through each token inside megastring-expression `${...}`.</span></pre>
+<pre><span class="lineno"><a href="#line_798" id="line_798">  798.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_799" id="line_799">  799.</a></span><span class="count                ">   1483</span><span>                while (true) {</span></pre>
+<pre><span class="lineno"><a href="#line_800" id="line_800">  800.</a></span><span class="count                ">   1483</span><span>                    id = lex_token().id;</span></pre>
+<pre><span class="lineno"><a href="#line_801" id="line_801">  801.</a></span><span class="count                ">   1483</span><span>                    if (id === &quot;{&quot;) {</span></pre>
+<pre><span class="lineno"><a href="#line_802" id="line_802">  802.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_803" id="line_803">  803.</a></span><span class="count                ">   1483</span><span>// cause: &quot;`${{&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_804" id="line_804">  804.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_805" id="line_805">  805.</a></span><span class="count                ">   1483</span><span>                        return stop_at(&quot;expected_a_b&quot;, line, column, &quot;}&quot;, &quot;{&quot;);</span></pre>
+<pre><span class="lineno"><a href="#line_806" id="line_806">  806.</a></span><span class="count                ">   1483</span><span>                    }</span></pre>
+<pre><span class="lineno"><a href="#line_807" id="line_807">  807.</a></span><span class="count                ">   1483</span><span>                    if (id === &quot;}&quot;) {</span></pre>
+<pre><span class="lineno"><a href="#line_808" id="line_808">  808.</a></span><span class="count                ">   1483</span><span>                        break;</span></pre>
+<pre><span class="lineno"><a href="#line_809" id="line_809">  809.</a></span><span class="count                ">   1483</span><span>                    }</span></pre>
+<pre><span class="lineno"><a href="#line_810" id="line_810">  810.</a></span><span class="count                ">   1483</span><span>                }</span></pre>
+<pre><span class="lineno"><a href="#line_811" id="line_811">  811.</a></span><span class="count                ">   1483</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_812" id="line_812">  812.</a></span><span class="count                ">   1483</span><span>            case &quot;\\&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_813" id="line_813">  813.</a></span><span class="count                ">   1483</span><span>                snippet += line_source.slice(0, 2);</span></pre>
+<pre><span class="lineno"><a href="#line_814" id="line_814">  814.</a></span><span class="count                ">   1483</span><span>                line_source = line_source.slice(2);</span></pre>
+<pre><span class="lineno"><a href="#line_815" id="line_815">  815.</a></span><span class="count                ">   1483</span><span>                column += 2;</span></pre>
+<pre><span class="lineno"><a href="#line_816" id="line_816">  816.</a></span><span class="count                ">   1483</span><span>                break;</span></pre>
+<pre><span class="lineno"><a href="#line_817" id="line_817">  817.</a></span><span class="count                ">   1483</span><span>            case &quot;`&quot;:</span></pre>
+<pre><span class="lineno"><a href="#line_818" id="line_818">  818.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_819" id="line_819">  819.</a></span><span class="count                ">   1483</span><span>// if either ` or ${ was found, then the preceding joins the snippet to become</span></pre>
+<pre><span class="lineno"><a href="#line_820" id="line_820">  820.</a></span><span class="count                ">   1483</span><span>// a string token.</span></pre>
+<pre><span class="lineno"><a href="#line_821" id="line_821">  821.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_822" id="line_822">  822.</a></span><span class="count                ">   1483</span><span>                token_create(&quot;(string)&quot;, snippet).quote = &quot;`&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_823" id="line_823">  823.</a></span><span class="count                ">   1483</span><span>                snippet = &quot;&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_824" id="line_824">  824.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_825" id="line_825">  825.</a></span><span class="count                ">   1483</span><span>// Terminate megastring with `.</span></pre>
+<pre><span class="lineno"><a href="#line_826" id="line_826">  826.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_827" id="line_827">  827.</a></span><span class="count                ">   1483</span><span>                line_source = line_source.slice(1);</span></pre>
+<pre><span class="lineno"><a href="#line_828" id="line_828">  828.</a></span><span class="count                ">   1483</span><span>                column += 1;</span></pre>
+<pre><span class="lineno"><a href="#line_829" id="line_829">  829.</a></span><span class="count                ">   1483</span><span>                mode_mega = false;</span></pre>
+<pre><span class="lineno"><a href="#line_830" id="line_830">  830.</a></span><span class="count                ">   1483</span><span>                return token_create(&quot;`&quot;);</span></pre>
+<pre><span class="lineno"><a href="#line_831" id="line_831">  831.</a></span><span class="count                ">   1483</span><span>            default:</span></pre>
+<pre><span class="lineno"><a href="#line_832" id="line_832">  832.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_833" id="line_833">  833.</a></span><span class="count                ">   1483</span><span>// If neither ` nor ${ is seen, then the whole line joins the snippet.</span></pre>
+<pre><span class="lineno"><a href="#line_834" id="line_834">  834.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_835" id="line_835">  835.</a></span><span class="count                ">   1483</span><span>                snippet += line_source + &quot;\n&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_836" id="line_836">  836.</a></span><span class="count                ">   1483</span><span>                if (read_line() === undefined) {</span></pre>
+<pre><span class="lineno"><a href="#line_837" id="line_837">  837.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_838" id="line_838">  838.</a></span><span class="count                ">   1483</span><span>// cause: &quot;`&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_839" id="line_839">  839.</a></span><span class="count                ">   1483</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_840" id="line_840">  840.</a></span><span class="count                ">   1483</span><span>                    return stop_at(&quot;unclosed_mega&quot;, line_mega, from_mega);</span></pre>
+<pre><span class="lineno"><a href="#line_841" id="line_841">  841.</a></span><span class="count                ">   1483</span><span>                }</span></pre>
+<pre><span class="lineno"><a href="#line_842" id="line_842">  842.</a></span><span class="count                ">   1483</span><span>            }</span></pre>
+<pre><span class="lineno"><a href="#line_843" id="line_843">  843.</a></span><span class="count                ">   1483</span><span>        }</span></pre>
 <pre><span class="lineno"><a href="#line_844" id="line_844">  844.</a></span><span class="count                ">    739</span><span>    }</span></pre>
 <pre><span class="lineno"><a href="#line_845" id="line_845">  845.</a></span><span class="count                ">    580</span><span></span></pre>
 <pre><span class="lineno"><a href="#line_846" id="line_846">  846.</a></span><span class="count                ">   2780</span><span>    function lex_number() {</span></pre>

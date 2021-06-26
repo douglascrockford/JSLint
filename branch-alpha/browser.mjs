@@ -18,7 +18,7 @@
     warnings
 */
 
-import jslint from "./jslint.mjs?cc=nggd";
+import jslint from "./jslint.mjs?cc=ozji";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -345,8 +345,8 @@ function call_jslint() {
     }
     editor.setValue(`#!/usr/bin/env node
 
-/*jslint beta, node*/
-/*global atob, btoa*/ //jslint-quiet
+/*jslint browser, node*/
+/*global $, jQuery*/ //jslint-quiet
 
 import jslint from \u0022./jslint.mjs\u0022;
 import https from "https";
@@ -383,7 +383,7 @@ console.log('hello world');
 
 // Suppress warnings on next-line.
 eval( //jslint-quiet
-    "console.log('hello world');"
+    "console.log(\\"hello world\\");"
 );
 
 (async function () {
