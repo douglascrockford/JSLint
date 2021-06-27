@@ -18,7 +18,7 @@
     warnings
 */
 
-import jslint from "./jslint.mjs?cc=7a9n";
+import jslint from "./jslint.mjs?cc=986r";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -352,7 +352,7 @@ import jslint from \u0022./jslint.mjs\u0022;
 import https from "https";
 
 // Optional directives.
-// .... /*jslint beta*/ .......... Enable extra warnings currently in beta.
+// .... /*jslint beta*/ .......... Enable experimental warnings.
 // .... /*jslint bitwise*/ ....... Allow bitwise operators.
 // .... /*jslint browser*/ ....... Assume browser environment.
 // .... /*jslint convert*/ ....... Allow conversion operators.

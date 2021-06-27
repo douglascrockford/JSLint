@@ -25,7 +25,7 @@
 // jslint(source, option_dict, global_list) is a function that takes 3
 // arguments. The second two arguments are optional.
 
-//      source          A text to analyze, a string or an array of strings.
+//      source          A text to analyze.
 //      option_dict     An object whose keys correspond to option names.
 //      global_list     An array of strings containing global variables that
 //                      the file is allowed readonly access.
@@ -124,9 +124,9 @@
     writable
 */
 
-const jslint_edition = "v2021.6.26-beta";
-const jslint_fudge = 1;   // Fudge starting line and starting column to 1.
-let jslint_export;
+let jslint_edition = "v2021.6.26-beta";
+let jslint_export;              // The jslint object to be exported.
+let jslint_fudge = 1;           // Fudge starting line and starting column to 1.
 let jslint_import_meta_url = "";
 
 function assert_or_throw(passed, message) {
@@ -192,7 +192,7 @@ function jslint_phase2_lex(state) {
 
 // PHASE 2. Lex <line_list> into <token_list>.
 
-    const {
+    let {
         allowed_option,
         artifact,
         directive_list,
@@ -207,22 +207,27 @@ function jslint_phase2_lex(state) {
         warn,
         warn_at
     } = state;
-    const rx_bits = (
-        /^[01]*/
-    );
-    const rx_digits = (
+    let char;                   // The current character being lexed.
+    let column = 0;             // The column number of the next character.
+    let from;                   // The starting column number of the token.
+    let from_mega;              // The starting column of megastring.
+    let line = 0;               // The line number of the next character.
+    let line_disable;           // The starting line of "/*jslint-disable*/".
+    let line_mega;              // The starting line of megastring.
+    let line_source = "";       // The remaining line source string.
+    let line_whole = "";        // The whole line source string.
+    let mode_directive = true;  // true if directives are still allowed.
+    let mode_mega = false;      // true if currently parsing a megastring
+                                // ... literal.
+    let mode_regexp;            // true if regular expression literal seen on
+                                // ... this line.
+    let rx_digits = (
         /^[0-9]*/
     );
-    const rx_hexs = (
+    let rx_hexs = (
         /^[0-9A-F]*/i
     );
-    const rx_octals = (
-        /^[0-7]*/
-    );
-    const rx_tab = (
-        /\t/g
-    );
-    const rx_token = new RegExp(
+    let rx_token = new RegExp(
         "^("
         + "(\\s+)"
         + "|([a-zA-Z_$][a-zA-Z0-9_$]*)"
@@ -245,25 +250,12 @@ function jslint_phase2_lex(state) {
         + ")"
         + "(.*)$"
     );
-    let char;           // A popular character.
-    let column = 0;     // The column number of the next character.
-    let from;           // The starting column number of the token.
-    let from_mega;      // The starting column of megastring.
-    let line = 0;       // The line number of the next character.
-    let line_disable;   // The starting line of "/*jslint-disable*/".
-    let line_mega;      // The starting line of megastring.
-    let line_source = "";       // The remaining line source string.
-    let line_whole = "";        // The whole line source string.
-    let mode_directive = true;  // true if directives are still allowed.
-    let mode_mega = false;      // true if currently parsing a megastring
-                                //     literal.
-    let mode_regexp;    // true if regular expression literal seen on this line.
-    let snippet = "";   // A piece of string.
-    let token_1;        // The first token.
-    let token_before_slash = token_global;      // The previous token excluding
-                                                //     comments.
+    let snippet = "";           // A piece of string.
+    let token_1;                // The first token.
     let token_prv = token_global;       // The previous token including
-                                        //     comments.
+                                        // ... comments.
+    let token_prv_expr = token_global;  // The previous token excluding
+                                        // ... comments.
 
 // Most tokens, including the identifiers, operators, and punctuators, can be
 // found with a regular expression. Regular expressions cannot correctly match
@@ -282,9 +274,9 @@ function jslint_phase2_lex(state) {
             return (
                 char === ""
 
-// cause: "aa=/[/"
+// cause: "aa=/["
 
-                ? stop_at("expected_a", line, column - 1, match, char)
+                ? stop_at("expected_a", line, column - 1, match)
 
 // cause: "aa=/aa{/"
 
@@ -335,7 +327,6 @@ function jslint_phase2_lex(state) {
 // replace them with spaces and give a warning. Also warn if the line contains
 // unsafe characters or is too damn long.
 
-        let at;
         if (
             !option_dict.long
             && line_whole.length > 80
@@ -390,15 +381,17 @@ function jslint_phase2_lex(state) {
 
             line_source = "";
         }
-        at = line_source.search(rx_tab);
-        if (at >= 0) {
+        if (line_source.indexOf("\t") >= 0) {
             if (!option_dict.white) {
 
 // cause: "\t"
 
-                warn_at("use_spaces", line, at);
+                warn_at("use_spaces", line, line_source.indexOf("\t") + 1);
             }
-            line_source = line_source.replace(rx_tab, " ");
+            line_source = line_source.replace((
+                // rx_tab
+                /\t/g
+            ), " ");
         }
         if (!option_dict.white && line_source.endsWith(" ")) {
 
@@ -462,7 +455,7 @@ function jslint_phase2_lex(state) {
 
             warn("expected_a_before_b", token_prv, "0", ".");
         }
-        if (token_before_slash.id === "." && the_token.identifier) {
+        if (token_prv_expr.id === "." && the_token.identifier) {
             the_token.dot = true;
         }
 
@@ -470,13 +463,13 @@ function jslint_phase2_lex(state) {
 
         token_prv = the_token;
 
-// The token_before_slash token is a previous token that was not a comment.
-// The token_before_slash token
+// The token_prv_expr token is a previous token that was not a comment.
+// The token_prv_expr token
 // is used to disambiguate "/", which can mean division or regular expression
 // literal.
 
         if (token_prv.id !== "(comment)") {
-            token_before_slash = token_prv;
+            token_prv_expr = token_prv;
         }
         return the_token;
     }
@@ -848,10 +841,16 @@ function jslint_phase2_lex(state) {
         char_after();
         switch (mode_0 && char) {
         case "b":
-            read_digits(rx_bits);
+            read_digits(
+                // rx_bits
+                /^[01]*/
+            );
             break;
         case "o":
-            read_digits(rx_octals);
+            read_digits(
+                // rx_octals
+                /^[0-7]*/
+            );
             break;
         case "x":
             read_digits(rx_hexs);
@@ -895,70 +894,93 @@ function jslint_phase2_lex(state) {
     function lex_regexp() {
 
 // Regexp
-// Parse a regular expression literal.
+// Lex a regular expression literal.
 
         let flag;
-        let mode_multi = false;
+        let mode_regexp_multiline;
         let result;
         let value;
         mode_regexp = true;
 
-        function regexp_subklass() {
+        function lex_regexp_bracket() {
+            let mode_regexp_range;
+
+// RegExp
+// Match a class.
+
+            char_after("[");
+            if (char === "^") {
+                char_after("^");
+            }
+            while (true) {
 
 // RegExp
 // Match a character in a character class.
 
-            switch (char) {
-            case "":
-                return false;
-            case " ":
+                switch (char) {
+                case "":
+                case "]":
+
+// cause: "aa=/["
+// cause: "aa=/[]/"
+
+                    if (mode_regexp_range) {
+
+// cause: "aa=/[0-]/"
+
+                        warn_at("unexpected_a", line, column - 1, "-");
+                    }
+                    return char_after("]");
+                case " ":
 
 // cause: "aa=/[ ]/"
 
-                warn_at("expected_a_b", line, column, "\\u0020", " ");
-                char_after();
-                return true;
-            case "-":
-                return false;
-            case "/":
-                return false;
-            case "[":
-                return false;
-            case "\\":
-                char_after_escape("BbDdSsWw-[]^");
-                return true;
-            case "]":
-                return false;
-            case "^":
+                    warn_at("expected_a_b", line, column, "\\u0020", " ");
+                    break;
+                case "-":
+                case "/":
+                case "[":
+                case "^":
 
 // cause: "aa=/[-]/"
 // cause: "aa=/[.^]/"
 // cause: "aa=/[/"
 // cause: "aa=/[\\\\/]/"
 // cause: "aa=/[\\\\[]/"
-// cause: "aa=/[\\\\]]/"
 
-                return false;
-            case "`":
-                if (mode_mega) {
+                    warn_at("expected_a_before_b", line, column, "\\", char);
+                    break;
+                case "\\":
+                    char_after_escape("BbDdSsWw-[]^");
+                    char_before();
+                    break;
+                case "`":
+                    if (mode_mega) {
 
 // cause: "`${/[`]/}`"
 
-                    warn_at("unexpected_a", line, column, "`");
+                        warn_at("unexpected_a", line, column, "`");
+                    }
+                    break;
                 }
                 char_after();
-                return true;
-            default:
-                char_after();
-                return true;
+                mode_regexp_range = false;
+                if (char === "-") {
+
+// RegExp
+// Match a range of subclasses.
+
+                    mode_regexp_range = true;
+                    char_after("-");
+                }
             }
         }
 
-        function regexp_choice() {
+        function lex_regexp_group() {
             let follow;
 
 // RegExp
-// Parse sequence of characters in regexp.
+// Lex sequence of characters in regexp.
 
             while (true) {
                 switch (char) {
@@ -968,11 +990,13 @@ function jslint_phase2_lex(state) {
                 case "]":
 
 // RegExp
-// Break while-loop in regexp_choice().
+// Break while-loop in lex_regexp_group().
 
                     if (!follow) {
 
 // cause: "/ /"
+// cause: "aa=/)"
+// cause: "aa=/]"
 
                         warn_at("expected_regexp_factor_a", line, column, char);
                     }
@@ -988,7 +1012,7 @@ function jslint_phase2_lex(state) {
 // Probably deadcode.
 // if (char === "|") {
 //     char_after("|");
-//     return regexp_choice();
+//     return lex_regexp_group();
 // }
 
                     return;
@@ -1001,7 +1025,7 @@ function jslint_phase2_lex(state) {
                     break;
                 case "$":
                     if (line_source[0] !== "/") {
-                        mode_multi = true;
+                        mode_regexp_multiline = true;
                     }
                     char_after();
                     break;
@@ -1027,9 +1051,9 @@ function jslint_phase2_lex(state) {
                     }
 
 // RegExp
-// Recurse regexp_choice().
+// Recurse lex_regexp_group().
 
-                    regexp_choice();
+                    lex_regexp_group();
                     char_after(")");
                     break;
                 case "*":
@@ -1054,48 +1078,7 @@ function jslint_phase2_lex(state) {
                     char_after();
                     break;
                 case "[":
-
-// RegExp
-// Match a class.
-
-                    char_after("[");
-                    if (char === "^") {
-                        char_after("^");
-                    }
-                    while (true) {
-
-// RegExp
-// Match a range of subclasses.
-
-                        while (regexp_subklass()) {
-                            if (
-                                char === "-"
-                                && char_after("-")
-                                && !regexp_subklass()
-                            ) {
-
-// cause: "aa=/[0-]/"
-
-                                warn_at("unexpected_a", line, column - 1, "-");
-                                break;
-                            }
-                        }
-                        if (char === "]" || char === "") {
-                            break;
-                        }
-
-// cause: "aa=/[/"
-
-                        warn_at(
-                            "expected_a_before_b",
-                            line,
-                            column,
-                            "\\",
-                            char
-                        );
-                        char_after();
-                    }
-                    char_after("]");
+                    lex_regexp_bracket();
                     break;
                 case "\\":
 
@@ -1105,7 +1088,7 @@ function jslint_phase2_lex(state) {
                     break;
                 case "^":
                     if (snippet !== "^") {
-                        mode_multi = true;
+                        mode_regexp_multiline = true;
                     }
                     char_after();
                     break;
@@ -1197,7 +1180,7 @@ function jslint_phase2_lex(state) {
 
             warn_at("expected_a_before_b", line, column, "\\", "=");
         }
-        regexp_choice();
+        lex_regexp_group();
 
 // RegExp
 // Remove last character from snippet.
@@ -1260,7 +1243,7 @@ function jslint_phase2_lex(state) {
         result = token_create("(regexp)", char);
         result.flag = flag;
         result.value = value;
-        if (mode_multi && !flag.m) {
+        if (mode_regexp_multiline && !flag.m) {
 
 // cause: "aa=/$^/"
 
@@ -1281,23 +1264,36 @@ function jslint_phase2_lex(state) {
 // cases by eliminating automatic semicolon insertion.
 
         let the_token;
-        if (token_before_slash.identifier) {
-            if (!token_before_slash.dot) {
-                if (token_before_slash.id === "return") {
-                    return lex_regexp();
-                }
-                if (
-                    token_before_slash.id === "(begin)"
-                    || token_before_slash.id === "case"
-                    || token_before_slash.id === "delete"
-                    || token_before_slash.id === "in"
-                    || token_before_slash.id === "instanceof"
-                    || token_before_slash.id === "new"
-                    || token_before_slash.id === "typeof"
-                    || token_before_slash.id === "void"
-                    || token_before_slash.id === "yield"
-                ) {
-                    the_token = lex_regexp();
+        switch (
+            token_prv_expr.identifier
+            && !token_prv_expr.dot
+            && token_prv_expr.id
+        ) {
+        case "case":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "delete":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "in":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "instanceof":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "new":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "return":
+            return lex_regexp();
+        case "typeof":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "void":
+            the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        case "yield":
+            the_token = lex_regexp();
 
 // cause: "/./"
 // cause: "case /./"
@@ -1309,25 +1305,59 @@ function jslint_phase2_lex(state) {
 // cause: "void /./"
 // cause: "yield /./"
 
-                    return stop("unexpected_a", the_token);
-                }
-            }
-        } else {
-            if ("(,=:?[".indexOf(
-                token_before_slash.id.slice(-1)
-            ) >= 0) {
-                return lex_regexp();
-            }
-            if ("!&|{};~+-*%/^<>".indexOf(
-                token_before_slash.id.slice(-1)
-            ) >= 0) {
-                the_token = lex_regexp();
+            return stop("unexpected_a", the_token);
+        }
+        switch (!token_prv_expr.identifier && token_prv_expr.id.slice(-1)) {
+        case "!":
+        case "%":
+        case "&":
+        case "*":
+        case "+":
+        case "-":
+        case "/":
+        case ";":
+        case "<":
+        case ">":
+        case "^":
+        case "{":
+        case "|":
+        case "}":
+        case "~":
+            the_token = lex_regexp();
 
 // cause: "!/./"
+// cause: "%/./"
+// cause: "&/./"
+// cause: "+/./"
+// cause: "-/./"
+// cause: "0 * /./"
+// cause: "0 / /./"
+// cause: ";/./"
+// cause: "</./"
+// cause: ">/./"
+// cause: "^/./"
+// cause: "{/./"
+// cause: "|/./"
+// cause: "}/./"
+// cause: "~/./"
 
-                warn("wrap_regexp", the_token);
-                return the_token;
-            }
+            warn("wrap_regexp", the_token);
+            return the_token;
+        case "(":
+        case ",":
+        case ":":
+        case "=":
+        case "?":
+        case "[":
+
+// cause: "(/./"
+// cause: ",/./"
+// cause: ":/./"
+// cause: "=/./"
+// cause: "?/./"
+// cause: "aa[/./"
+
+            return lex_regexp();
         }
         if (line_source[0] === "=") {
             column += 1;
@@ -1548,21 +1578,25 @@ function jslint_phase3_parse(state) {
     let mode_var;               // "var" if using var; "let" if using let.
     let token_ii = 0;           // The number of the next token.
     let token_now = token_global;       // The current token being examined in
-                                        //     the parse.
+                                        // ... the parse.
     let token_nxt = token_global;       // The next token to be examined in
-                                        //     <token_list>.
+                                        // ... <token_list>.
 
     function warn_if_unordered(type, token_list) {
 
 // This function will warn if <token_list> is unordered.
 
-        if (option_dict.unordered) {
-            return;
-        }
         token_list.reduce(function (aa, token) {
             const bb = artifact(token);
-            if (aa > bb) {
-                warn("expected_a_b_before_c_d", token, type, bb, type, aa);
+            if (!option_dict.unordered && aa > bb) {
+                warn(
+                    "expected_a_b_ordered_before_c_d",
+                    token,
+                    type,
+                    bb,
+                    type,
+                    aa
+                );
             }
             return bb;
         }, "");
@@ -1572,9 +1606,6 @@ function jslint_phase3_parse(state) {
 
 // This function will warn if <case_list> is unordered.
 
-        if (option_dict.unordered) {
-            return;
-        }
         case_list.filter(identity).map(function (token) {
             switch (token.identifier || token.id) {
             case "(number)":
@@ -1601,14 +1632,15 @@ function jslint_phase3_parse(state) {
             }
         }).reduce(function (aa, bb) {
             if (
-                aa && bb
+                !option_dict.unordered
+                && aa && bb
                 && (
                     aa.order > bb.order
                     || (aa.order === bb.order && aa.value > bb.value)
                 )
             ) {
                 warn(
-                    "expected_a_b_before_c_d",
+                    "expected_a_b_ordered_before_c_d",
                     bb.token,
                     `case-${bb.type}`,
                     bb.value,
@@ -3548,13 +3580,37 @@ function jslint_phase3_parse(state) {
     });
 
     function parse_var() {
-        const the_variable = token_now;
         let ellipsis;
-        let mode_const = the_variable.id === "const";
+        let mode_const;
         let name;
         let the_brace;
         let the_bracket;
+        let the_variable = token_now;
         let variable_prv;
+        mode_const = the_variable.id === "const";
+        the_variable.names = [];
+
+// A program may use var or let, but not both.
+
+        if (!mode_const) {
+            if (mode_var === undefined) {
+                mode_var = the_variable.id;
+            } else if (the_variable.id !== mode_var) {
+
+// cause: "let aa;var aa"
+
+                warn("expected_a_b", the_variable, mode_var, the_variable.id);
+            }
+        }
+
+// We don't expect to see variables created in switch statements.
+
+        if (functionage.switch > 0) {
+
+// cause: "switch(0){case 0:var aa}"
+
+            warn("var_switch", the_variable);
+        }
         switch (
             Boolean(functionage.last_statement)
             && functionage.last_statement.id
@@ -3593,29 +3649,6 @@ function jslint_phase3_parse(state) {
 
                 warn("var_on_top", token_now);
             }
-        }
-        the_variable.names = [];
-
-// A program may use var or let, but not both.
-
-        if (!mode_const) {
-            if (mode_var === undefined) {
-                mode_var = the_variable.id;
-            } else if (the_variable.id !== mode_var) {
-
-// cause: "let aa;var aa"
-
-                warn("expected_a_b", the_variable, mode_var, the_variable.id);
-            }
-        }
-
-// We don't expect to see variables created in switch statements.
-
-        if (functionage.switch > 0) {
-
-// cause: "switch(0){case 0:var aa}"
-
-            warn("var_switch", the_variable);
         }
         while (true) {
             if (token_nxt.id === "{") {
@@ -3758,22 +3791,22 @@ function jslint_phase3_parse(state) {
 // Warn if variable declarations are unordered.
 
         if (
-            (
-                option_dict.beta
-                && !option_dict.unordered
-                && !option_dict.variable
-            )
+            option_dict.beta
+            && !option_dict.unordered
+            && !option_dict.variable
             && variable_prv
             && (
-                (variable_prv.id + " " + variable_prv.names[0].id)
-                > (the_variable.id + " " + the_variable.names[0].id)
+                variable_prv.id + " " + variable_prv.names[0].id
+                > the_variable.id + " " + the_variable.names[0].id
             )
         ) {
 
+// cause: "/*jslint beta*/\nconst bb=0;const aa=0;"
 // cause: "/*jslint beta*/\nlet bb;let aa;"
+// cause: "/*jslint beta*/\nvar bb;var aa;"
 
             warn(
-                "expected_a_b_before_c_d",
+                "expected_a_b_ordered_before_c_d",
                 the_variable,
                 the_variable.id,
                 the_variable.names[0].id,
@@ -5679,7 +5712,7 @@ function jslint_phase5_whitage(state) {
         : 4
     );
     const spaceop = populate([  // This is the set of infix operators that
-                                //     require a space on each side.
+                                // ... require a space on each side.
         "!=", "!==", "%", "%=", "&", "&=", "&&", "*", "*=", "+=", "-=", "/",
         "/=", "<", "<=", "<<", "<<=", "=", "==", "===", "=>", ">", ">=",
         ">>", ">>=", ">>>", ">>>=", "^", "^=", "|", "|=", "||"
@@ -6295,10 +6328,12 @@ function jslint_phase5_whitage(state) {
 }
 
 function jslint(
-    source = "",        // A text to analyze, a string or an array of strings.
-    option_dict = empty(),  // An object whose keys correspond to option names.
-    global_list = []    // An array of strings containing global variables that
-                        //     the file is allowed readonly access.
+    source = "",                // A text to analyze.
+    option_dict = empty(),      // An object whose keys correspond to option
+                                // ... names.
+    global_list = []            // An array of strings containing global
+                                // ... variables that the file is allowed
+                                // ... readonly access.
 ) {
 
 // The jslint function itself.
@@ -6310,7 +6345,7 @@ function jslint(
 // usually true. Some options will also predefine some number of global
 // variables.
 
-        beta: true,             // Enable extra warnings currently in beta.
+        beta: true,             // Enable experimental warnings.
         bitwise: true,          // Allow bitwise operators.
         browser: [              // Assume browser environment.
             "CharacterData",
@@ -6329,16 +6364,12 @@ function jslint(
             "URL",
             "Worker",
             "XMLHttpRequest",
-            "caches",
             "clearInterval",
             "clearTimeout",
             "document",
-            "event",
             "fetch",
-            "history",
             "localStorage",
             "location",
-            "name",
             "navigator",
             "screen",
             "sessionStorage",
@@ -6348,8 +6379,17 @@ function jslint(
         ],
         convert: true,          // Allow conversion operators.
         couch: [                // Assume CouchDb environment.
-            "emit", "getRow", "isArray", "log", "provides", "registerType",
-            "require", "send", "start", "sum", "toJSON"
+            "emit",
+            "getRow",
+            "isArray",
+            "log",
+            "provides",
+            "registerType",
+            "require",
+            "send",
+            "start",
+            "sum",
+            "toJSON"
         ],
         debug: true,            // Include jslint stack-trace in warnings.
         devel: [                // Allow console.log() and friends.
@@ -6383,12 +6423,12 @@ function jslint(
         ],
         single: true,           // Allow single-quote strings.
         test_internal_error: true,      // Test jslint's internal-error
-                                        //     handling-ability.
+                                        // ... handling-ability.
         this: true,             // Allow 'this'.
         unordered: true,        // Allow unordered cases, params, properties,
-                                //     and variables.
+                                // ... and variables.
         variable: true,         // Allow unordered const and let declarations
-                                //     that are not at top of function-scope.
+                                // ... that are not at top of function-scope.
         white: true             // Allow messy whitespace.
     };
     const catch_list = [];      // The array containing all catch-blocks.
@@ -6402,7 +6442,7 @@ function jslint(
     const function_list = [];   // The array containing all functions.
     const function_stack = [];  // The stack of functions.
     const global_dict = empty();        // The object containing the global
-                                        //     declarations.
+                                        // ... declarations.
     const import_list = [];     // The array collecting all import-from strings.
     const line_list = String(   // The array containing source lines.
         "\n" + source
@@ -6415,9 +6455,9 @@ function jslint(
         };
     });
     const property_dict = empty();      // The object containing the tallied
-                                        //     property names.
+                                        // ... property names.
     const standard = [          // These are the globals that are provided by
-                                //     the language standard.
+                                // ... the language standard.
 // node --input-type=module -e '
 // /*jslint beta node*/
 // import https from "https";
@@ -6738,14 +6778,14 @@ function jslint(
         case "expected_a_b":
             mm = `Expected '${a}' and instead saw '${b}'.`;
             break;
-        case "expected_a_b_before_c_d":
-            mm = `Expected ${a} '${b}' before ${c} '${d}'.`;
-            break;
         case "expected_a_b_from_c_d":
             mm = (
                 `Expected '${a}' to match '${b}' from line ${c}`
                 + ` and instead saw '${d}'.`
             );
+            break;
+        case "expected_a_b_ordered_before_c_d":
+            mm = `Expected ${a} '${b}' to be ordered before ${c} '${d}'.`;
             break;
         case "expected_a_before_b":
             mm = `Expected '${a}' before '${b}'.`;
