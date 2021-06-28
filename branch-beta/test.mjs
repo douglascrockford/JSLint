@@ -178,7 +178,7 @@ function noop() {
         let elemNow = JSON.stringify([
             option_dict, source, global_list
         ]);
-        // Assert codeList is sorted.
+        // Assert list is sorted.
         assertOrThrow(elemPrv < elemNow, JSON.stringify([
             elemPrv, elemNow
         ], undefined, 4));
@@ -301,7 +301,8 @@ function noop() {
         regexp: [
             "function aa() {\n    return /./;\n}",
             "let aa = /(?!.)(?:.)(?=.)/;",
-            "let aa = /./gimuy;"
+            "let aa = /./gimuy;",
+            "let aa = /[\\--\\-]/;"
         ],
         ternary: [
             "let aa = (\n    aa()\n    ? 0\n    : 1\n) "

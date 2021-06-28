@@ -124,6 +124,15 @@
     writable
 */
 
+let jslint_charset_ascii = (
+    "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007"
+    + "\b\t\n\u000b\f\r\u000e\u000f"
+    + "\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017"
+    + "\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f"
+    + " !\"#$%&'()*+,-./0123456789:;<=>?"
+    + "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+    + "`abcdefghijklmnopqrstuvwxyz{|}~\u007f"
+);
 let jslint_edition = "v2021.6.26-beta";
 let jslint_export;              // The jslint object to be exported.
 let jslint_fudge = 1;           // Fudge starting line and starting column to 1.
@@ -169,7 +178,7 @@ function noop() {
 }
 
 // Coverage-hack.
-noop();
+noop(jslint_charset_ascii);
 
 function populate(array, object = empty(), value = true) {
 
@@ -306,8 +315,8 @@ function jslint_phase2_lex(state) {
     }
 
     function read_digits(rx, quiet) {
-        const digits = line_source.match(rx)[0];
-        const length = digits.length;
+        let digits = line_source.match(rx)[0];
+        let length = digits.length;
         if (!quiet && length === 0) {
 
 // cause: "0x"
@@ -406,7 +415,7 @@ function jslint_phase2_lex(state) {
 
 // Create the token object and append it to token_list.
 
-        const the_token = {
+        let the_token = {
             from,
             id,
             identifier: Boolean(identifier),
@@ -660,8 +669,8 @@ function jslint_phase2_lex(state) {
         }
         the_comment.directive = match[1];
         body = match[2];
-        // lex_directive();
 
+// lex_directive();
 // JSLint recognizes three directives that can be encoded in comments. This
 // function processes one item, and calls itself recursively to process the
 // next one.
@@ -697,11 +706,6 @@ function jslint_phase2_lex(state) {
                             populate(allowed, global_dict, false);
                         }
                     } else {
-                        assert_or_throw(
-                            value === "false",
-                            `Expected value === "false".`
-                        );
-                        option_dict[name] = false;
 
 // Probably deadcode.
 // } else if (value === "false") {
@@ -709,6 +713,11 @@ function jslint_phase2_lex(state) {
 // } else {
 //     warn("bad_option_a", the_comment, name + ":" + value);
 
+                        assert_or_throw(
+                            value === "false",
+                            `Expected value === "false".`
+                        );
+                        option_dict[name] = false;
                     }
                 } else {
 
@@ -837,7 +846,7 @@ function jslint_phase2_lex(state) {
     }
 
     function lex_number() {
-        const mode_0 = snippet === "0";
+        let mode_0 = snippet === "0";
         char_after();
         switch (mode_0 && char) {
         case "b":
@@ -977,44 +986,32 @@ function jslint_phase2_lex(state) {
         }
 
         function lex_regexp_group() {
-            let follow;
 
 // RegExp
 // Lex sequence of characters in regexp.
 
+            switch (char) {
+            case "":
+                warn_at("expected_regexp_factor_a", line, column, char);
+                break;
+            case ")":
+                warn_at("expected_regexp_factor_a", line, column, char);
+                break;
+            case "]":
+
+// cause: "/ /"
+// cause: "aa=/)"
+// cause: "aa=/]"
+
+                warn_at("expected_regexp_factor_a", line, column, char);
+                break;
+            }
             while (true) {
                 switch (char) {
                 case "":
                 case ")":
                 case "/":
                 case "]":
-
-// RegExp
-// Break while-loop in lex_regexp_group().
-
-                    if (!follow) {
-
-// cause: "/ /"
-// cause: "aa=/)"
-// cause: "aa=/]"
-
-                        warn_at("expected_regexp_factor_a", line, column, char);
-                    }
-
-// RegExp
-// Match a choice (a sequence that can be followed by | and another choice).
-
-                    assert_or_throw(
-                        !(char === "|"),
-                        `Expected !(char === "|").`
-                    );
-
-// Probably deadcode.
-// if (char === "|") {
-//     char_after("|");
-//     return lex_regexp_group();
-// }
-
                     return;
                 case " ":
 
@@ -1164,7 +1161,6 @@ function jslint_phase2_lex(state) {
                     }
                     break;
                 }
-                follow = true;
             }
         }
 
@@ -1295,7 +1291,6 @@ function jslint_phase2_lex(state) {
         case "yield":
             the_token = lex_regexp();
 
-// cause: "/./"
 // cause: "case /./"
 // cause: "delete /./"
 // cause: "in /./"
@@ -1547,7 +1542,8 @@ function jslint_phase3_parse(state) {
 
 // Specialized tokens may have additional properties.
 
-    const {
+    let anon = "anonymous";     // The guessed name for anonymous functions.
+    let {
         artifact,
         catch_list,
         catch_stack,
@@ -1566,16 +1562,15 @@ function jslint_phase3_parse(state) {
         warn,
         warn_at
     } = state;
-    const rx_identifier = (
-        /^([a-zA-Z_$][a-zA-Z0-9_$]*)$/
-    );
-    const rx_json_number = (
-        /^-?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][\-+]?\d+)?$/
-    );
-    let anon = "anonymous";     // The guessed name for anonymous functions.
     let catchage = catch_stack[0];      // The current catch-block.
     let functionage = token_global;     // The current function.
     let mode_var;               // "var" if using var; "let" if using let.
+    let rx_identifier = (
+        /^([a-zA-Z_$][a-zA-Z0-9_$]*)$/
+    );
+    let rx_json_number = (
+        /^-?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][\-+]?\d+)?$/
+    );
     let token_ii = 0;           // The number of the next token.
     let token_now = token_global;       // The current token being examined in
                                         // ... the parse.
@@ -1852,6 +1847,7 @@ function jslint_phase3_parse(state) {
         } else {
 
 // cause: "!"
+// cause: "/./"
 // cause: "let aa=`${}`;"
 
             return stop("unexpected_a", token_now);
@@ -3139,11 +3135,11 @@ function jslint_phase3_parse(state) {
         }
         the_function.level = functionage.level + 1;
 
-//  assert_or_throw(!mode_mega, `Expected !mode_mega.`);
 //  Probably deadcode.
 //  if (mode_mega) {
 //      warn("unexpected_a", the_function);
 //  }
+//  assert_or_throw(!mode_mega, `Expected !mode_mega.`);
 
 // Don't create functions in loops. It is inefficient, and it can lead to
 // scoping errors.
@@ -4600,7 +4596,7 @@ function jslint_phase4_walk(state) {
 //          recursive traversal. Each node may be processed on the way down
 //          (preaction) and on the way up (postaction).
 
-    const {
+    let {
         artifact,
         catch_stack,
         function_stack,
@@ -4612,19 +4608,19 @@ function jslint_phase4_walk(state) {
         token_global,
         warn
     } = state;
-    const block_stack = [];     // The stack of blocks.
-    const posts = empty();
-    const pres = empty();
-    const relationop = populate([       // The relational operators.
-        "!=", "!==", "==", "===", "<", "<=", ">", ">="
-    ]);
+    let block_stack = [];               // The stack of blocks.
     let blockage = token_global;        // The current block.
     let catchage = catch_stack[0];      // The current catch-block.
     let functionage = token_global;     // The current function.
     let postaction;
     let postamble;
+    let posts = empty();
     let preaction;
     let preamble;
+    let pres = empty();
+    let relationop = populate([         // The relational operators.
+        "!=", "!==", "==", "===", "<", "<=", ">", ">="
+    ]);
 
 // Ambulation of the parse tree.
 
@@ -5015,10 +5011,6 @@ function jslint_phase4_walk(state) {
             name.dead = false;
             if (name.expression !== undefined) {
                 walk_expression(name.expression);
-                assert_or_throw(
-                    !(name.id === "{" || name.id === "["),
-                    `Expected !(name.id === "{" || name.id === "[").`
-                );
 
 // Probably deadcode.
 // if (name.id === "{" || name.id === "[") {
@@ -5027,6 +5019,10 @@ function jslint_phase4_walk(state) {
 //     name.init = true;
 // }
 
+                assert_or_throw(
+                    !(name.id === "{" || name.id === "["),
+                    `Expected !(name.id === "{" || name.id === "[").`
+                );
                 name.init = true;
             }
             blockage.live.push(name);
@@ -5240,10 +5236,7 @@ function jslint_phase4_walk(state) {
 
 // cause: "if(0){aa=0}"
 
-                assert_or_throw(
-                    !Array.isArray(thing.names),
-                    `Expected !Array.isArray(thing.names).`
-                );
+                noop();
 
 // Probably deadcode.
 // if (Array.isArray(thing.names)) {
@@ -5252,6 +5245,10 @@ function jslint_phase4_walk(state) {
 //     init_variable(thing.names);
 // }
 
+                assert_or_throw(
+                    !Array.isArray(thing.names),
+                    `Expected !Array.isArray(thing.names).`
+                );
                 init_variable(thing.names);
             } else {
                 if (lvalue.id === "[" || lvalue.id === "{") {
@@ -5696,7 +5693,7 @@ function jslint_phase5_whitage(state) {
 
 // PHASE 5. Check whitespace between tokens in <token_list>.
 
-    const {
+    let {
         artifact,
         catch_list,
         function_list,
@@ -5706,17 +5703,6 @@ function jslint_phase5_whitage(state) {
         token_list,
         warn
     } = state;
-    const mode_indent = (
-        option_dict.indent2
-        ? 2
-        : 4
-    );
-    const spaceop = populate([  // This is the set of infix operators that
-                                // ... require a space on each side.
-        "!=", "!==", "%", "%=", "&", "&=", "&&", "*", "*=", "+=", "-=", "/",
-        "/=", "<", "<=", "<<", "<<=", "=", "==", "===", "=>", ">", ">=",
-        ">>", ">>=", ">>>", ">>>=", "^", "^=", "|", "|=", "||"
-    ]);
     let closer = "(end)";
 
 // free = false
@@ -5728,6 +5714,8 @@ function jslint_phase5_whitage(state) {
 
     let free = false;
 
+// free = true
+
 // cause: "(0)"
 // cause: "(aa)"
 // cause: "aa(0)"
@@ -5737,26 +5725,35 @@ function jslint_phase5_whitage(state) {
 // cause: "switch(){}"
 // cause: "while(){}"
 
-    // let free = true;
-
     let left = token_global;
     let margin = 0;
+    let mode_indent = (
+        option_dict.indent2
+        ? 2
+        : 4
+    );
     let nr_comments_skipped = 0;
     let open = true;
     let opening = true;
     let right;
+    let spaceop = populate([    // This is the set of infix operators that
+                                // ... require a space on each side.
+        "!=", "!==", "%", "%=", "&", "&=", "&&", "*", "*=", "+=", "-=", "/",
+        "/=", "<", "<=", "<<", "<<=", "=", "==", "===", "=>", ">", ">=",
+        ">>", ">>=", ">>>", ">>>=", "^", "^=", "|", "|=", "||"
+    ]);
 
     function expected_at(at) {
-        assert_or_throw(
-            !(right === undefined),
-            `Expected !(right === undefined).`
-        );
 
 // Probably deadcode.
 // if (right === undefined) {
 //     right = token_nxt;
 // }
 
+        assert_or_throw(
+            !(right === undefined),
+            `Expected !(right === undefined).`
+        );
         warn(
             "expected_a_at_b_c",
             right,
@@ -5785,10 +5782,6 @@ function jslint_phase5_whitage(state) {
 
                 if (
                     name.used === 0
-                    && assert_or_throw(
-                        name.role !== "function",
-                        `Expected name.role !== "function".`
-                    )
 
 // Probably deadcode.
 // && (
@@ -5796,6 +5789,10 @@ function jslint_phase5_whitage(state) {
 //     || name.parent.arity !== "unary"
 // )
 
+                    && assert_or_throw(
+                        name.role !== "function",
+                        `Expected name.role !== "function".`
+                    )
                 ) {
 
 // cause: "/*jslint node*/\nlet aa;"
@@ -5846,9 +5843,6 @@ function jslint_phase5_whitage(state) {
 //     no_space();
 // } else if (
 
-            assert_or_throw(open, `Expected open.`);
-            assert_or_throw(free, `Expected free.`);
-
 // Probably deadcode.
 // if (open) {
 //     const at = (
@@ -5865,6 +5859,8 @@ function jslint_phase5_whitage(state) {
 //     }
 // }
 
+            assert_or_throw(open, `Expected open.`);
+            assert_or_throw(free, `Expected free.`);
             if (right.from < margin) {
 
 // cause:
@@ -5938,11 +5934,11 @@ function jslint_phase5_whitage(state) {
         });
     }
 
+// uninitialized_and_unused();
 // Delve into the functions looking for variables that were not initialized
 // or used. If the file imports or exports, then its global object is also
 // delved.
 
-    // uninitialized_and_unused();
     if (state.mode_module === true || option_dict.node) {
         delve(token_global);
     }
@@ -5953,9 +5949,9 @@ function jslint_phase5_whitage(state) {
         return;
     }
 
+// whitage();
 // Go through the token list, looking at usage of whitespace.
 
-    // whitage();
     token_list.forEach(function (the_token) {
         right = the_token;
         if (right.id === "(comment)" || right.id === "(end)") {
@@ -5982,14 +5978,15 @@ function jslint_phase5_whitage(state) {
 // cause: "let aa=`${"
 // cause: "let aa={"
 
-                assert_or_throw(
-                    !(left.id + right.id === "${}"),
-                    "Expected !(left.id + right.id === \"${}\")."
-                );
+                noop();
 
 // Probably deadcode.
 // case "${}":
 
+                assert_or_throw(
+                    !(left.id + right.id === "${}"),
+                    "Expected !(left.id + right.id === \"${}\")."
+                );
                 switch (left.id + right.id) {
                 case "()":
                 case "[]":
@@ -6338,7 +6335,7 @@ function jslint(
 
 // The jslint function itself.
 
-    const allowed_option = {
+    let allowed_option = {
 
 // These are the options that are recognized in the option object or that may
 // appear in a /*jslint*/ directive. Most options will have a boolean value,
@@ -6431,20 +6428,20 @@ function jslint(
                                 // ... that are not at top of function-scope.
         white: true             // Allow messy whitespace.
     };
-    const catch_list = [];      // The array containing all catch-blocks.
-    const catch_stack = [       // The stack of catch-blocks.
+    let catch_list = [];        // The array containing all catch-blocks.
+    let catch_stack = [         // The stack of catch-blocks.
         {
             context: empty()
         }
     ];
-    const directive_list = [];          // The directive comments.
-    const export_dict = empty();        // The exported names and values.
-    const function_list = [];   // The array containing all functions.
-    const function_stack = [];  // The stack of functions.
-    const global_dict = empty();        // The object containing the global
-                                        // ... declarations.
-    const import_list = [];     // The array collecting all import-from strings.
-    const line_list = String(   // The array containing source lines.
+    let directive_list = [];    // The directive comments.
+    let export_dict = empty();  // The exported names and values.
+    let function_list = [];     // The array containing all functions.
+    let function_stack = [];    // The stack of functions.
+    let global_dict = empty();  // The object containing the global
+                                // ... declarations.
+    let import_list = [];       // The array collecting all import-from strings.
+    let line_list = String(     // The array containing source lines.
         "\n" + source
     ).split(
         // rx_crlf
@@ -6454,9 +6451,10 @@ function jslint(
             line_source
         };
     });
-    const property_dict = empty();      // The object containing the tallied
+    let mode_stop = false;      // true if JSLint cannot finish.
+    let property_dict = empty();        // The object containing the tallied
                                         // ... property names.
-    const standard = [          // These are the globals that are provided by
+    let standard = [            // These are the globals that are provided by
                                 // ... the language standard.
 // node --input-type=module -e '
 // /*jslint beta node*/
@@ -6552,11 +6550,11 @@ function jslint(
         "parseInt",
         "undefined"
     ];
-    const state = empty();      // jslint state-object to be passed between
+    let state = empty();        // jslint state-object to be passed between
                                 // jslint functions.
-    const syntax_dict = empty();        // The object containing the parser.
-    const tenure = empty();     // The predefined property registry.
-    const token_global = {      // The global object; the outermost context.
+    let syntax_dict = empty();  // The object containing the parser.
+    let tenure = empty();       // The predefined property registry.
+    let token_global = {        // The global object; the outermost context.
         async: 0,
         body: true,
         context: empty(),
@@ -6571,9 +6569,8 @@ function jslint(
         thru: 0,
         try: 0
     };
-    const token_list = [];      // The array of tokens.
-    const warning_list = [];    // The array collecting all generated warnings.
-    let mode_stop = false;      // true if JSLint cannot finish.
+    let token_list = [];        // The array of tokens.
+    let warning_list = [];      // The array collecting all generated warnings.
 
 // Error reportage functions:
 
@@ -6612,13 +6609,14 @@ function jslint(
 
 // cause: "0&&0"
 
-        assert_or_throw(!(aa === bb), `Expected !(aa === bb).`);
+        noop();
 
 // Probably deadcode.
 // if (aa === bb) {
 //     return true;
 // }
 
+        assert_or_throw(!(aa === bb), `Expected !(aa === bb).`);
         if (Array.isArray(aa)) {
             return (
                 Array.isArray(bb)
@@ -6631,13 +6629,13 @@ function jslint(
                 })
             );
         }
-        assert_or_throw(!Array.isArray(bb), `Expected !Array.isArray(bb).`);
 
 // Probably deadcode.
 // if (Array.isArray(bb)) {
 //     return false;
 // }
 
+        assert_or_throw(!Array.isArray(bb), `Expected !Array.isArray(bb).`);
         if (aa.id === "(number)" && bb.id === "(number)") {
             return aa.value === bb.value;
         }
@@ -6693,15 +6691,16 @@ function jslint(
                     && is_equal(aa.expression[2], bb.expression[2])
                 );
             }
-            assert_or_throw(
-                !(aa.arity === "function" || aa.arity === "regexp"),
-                `Expected !(aa.arity === "function" || aa.arity === "regexp").`
-            );
 
 // Probably deadcode.
 // if (aa.arity === "function" || aa.arity === "regexp") {
 //     return false;
 // }
+
+            assert_or_throw(
+                !(aa.arity === "function" || aa.arity === "regexp"),
+                `Expected !(aa.arity === "function" || aa.arity === "regexp").`
+            );
 
 // cause: "undefined&&undefined"
 
@@ -6718,7 +6717,8 @@ function jslint(
 // Report an error at some line and column of the program. The warning object
 // resembles an exception.
 
-        const warning = Object.assign({
+        let mm;
+        let warning = Object.assign(empty(), {
             a,
             b,
             c,
@@ -6732,7 +6732,6 @@ function jslint(
             line_source: "",
             name: "JSLintError"
         }, line_list[line]);
-        let mm;
         switch (code) {
 
 // The bundle contains the raw text messages that are generated by jslint. It
@@ -7018,6 +7017,10 @@ function jslint(
             mm = `Wrap the unary expression in parens.`;
             break;
         }
+
+// Validate mm.
+
+        assert_or_throw(mm, code);
         warning.message = mm;
 
 // Include stack_trace for jslint to debug itself for errors.
@@ -7307,10 +7310,10 @@ async function jslint_cli({
         code,
         file,
         line_offset = 0,
-        option = {},
+        option = empty(),
         warnings = []
     }) {
-        option = Object.assign({}, option, {
+        option = Object.assign(empty(), option, {
             file
         });
         switch ((
@@ -7327,7 +7330,7 @@ async function jslint_cli({
                     code: match1,
                     file: file + ".<script>.js",
                     line_offset: string_line_count(code.slice(0, ii)) + 1,
-                    option: Object.assign({
+                    option: Object.assign(empty(), {
                         browser: true
                     }, option)
                 });
@@ -7361,7 +7364,7 @@ async function jslint_cli({
                     code: match1,
                     file: file + ".<node -e>.js",
                     line_offset: string_line_count(code.slice(0, ii)) + 1,
-                    option: Object.assign({
+                    option: Object.assign(empty(), {
                         beta: Boolean(
                             process.env.JSLINT_BETA
                             && !(
