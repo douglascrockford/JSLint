@@ -11,10 +11,12 @@
 <meta name="author" content="Douglas Crockford"/>
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
-<!-- Google PageSpeed - reduce Largest Contentful Paint -->
-<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=1dac">
-<link rel="modulepreload" href="browser.mjs?cc=1dac">
-<link rel="modulepreload" href="jslint.mjs?cc=1dac">
+
+<!-- Google PageSpeed - Reduce Largest Contentful Paint. -->
+
+<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=535f">
+<link rel="modulepreload" href="browser.mjs?cc=535f">
+<link rel="modulepreload" href="jslint.mjs?cc=535f">
 <style>
 /*jslint-disable*/
 /*
@@ -505,13 +507,6 @@ body {
     padding: 4px 16px;
     text-align: center;
 }
-#JSLINT_ button:active {
-    color: black;
-}
-#JSLINT_ button:hover {
-    background: slategray;
-    color: white;
-}
 #JSLINT_ dd {
     font-weight: bold;
     margin-left: 8em;
@@ -634,10 +629,6 @@ body {
 #JSLINT_OPTIONS div[title] input {
     vertical-align: middle;
 }
-#JSLINT_OPTIONS div[title]:hover {
-    background: slategray;
-    color: white;
-}
 #JSLINT_OPTIONS > div > div {
     float: left;
     line-height: 20px;
@@ -679,6 +670,16 @@ body {
 }
 #JSLINT_WARNINGS > legend {
     background: indianred;
+}
+
+#JSLINT_ button:hover,
+#JSLINT_OPTIONS div[title]:hover {
+    background: slategray;
+    color: white;
+}
+
+#JSLINT_ button:active {
+    color: black;
 }
 </style>
 </head>
@@ -753,7 +754,7 @@ style="
 <fieldset>
     <legend>Source</legend>
 
-<!-- Google PageSpeed - reduce Cumulative Layout Shift -->
+<!-- Google PageSpeed - Reduce Cumulative Layout Shift. -->
 
     <textarea id="JSLINT_SOURCE" style="height: 297px;"></textarea>
 </fieldset>
@@ -854,8 +855,8 @@ style="
     <div id="JSLINT_REPORT_LIST"></div>
 </fieldset>
 </div>
-<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=1dac"></script>
-<script src="browser.mjs?cc=1dac" type="module"></script>
+<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=535f"></script>
+<script src="browser.mjs?cc=535f" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {
