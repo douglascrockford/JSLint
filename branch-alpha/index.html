@@ -12,9 +12,9 @@
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
 <!-- Google PageSpeed - reduce Largest Contentful Paint -->
-<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=1zml">
-<link rel="modulepreload" href="browser.mjs?cc=1zml">
-<link rel="modulepreload" href="jslint.mjs?cc=1zml">
+<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=1dac">
+<link rel="modulepreload" href="browser.mjs?cc=1dac">
+<link rel="modulepreload" href="jslint.mjs?cc=1dac">
 <style>
 /*jslint-disable*/
 /*
@@ -622,6 +622,22 @@ body {
     background-position: bottom left;
     background-repeat: repeat-x;
 }
+#JSLINT_OPTIONS div[title],
+#JSLINT_OPTIONS div[title] input,
+#JSLINT_OPTIONS div[title] label {
+    cursor: pointer;
+    user-select: none;
+}
+#JSLINT_OPTIONS div[title] {
+    padding: 0 4px;
+}
+#JSLINT_OPTIONS div[title] input {
+    vertical-align: middle;
+}
+#JSLINT_OPTIONS div[title]:hover {
+    background: slategray;
+    color: white;
+}
 #JSLINT_OPTIONS > div > div {
     float: left;
     line-height: 20px;
@@ -838,8 +854,8 @@ style="
     <div id="JSLINT_REPORT_LIST"></div>
 </fieldset>
 </div>
-<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=1zml"></script>
-<script src="browser.mjs?cc=1zml" type="module"></script>
+<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=1dac"></script>
+<script src="browser.mjs?cc=1dac" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {

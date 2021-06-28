@@ -5,6 +5,7 @@
 /*jslint beta, browser*/
 
 /*property
+    closest, target, preventDefault, stopPropagation,
     click, debug, search, test, trim,
     CodeMirror, Tab, addEventListener, checked, closure, column, context,
     create, ctrlKey, display, edition, exports, extraKeys, filter, forEach,
@@ -18,7 +19,7 @@
     warnings
 */
 
-import jslint from "./jslint.mjs?cc=1zml";
+import jslint from "./jslint.mjs?cc=1dac";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -302,6 +303,8 @@ function call_jslint() {
 
     document.addEventListener("keydown", function (evt) {
         if ((evt.ctrlKey || evt.metaKey) && evt.key === "Enter") {
+            evt.preventDefault();
+            evt.stopPropagation();
             call_jslint();
         }
     });
@@ -320,6 +323,20 @@ function call_jslint() {
             elem.checked = false;
         });
         document.getElementById("JSLINT_GLOBAL").value = "";
+    };
+    document.querySelector(
+        "#JSLINT_OPTIONS"
+    ).onclick = function (evt) {
+        let elem;
+        elem = evt.target.closest(
+            "#JSLINT_OPTIONS div[title]"
+        );
+        elem = elem && elem.querySelector("input[type=checkbox]");
+        if (elem && elem !== evt.target) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            elem.checked = !elem.checked;
+        }
     };
 
 // Init CodeMirror editor.
