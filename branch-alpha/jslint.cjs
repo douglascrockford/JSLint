@@ -3118,6 +3118,9 @@ function jslint_phase3_parse(state) {
                 enroll(name, "variable", true);
                 the_function.name = Object.assign(name, {
                     calls: empty(),
+
+// Fixes issue #272 - function hoisting not allowed.
+
                     dead: false,
                     init: true
                 });
@@ -5145,6 +5148,7 @@ function jslint_phase4_walk(state) {
                 left_variable = parent.context[left.id];
                 if (
                     left_variable !== undefined
+                    // coverage-hack
                     // && left_variable.dead
                     && left_variable.parent === parent
                     && left_variable.calls !== undefined
@@ -6642,12 +6646,12 @@ function jslint(
         if (aa.id === "(string)") {
             aa_value = aa.value;
         } else if (aa.id === "`" && aa.constant) {
-            aa_value = aa.value[0];
+            aa_value = aa.value[0].value;
         }
         if (bb.id === "(string)") {
             bb_value = bb.value;
         } else if (bb.id === "`" && bb.constant) {
-            bb_value = bb.value[0];
+            bb_value = bb.value[0].value;
         }
         if (typeof aa_value === "string") {
             return aa_value === bb_value;

@@ -6,6 +6,7 @@
 - jslint - add `for...of` syntax support.
 - jslint - add html and css linting back into jslint.
 - jslint - add new warning against using do-statment.
+- jslint - add new warning requiring paren around comma-separated concatenations.
 - jslint - add syntax-support for continue-label-statement.
 - jslint - require regexp to use open-form.
 - jslint - simplify comments/docs by removing unnecessary grammar-article "the".
@@ -14,9 +15,11 @@
 - merge function.html and help.html into README.md
 - node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejections=strict"`.
 - tests - update function warn_at() with assertion-check matching column with artifact.
+- vim - add vim plugin.
 
 ## v2021.6.26-beta
 - breaking-change - rename files *.js to *.mjs for better integration with nodejs.
+- bugfix - fix function is_equal() always returning true when comparing string-literals.
 - ci - auto-screenshot example-shell-commands in README.md.
 - ci - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint.
 - jslint - disable out-of-scope warning for functions.
