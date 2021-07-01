@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 // JSLint
 // Original Author: Douglas Crockford (https://www.jslint.com).
 
