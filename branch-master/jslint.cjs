@@ -7541,9 +7541,9 @@ jslint_export = Object.freeze(Object.assign(jslint, {
 
 // Export jslint as commonjs/es-module.
 
-// module.exports = jslint_export;
-export default Object.freeze(jslint_export);
-jslint_import_meta_url = import.meta.url;
+module.exports = jslint_export;
+// export default Object.freeze(jslint_export);
+// jslint_import_meta_url = import.meta.url;
 
 // Run jslint_cli.
 

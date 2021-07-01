@@ -8,24 +8,13 @@
     to be run from a web browser. It can accept a source program and analyze
     it without sending it over the network."
 />
-<meta
-    name="author"
-    content="Douglas Crockford"
-/>
-<meta
-    name="date"
-    content="2020-10-23"
-/>
-<link
-    rel="icon"
-    type="image/png"
-    href="asset-image-jslint-512.svg"
-/>
+<meta name="author" content="Douglas Crockford"/>
+<link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
-<!-- Google PageSpeed - reduce Largest Contentful Paint -->
-<link as="script" rel="preload" href="asset-codemirror-v5.58.3-rollup.js?cc=ygqb">
-<link rel="modulepreload" href="browser.js?cc=ygqb">
-<link rel="modulepreload" href="jslint.js?cc=ygqb">
+<!-- Google PageSpeed - Reduce Largest Contentful Paint. -->
+<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=s51r">
+<link rel="modulepreload" href="browser.mjs?cc=s51r">
+<link rel="modulepreload" href="jslint.mjs?cc=s51r">
 <style>
 /*jslint-disable*/
 /*
@@ -33,7 +22,10 @@ shRawLibFetch
 {
     "fetchList": [
         {
-            "url": "https://github.com/codemirror/CodeMirror/blob/5.58.3/lib/codemirror.css"
+            "url": "https://github.com/codemirror/CodeMirror/blob/5.62.0/lib/codemirror.css"
+        },
+        {
+            "url": "https://github.com/codemirror/CodeMirror/blob/5.62.0/addon/lint/lint.css"
         }
     ]
 }
@@ -41,13 +33,13 @@ shRawLibFetch
 
 
 /*
-repo https://github.com/codemirror/CodeMirror/tree/5.58.3
-committed 2020-11-19T08:38:15Z
+repo https://github.com/codemirror/CodeMirror/tree/5.62.0
+committed 2021-06-21T07:13:20Z
 */
 
 
 /*
-file https://github.com/codemirror/CodeMirror/blob/5.58.3/lib/codemirror.css
+file https://github.com/codemirror/CodeMirror/blob/5.62.0/lib/codemirror.css
 */
 /* BASICS */
 
@@ -402,28 +394,101 @@ span.CodeMirror-selectedtext { background: none; }
 
 
 /*
+file https://github.com/codemirror/CodeMirror/blob/5.62.0/addon/lint/lint.css
+*/
+/* The lint marker gutter */
+.CodeMirror-lint-markers {
+  width: 16px;
+}
+
+.CodeMirror-lint-tooltip {
+  background-color: #ffd;
+  border: 1px solid black;
+  border-radius: 4px 4px 4px 4px;
+  color: black;
+  font-family: monospace;
+  font-size: 10pt;
+  overflow: hidden;
+  padding: 2px 5px;
+  position: fixed;
+  white-space: pre;
+  white-space: pre-wrap;
+  z-index: 100;
+  max-width: 600px;
+  opacity: 0;
+  transition: opacity .4s;
+  -moz-transition: opacity .4s;
+  -webkit-transition: opacity .4s;
+  -o-transition: opacity .4s;
+  -ms-transition: opacity .4s;
+}
+
+.CodeMirror-lint-mark {
+  background-position: left bottom;
+  background-repeat: repeat-x;
+}
+
+.CodeMirror-lint-mark-warning {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJFhQXEbhTg7YAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAMklEQVQI12NkgIIvJ3QXMjAwdDN+OaEbysDA4MPAwNDNwMCwiOHLCd1zX07o6kBVGQEAKBANtobskNMAAAAASUVORK5CYII=");
+}
+
+.CodeMirror-lint-mark-error {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
+}
+
+.CodeMirror-lint-marker {
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+  position: relative;
+}
+
+.CodeMirror-lint-message {
+  padding-left: 18px;
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+
+.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII=");
+}
+
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII=");
+}
+
+.CodeMirror-lint-marker-multiple {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  width: 100%; height: 100%;
+}
+
+.CodeMirror-lint-line-error {
+  background-color: rgba(183, 76, 81, 0.08);
+}
+
+.CodeMirror-lint-line-warning {
+  background-color: rgba(255, 211, 0, 0.1);
+}
+
+
+/*
 file none
 */
 /*jslint-enable*/
 </style>
 <style>
 /*csslint
+    box-model: false,
     ids:false,
     overqualified-elements: false
 */
 /*csslint ignore:start*/
-@font-face {
-    font-display: swap;
-    font-family: "Programma";
-    font-weight: bold;
-    src: url("asset-font-programma-bold.woff2") format("woff2");
-}
-@font-face {
-    font-display: swap;
-    font-family: "Daley";
-    font-weight: bold;
-    src: url("asset-font-daley-bold.woff2") format("woff2");
-}
 @keyframes uiLoaderEllipsis1 {
     from {
         opacity: 0;
@@ -448,289 +513,430 @@ file none
         opacity: 1;
     }
 }
+.JSLINT_ .CodeMirror .cm-trailingspace,
+.JSLINT_ .CodeMirror-lint-mark-warning {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
+    background-position: bottom left;
+    background-repeat: repeat-x;
+}
 /*csslint ignore:end*/
-body,
-#JSLINT_ button {
+
+/* Google PageSpeed - Reduce Cumulative Layout Shift. */
+.JSLINT_ #JSLINT_SOURCE textarea {
+    height: 298px;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button,
+.JSLINT_ #JSLINT_OPTIONS > div,
+.JSLINT_ #JSLINT_TITLEBOX {
     font-family: daley, sans-serif;
+    font-size: 14px;
 }
-.uiLoaderEllipsis span {
-    animation: uiLoaderEllipsis1 1s infinite steps(1);
-}
-.uiLoaderEllipsis span:first-child + span {
-    animation-name: uiLoaderEllipsis2;
-}
-.uiLoaderEllipsis span:first-child + span + span {
-    animation-name: uiLoaderEllipsis3;
-}
-#JSLINT_ address,
-#JSLINT_ dt,
-#JSLINT_WARNINGS cite {
-    font-family: serif;
-}
-#JSLINT_ dd,
-#JSLINT_ dfn,
-#JSLINT_WARNINGS samp {
-    font-family: programma, monospace;
-}
-#JSLINT_ label {
+.JSLINT_ #JSLINT_OPTIONS label {
     font-family: sans-serif;
 }
-#JSLINT_ textarea,
-#JSLINT_ .CodeMirror pre.CodeMirror-line,
-#JSLINT_ .CodeMirror pre.CodeMirror-line-like {
+.JSLINT_ #JSLINT_SOURCE .CodeMirror,
+.JSLINT_ #JSLINT_SOURCE .CodeMirror pre {
     font-family: monospace;
     font-size: 12px;
 }
 
-
-a:link {
-    color: black;
-}
-a:visited {
-    color: #69565c;
-}
-body {
-    background-color: antiquewhite;
-    color: black;
-    margin: 0;
+.JSLINT_ .CodeMirror {
     padding: 0;
 }
-#JSLINT_ address {
-    color: black;
-    float: right;
-    font-size: 90%;
-    margin-left: 1em;
+.JSLINT_ .CodeMirror-lint-marker {
+    background-position: 1px -1px;
 }
-#JSLINT_ button {
-    background-color: darkslategray;
-    border: 0;
+.JSLINT_ .CodeMirror-selected {
+    background: wheat;
+}
+.JSLINT_ .uiLoaderEllipsis span {
+    animation: uiLoaderEllipsis1 1s infinite steps(1);
+}
+.JSLINT_ .uiLoaderEllipsis span:first-child + span {
+    animation-name: uiLoaderEllipsis2;
+}
+.JSLINT_ .uiLoaderEllipsis span:first-child + span + span {
+    animation-name: uiLoaderEllipsis3;
+}
+.JSLINT_ #JSLINT_BUTTONS button {
+    background: darkslategray;
     color: white;
     cursor: pointer;
-    font-size: 100%;
-    font-style: normal;
-    margin-left: 1em;
-    margin-right: 1em;
-    padding: 0.25em 1em;
-    text-align: center;
+    margin: 16px 16px 0 16px;
+    padding: 4px 16px;
 }
-#JSLINT_ button:active {
-    border: 0;
-    color: black;
+.JSLINT_ #JSLINT_GLOBALS {
+    height: 40px;
+    white-space: normal;
 }
-#JSLINT_ button:hover {
-    background-color: slategray;
-    border: 0;
-    color: white;
-}
-#JSLINT_ dd {
-    color: black;
-    font-weight: bold;
-    margin-left: 8em;
-    padding-bottom: 2pt;
-}
-#JSLINT_ dfn {
-    color: black;
-    display: block;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: bold;
-    margin-bottom: 2pt;
-}
-#JSLINT_ dl {
-    background-color: cornsilk;
-    color: white;
-    margin: 0;
-    padding: 2pt 1em;
-}
-#JSLINT_ dl.level0 {
-    background-color: white;
-    color: black;
-}
-#JSLINT_ dl.level1 {
-    /* yellow */
-    background-color: #ffffe0;
-    color: black;
-    margin-left: 1em;
-}
-#JSLINT_ dl.level2 {
-    /* green */
-    background-color: #e0ffe0;
-    color: black;
-    margin-left: 2em;
-}
-#JSLINT_ dl.level3 {
-    /* blue */
-    background-color: #D0D0ff;
-    color: black;
-    margin-left: 3em;
-}
-#JSLINT_ dl.level4 {
-    /* purple */
-    background-color: #ffe0ff;
-    color: black;
-    margin-left: 4em;
-}
-#JSLINT_ dl.level5 {
-    /* red */
-    background-color: #ffe0e0;
-    color: black;
-    margin-left: 5em;
-}
-#JSLINT_ dl.level6 {
-    /* orange */
-    background-color: #ffe390;
-    color: black;
-    margin-left: 6em;
-}
-#JSLINT_ dl.level7 {
-    /* gray */
-    background-color: #e0e0e0;
-    color: black;
-    margin-left: 7em;
-}
-#JSLINT_ dl.level8 {
-    color: black;
-    margin-left: 8em;
-}
-#JSLINT_ dl.level9 {
-    color: black;
-    margin-left: 9em;
-}
-#JSLINT_ dt {
-    color: black;
-    float: left;
-    font-size: 75%;
-    font-style: italic;
-    margin: 0;
-    text-align: right;
-    width: 8em;
-}
-#JSLINT_ fieldset {
-    background-color: gainsboro;
-    border: 0;
-    clear: both;
-    margin: 1em 40px;
-    padding: 0;
+.JSLINT_ #JSLINT_INPUT > div {
+    margin: 16px 40px;
     width: auto;
 }
-#JSLINT_ input[type="text"] {
-    background-color: white;
-    border: 0;
-    color: black;
-    margin-bottom: 0.2em;
-    margin-right: 0.5em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    text-align: right;
-    width: 3em;
+.JSLINT_ #JSLINT_INPUT > #JSLINT_BUTTONS {
+    margin-top: -16px;
 }
-#JSLINT_ label {
-    font-size: 90%;
-    padding-left: 0.25em;
+.JSLINT_ #JSLINT_OPTIONS div[title],
+.JSLINT_ #JSLINT_OPTIONS div[title] input,
+.JSLINT_ #JSLINT_OPTIONS div[title] label {
+    cursor: pointer;
+    user-select: none;
 }
-#JSLINT_ legend {
-    background-color: darkslategray;
-    border: 0;
-    color: white;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: normal;
-    margin: 0;
-    padding: 0.25em 0;
-    text-align: center;
-    width: 100%;
+.JSLINT_ #JSLINT_OPTIONS div[title] {
+    padding: 0 4px;
 }
-#JSLINT_ textarea {
-    border: 0;
-    margin: 2%;
-    padding: 0.5%;
-    resize: none;
-    white-space: pre;
-    width: 95%;
+.JSLINT_ #JSLINT_OPTIONS div[title] input {
+    vertical-align: middle;
 }
-#JSLINT_ textarea::selection,
-#JSLINT_ .CodeMirror-selected {
-    background-color: wheat;
-    color: black;
+.JSLINT_ #JSLINT_OPTIONS label {
+    padding-left: 4px;
 }
-#JSLINT_ .CodeMirror .cm-trailingspace {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUXCToH00Y1UgAAACFJREFUCNdjPMDBUc/AwNDAAAFMTAwMDA0OP34wQgX/AQBYgwYEx4f9lQAAAABJRU5ErkJggg==");
-    background-position: bottom left;
-    background-repeat: repeat-x;
-}
-#JSLINT_GLOBAL {
-    white-space: normal;
-    width: 95%;
-}
-#JSLINT_OPTIONS > div {
+.JSLINT_ #JSLINT_OPTIONS > div > div {
     float: left;
-    margin: 0.5em;
+    line-height: 20px;
+    padding: 0 16px 16px 0;
 }
-#JSLINT_PROPERTY {
-    background-color: honeydew;
+.JSLINT_ #JSLINT_TITLEBOX {
+    color: darkslategray;
 }
-#JSLINT_REPORT center {
-    margin-top: 1em;
+.JSLINT_ #JSLINT_TITLEBOX ul li {
+    line-height: 20px;
 }
-#JSLINT_REPORT > div {
-    padding: 1em;
+.JSLINT_ #JSLINT_TITLEBOX ul li a:link {
+    color: black;
 }
-#JSLINT_TITLEBOX {
-    margin: 10px 40px 0 40px;
+.JSLINT_ #JSLINT_TITLEBOX ul li a:visited {
+    color: #69565c;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button:hover,
+.JSLINT_ #JSLINT_OPTIONS div[title]:hover {
+    background: slategray;
+    color: white;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button:active {
+    color: black;
+}
+</style>
+<style id="#JSLINT_REPORT_STYLE">
+/*csslint
+    box-model: false,
+    ids:false,
+    overqualified-elements: false
+*/
+/*csslint ignore:start*/
+@font-face {
+    font-display: swap;
+    font-family: "Daley";
+    src: url(
+"data:font/woff2;base64,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\
+/7xoEqvL+2E8VOyCTuT/7j269Zy4jUtN+g4="
+    ) format("woff2");
+}
+*,
+*:after,
+*:before {
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
     padding: 0;
 }
-#JSLINT_TITLEBOX div {
-    color: darkslategray;
-    float: left;
-    font-size: 48pt;
+/*csslint ignore:end*/
+
+.JSLINT_ {
+    font-family: daley, sans-serif;
+    font-size: 14px;
 }
-#JSLINT_TITLEBOX ul {
+.JSLINT_ fieldset legend,
+.JSLINT_ .center {
+    font-family: daley, sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+.JSLINT_ fieldset textarea,
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dt,
+.JSLINT_ #JSLINT_REPORT_WARNINGS samp {
+    font-size: 12px;
+}
+.JSLINT_ fieldset textarea,
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS > div {
+    font-family: monospace;
+}
+.JSLINT_ fieldset > div {
+    font-family: sans-serif;
+}
+
+body {
+    background: antiquewhite;
+}
+.JSLINT_ fieldset {
+    background: gainsboro;
+    clear: both;
+    margin: 16px 40px;
+    width: auto;
+}
+.JSLINT_ fieldset address {
     float: right;
-    font-size: 12pt;
 }
-#JSLINT_WARNINGS cite {
-    color: black;
+.JSLINT_ fieldset legend {
+    background: darkslategray;
+    color: white;
+    padding: 4px 0;
+    width: 100%;
+}
+.JSLINT_ fieldset textarea {
+    padding: 4px;
+    resize: none;
+    white-space: pre;
+    width: 100%;
+}
+.JSLINT_ fieldset textarea::selection {
+    background: wheat;
+}
+.JSLINT_ fieldset > div {
+    padding: 16px;
+    width: 100%;
+    word-wrap: break-word;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dd {
+    padding-left: 128px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dfn {
     display: block;
-    font-size: 100%;
     font-style: normal;
-    margin: 4pt 20px;
+    padding-bottom: 4px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl {
+    background: cornsilk;
+    padding: 8px 16px 4px 16px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level0 {
+    background: white;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level1 {
+    /* yellow */
+    background: #ffffe0;
+    margin-left: 16px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level2 {
+    /* green */
+    background: #e0ffe0;
+    margin-left: 32px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level3 {
+    /* blue */
+    background: #D0D0ff;
+    margin-left: 48px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level4 {
+    /* purple */
+    background: #ffe0ff;
+    margin-left: 64px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level5 {
+    /* red */
+    background: #ffe0e0;
+    margin-left: 80px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level6 {
+    /* orange */
+    background: #ffe390;
+    margin-left: 96px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level7 {
+    /* gray */
+    background: #e0e0e0;
+    margin-left: 112px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level8 {
+    margin-left: 128px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level9 {
+    margin-left: 144px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dt {
+    float: left;
+    font-style: italic;
+    padding-top: 2px;
+    text-align: right;
+    width: 100px;
+}
+.JSLINT_ #JSLINT_REPORT_PROPERTIES {
+    background: transparent;
+}
+.JSLINT_ #JSLINT_REPORT_PROPERTIES textarea {
+    background: honeydew;
+    height: 100px;
+}
+.JSLINT_ #JSLINT_REPORT_WARNINGS cite {
+    display: block;
+    margin: 16px 0 4px 0;
     overflow-x: hidden;
+    white-space: pre-line;
 }
-#JSLINT_WARNINGS dl address {
-    color: black;
-    display: inline;
-    float: none;
-    font-size: 80%;
+.JSLINT_ #JSLINT_REPORT_WARNINGS cite:nth-child(1) {
+    margin-top: 0;
 }
-#JSLINT_WARNINGS samp {
-    background-color: lavenderblush;
-    color: black;
+.JSLINT_ #JSLINT_REPORT_WARNINGS samp {
+    background: lavenderblush;
     display: block;
-    font-size: 100%;
-    font-style: normal;
-    font-weight: bold;
-    margin: 0 16pt;
-    padding: 4pt;
+    padding: 4px;
     white-space: pre-wrap;
 }
-#JSLINT_WARNINGS > div {
-    background-color: pink;
-    padding: 1em;
+.JSLINT_ #JSLINT_REPORT_WARNINGS > div {
+    background: pink;
+    max-height: 400px;
+    overflow-y: auto;
 }
-#JSLINT_WARNINGS > legend {
-    background-color: indianred;
+.JSLINT_ #JSLINT_REPORT_WARNINGS > legend {
+    background: indianred;
 }
 </style>
 </head>
-<body>
+<body class="JSLINT_">
 <div id="bannerFork1"
 style="
     height: 100px;
     left: 0;
-    margin: 0;
     opacity: 0.75;
     overflow: hidden;
-    padding: 0;
     position: absolute;
     top: 0;
     width: 200px;
@@ -739,22 +945,21 @@ style="
     <div
 style="
     background: darkslategray;
-    font-size: 13px;
+    font-size: 12px;
     height: 20px;
     line-height: 20px;
     opacity: 0.75;
     overflow: visible;
     position: absolute;
-    right: 60px;
+    right: 65px;
     text-align: center;
-    top: 30px;
+    top: 25px;
     transform: rotate(-45deg);
     width: 100%;
 ">
     <a
         href="https://github.com/jslint-org/jslint"
-        style="color: #fff;"
-        target="_blank"
+        style="color: white;"
     >
     fork on github
     </a>
@@ -775,7 +980,7 @@ style="
     width: 200px;
     z-index: 99;
 ">
-<div style="">
+<div>
     Linting
     <span class="uiLoaderEllipsis">
         <span>.</span>
@@ -784,84 +989,114 @@ style="
     </span>
     </div>
 </div>
+<div id="JSLINT_INPUT">
 <div id="JSLINT_TITLEBOX">
-    <div>JSLint</div>
-    <ul>
-        <li><a href="help.html">Read the instructions.</a></li>
-        <li><a href="https://www.amazon.com/dp/1949815005/wrrrldwideweb" target="_blank">
-<i>How JavaScript Works</i> by Douglas Crockford.
-  </a></li>
+    <div style="float: left; margin-bottom: 16px;">
+    <div style="font-size: 50px;">JSLint</div>
+    <div id="JSLINT_EDITION" style="font-size: 14px;">&nbsp;</div>
+    </div>
+    <ul style="float: right; font-size: 16px;">
+    <li><a href="help.html">Read the instructions.</a></li>
+    <li><a href="https://www.amazon.com/dp/1949815005/wrrrldwideweb"><i>How JavaScript Works</i> by Douglas Crockford.</a></li>
+    <li><a href="https://github.com/jslint-org/jslint/issues">Report a bug.</a></li>
     </ul>
 </div>
-<div id="JSLINT_">
-  <fieldset><legend>Source</legend>
-
-<!-- Google PageSpeed - reduce Cumulative Layout Shift -->
-
-    <textarea id="JSLINT_SOURCE"
-style="
-    border: 0;
-    height: 300px;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-"></textarea>
-  </fieldset>
-  <div style="text-align: center;">
-      <p id="JSLINT_EDITION">&nbsp;</p>
-      <button name="JSLint" title="Ctrl + Enter">JSLint</button>
-      <button name="clear_source">Clear</button>
-      <button name="clear_options">Clear options</button>
-  </div>
-  <fieldset id="JSLINT_OPTIONS"><legend>Options</legend>
+<fieldset id="JSLINT_SOURCE">
+    <legend>Source</legend>
+    <textarea></textarea>
+</fieldset>
+<div class="center" id="JSLINT_BUTTONS">
+    <button class="center" name="JSLint" title="Ctrl + Enter">JSLint</button>
+    <button class="center" name="clear_source">Clear Source</button>
+    <button class="center" name="clear_options">Clear Options</button>
+</div>
+<fieldset id="JSLINT_OPTIONS">
+    <legend>Options</legend>
+    <div>
     <div>Env...
-      <div><label><input title="browser" type="checkbox">browser</label></div>
-      <div><label><input title="couch" type="checkbox">couch</label></div>
-      <div><label><input title="devel" type="checkbox">devel</label></div>
-      <div><label><input title="node" type="checkbox">node</label></div>
+        <div title="Assume browser environment.">
+        <input type="checkbox" value="browser"><label>browser</label>
+        </div>
+        <div title="Assume CouchDb environment.">
+        <input type="checkbox" value="couch"><label>couch</label>
+        </div>
+        <div title="Allow console.log() and friends.">
+        <input type="checkbox" value="devel"><label>devel</label>
+        </div>
+        <div title="Assume Node.js environment.">
+        <input type="checkbox" value="node"><label>node</label>
+        </div>
     </div>
     <div>Allow...
-      <div><label><input title="beta" type="checkbox">beta</label></div>
-      <div><label><input title="bitwise" type="checkbox">bitwise</label></div>
-      <div><label><input title="convert" type="checkbox">convert</label></div>
-      <div><label><input title="debug" type="checkbox">debug</label></div>
+        <div title="Enable experimental warnings.">
+        <input type="checkbox" value="beta"><label>beta</label>
+        </div>
+        <div title="Allow bitwise operators.">
+        <input type="checkbox" value="bitwise"><label>bitwise</label>
+        </div>
+        <div title="Allow conversion operators.">
+        <input type="checkbox" value="convert"><label>convert</label>
+        </div>
+        <div title="Include jslint stack-trace in warnings.">
+        <input type="checkbox" value="debug"><label>debug</label>
+        </div>
     </div>
     <div>&nbsp;
-      <div><label><input title="eval" type="checkbox">eval</label></div>
-      <div><label><input title="for" type="checkbox">for</label></div>
-      <div><label><input title="getset" type="checkbox">getset</label></div>
-      <div><label><input title="long" type="checkbox">long</label></div>
+        <div title="Allow eval().">
+        <input type="checkbox" value="eval"><label>eval</label>
+        </div>
+        <div title="Allow for-statement.">
+        <input type="checkbox" value="for"><label>for</label>
+        </div>
+        <div title="Allow get() and set().">
+        <input type="checkbox" value="getset"><label>getset</label>
+        </div>
+        <div title="Allow 2-space indent.">
+        <input type="checkbox" value="indent2"><label>indent2</label>
+        </div>
     </div>
     <div>&nbsp;
-      <div><label><input title="name" type="checkbox">name</label></div>
-      <div><label><input title="single" type="checkbox">single</label></div>
-      <div><label><input title="this" type="checkbox">this</label></div>
-      <div><label><input title="unordered" type="checkbox">unordered</label></div>
+        <div title="Allow long lines.">
+        <input type="checkbox" value="long"><label>long</label>
+        </div>
+        <div title="Allow weird property names.">
+        <input type="checkbox" value="name"><label>name</label>
+        </div>
+        <div title="Allow single-quote strings.">
+        <input type="checkbox" value="single"><label>single</label>
+        </div>
+        <div title="Allow 'this'.">
+        <input type="checkbox" value="this"><label>this</label>
+        </div>
     </div>
     <div>&nbsp;
-      <div><label><input title="variable" type="checkbox">variable</label></div>
-      <div><label><input title="white" type="checkbox">white</label></div>
+        <div title="Allow unordered cases, params, properties, and variables.">
+        <input type="checkbox" value="unordered"><label>unordered</label>
+        </div>
+        <div title="Allow unordered const and let declarations that are not at top of function-scope.">
+        <input type="checkbox" value="variable"><label>variable</label>
+        </div>
+        <div title="Allow messy whitespace.">
+        <input type="checkbox" value="white"><label>white</label>
+        </div>
     </div>
     <textarea
-      id="JSLINT_GLOBAL"
-      placeholder="imported globals (e.g. atob, btoa)"
-      spellcheck="false"
-      title="global"
+        id="JSLINT_GLOBALS"
+        placeholder="imported globals (e.g. $, jQuery)"
+        spellcheck="false"
+        title="globals"
     ></textarea>
-  </fieldset>
-  <fieldset id="JSLINT_WARNINGS">
-    <legend>Warnings</legend>
-    <div id="JSLINT_WARNINGS_LIST"></div>
-  </fieldset>
-  <fieldset id="JSLINT_PROPERTYFIELDSET">
-    <legend>Property Directive</legend>
-    <textarea id="JSLINT_PROPERTY" rows="8" readonly></textarea>
-  </fieldset>
-  <fieldset id="JSLINT_REPORT">
-    <legend>Function Report</legend>
-    <div id="JSLINT_REPORT_LIST"></div>
-  </fieldset>
+    </div>
+</fieldset>
 </div>
-<script defer src="asset-codemirror-v5.58.3-rollup.js?cc=ygqb"></script>
-<script src="browser.js?cc=ygqb" type="module"></script>
+<div id="JSLINT_REPORT_HTML"></div>
+<script defer src="asset-codemirror-rollup.js?cc=s51r"></script>
+<script src="browser.mjs?cc=s51r" type="module"></script>
+<!-- coverage-hack -->
+<script>
+(function () {
+    return;
+}());
+</script>
+<!-- coverage-hack -->
 </body></html>

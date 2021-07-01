@@ -11,10 +11,10 @@
 # git ls-remote --heads origin
 # git update-index --chmod=+x aa.js
 # head CHANGELOG.md -n50
-# ln -f jslint.js ~/jslint.mjs
+# ln -f jslint.mjs ~/jslint.mjs
 # openssl rand -base64 32 # random key
 # sh ci.sh shCiBranchPromote origin alpha beta
-# sh ci.sh shRunWithScreenshotTxt head -n50 CHANGELOG.md
+# sh ci.sh shRunWithScreenshotTxt .build/screenshot-changelog.svg head -n50 CHANGELOG.md
 # vim rgx-lowercase \L\1\e
 
 shBrowserScreenshot() {(set -e
@@ -38,7 +38,6 @@ import moduleUrl from "url";
     };
 }());
 (function () {
-    "use strict";
     var file;
     var timeStart;
     var url;
@@ -124,50 +123,82 @@ process.exit(Number(
     git config --local user.name "github-actions"
     # screenshot asset-image-jslint
     shImageJslintCreate &
-    # screenshot live-web-demo
+    # screenshot web-demo
     shBrowserScreenshot \
         https://jslint-org.github.io/jslint/branch-beta/index.html
-    # screenshot install - download
-    shRunWithScreenshotTxt sh -c '
-curl -L https://www.jslint.com/jslint.js > jslint.mjs
-'
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-download.svg
-    # screenshot install - cli-file
-    printf "console.log('hello world');\n" > hello.js
-    shRunWithScreenshotTxt sh -c '
-node jslint.mjs hello.js
-' || true
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-file.svg
-    # screenshot install - import
-    shRunWithScreenshotTxt node --input-type=module -e '
-/*jslint devel*/
-import jslint from "./jslint.mjs";
-var code = "console.log(\u0027hello world\u0027);\n";
-var result = jslint(code);
-result.warnings.forEach(function ({
-    formatted_message
-}) {
-    console.error(formatted_message);
-});
-' || true
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-import.svg
-    # screenshot install - cli-dir
-    shRunWithScreenshotTxt sh -c '
-node jslint.mjs .
-' || true
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-install-cli-dir.svg
-    # screenshot files
-    shRunWithScreenshotTxt shGitLsTree
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-files.svg
-    # screenshot changelog
-    shRunWithScreenshotTxt head -n50 CHANGELOG.md
-    mv .build/shRunWithScreenshotTxt.svg .build/screenshot-changelog.svg
+    node --input-type=module -e '
+import moduleFs from "fs";
+import moduleChildProcess from "child_process";
+(async function () {
+    [
+        // parallel-task - screenshot files
+        [
+            "shRunWithScreenshotTxt",
+            ".build/screenshot-files.svg",
+            "shGitLsTree"
+        ],
+        // parallel-task - screenshot changelog
+        [
+            "shRunWithScreenshotTxt",
+            ".build/screenshot-changelog.svg",
+            "head",
+            "-n50",
+            "CHANGELOG.md"
+        ]
+    ].forEach(function (argList) {
+        moduleChildProcess.spawn("./ci.sh", argList, {
+            stdio: [
+                "ignore", 1, 2
+            ]
+        }).on("exit", function (exitCode) {
+            if (exitCode) {
+                process.exit(exitCode);
+            }
+        });
+    });
+    // parallel-task - screenshot example-shell-commands in README.md
+    Array.from(String(
+        await moduleFs.promises.readFile("README.md", "utf8")
+    ).matchAll(
+        /\n```shell\u0020<!--\u0020shRunWithScreenshotTxt\u0020(.*?)\u0020-->\n([\S\s]*?\n)```\n/g
+    )).forEach(async function ([
+        ignore, file, script
+    ]) {
+        await moduleFs.promises.writeFile(file + ".sh", (
+            "printf \u0027"
+            + script.trim().replace((
+                /[%\\]/gm
+            ), "$&$&").replace((
+                /\u0027/g
+            ), "\u0027\"\u0027\"\u0027").replace((
+                /^/gm
+            ), "> ")
+            + "\n\n\n\u0027\n"
+            + script
+        ));
+        moduleChildProcess.spawn(
+            "./ci.sh",
+            [
+                "shRunWithScreenshotTxt",
+                file,
+                "sh",
+                file + ".sh"
+            ],
+            {
+                stdio: [
+                    "ignore", 1, 2
+                ]
+            }
+        );
+    });
+}());
+' # '
     # seo - invalidate cached-assets and inline css
     node --input-type=module -e '
 import moduleFs from "fs";
 var cacheKey = Math.random().toString(36).slice(-4);
 (async function () {
-    var result = await moduleFs.promises.readFile("browser.js", "utf8");
+    var result = await moduleFs.promises.readFile("browser.mjs", "utf8");
 
 // Invalidate cached-assets.
 
@@ -179,7 +210,7 @@ var cacheKey = Math.random().toString(36).slice(-4);
 
 // Write file.
 
-    await moduleFs.promises.writeFile("browser.js", result);
+    await moduleFs.promises.writeFile("browser.mjs", result);
 }());
 (async function () {
     var result = await moduleFs.promises.readFile("index.html", "utf8");
@@ -195,11 +226,22 @@ var cacheKey = Math.random().toString(36).slice(-4);
 // Inline css-assets.
 
     result.replace((
-        /<link\u0020rel="stylesheet"\u0020href="([^"]+?)">/g
+        /\n<link\u0020rel="stylesheet"\u0020href="([^"]+?)">\n/g
     ), async function (match0, url) {
         var data = await moduleFs.promises.readFile(url.split("?")[0], "utf8");
         result = result.replace(match0, function () {
-            return `<style>\n${data.trim()}\n</style>`;
+            return `\n<style>\n${data.trim()}\n</style>\n`;
+        });
+        return "";
+    });
+    result.replace((
+        `\n<style id="#JSLINT_REPORT_STYLE"></style>\n`
+    ), async function (match0) {
+        var data = await moduleFs.promises.readFile("browser.mjs", "utf8");
+        result = result.replace(match0, function () {
+            return data.match(
+                /\n<style\sid="#JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
+            )[0];
         });
         return "";
     });
@@ -212,7 +254,7 @@ var cacheKey = Math.random().toString(36).slice(-4);
 }());
 ' # '
     # add dir .build
-    git add -f .build
+    git add -f .build jslint.cjs jslint.js
     git commit -am "add dir .build"
     # checkout branch-gh-pages
     git checkout -b gh-pages
@@ -273,26 +315,35 @@ var cacheKey = Math.random().toString(36).slice(-4);
 
 shCiBase() {(set -e
 # this function will run base-ci
+    # create jslint.cjs
+    cp jslint.mjs jslint.js
+    cat jslint.mjs | sed \
+        -e "s|^// module.exports = |module.exports = |" \
+        -e "s|^export default Object.freeze(|// &|" \
+        -e "s|^jslint_import_meta_url = |// &|" \
+        > jslint.cjs
     # run test with coverage-report
     # coverage-hack - test jslint's invalid-file handling-behavior
     mkdir -p .test-dir.js
-    # coverage-hack - test jslint's ignore-file handling-behavior
-    touch .test-min.js
-    # coverage-hack - test jslint's esm handling-behavior
-    touch .test.mjs
     # test jslint's cli handling-behavior
-    ./jslint.js .
+    printf "./jslint.cjs .\n"
+    chmod 755 jslint.cjs
+    ./jslint.cjs .
+    printf "./jslint.mjs .\n"
+    ./jslint.mjs .
+    printf "node test.mjs\n"
     (set -e
         # coverage-hack - test jslint's cli handling-behavior
         export JSLINT_BETA=1
-        export JSLINT_CLI=1
-        shRunWithCoverage node test.js .
+        shRunWithCoverage node test.mjs
     )
     # update version from CHANGELOG.md
     node --input-type=module -e '
 import moduleFs from "fs";
 (async function () {
-    "use strict";
+
+// Update edition in README.md, jslint.mjs from CHANGELOG.md
+
     var dict;
     var versionBeta;
     var versionMaster;
@@ -300,12 +351,12 @@ import moduleFs from "fs";
     await Promise.all([
         "CHANGELOG.md",
         "README.md",
-        "jslint.js"
+        "jslint.mjs"
     ].map(async function (file) {
         dict[file] = await moduleFs.promises.readFile(file, "utf8");
     }));
     Array.from(dict["CHANGELOG.md"].matchAll(
-        /\n##\u0020(v\d\d\d\d\.\d\d?\.\d\d?(.*?)?)\n/g
+        /\n\n#\u0020(v\d\d\d\d\.\d\d?\.\d\d?(.*?)?)\n/g
     )).slice(0, 2).forEach(function ([
         ignore, version, isBeta
     ]) {
@@ -320,11 +371,11 @@ import moduleFs from "fs";
             ), versionMaster),
             src0: dict["README.md"]
         }, {
-            file: "jslint.js",
-            src: dict["jslint.js"].replace((
-                /^const\u0020edition\u0020=\u0020".*?";$/m
-            ), `const edition = "${versionBeta}";`),
-            src0: dict["jslint.js"]
+            file: "jslint.mjs",
+            src: dict["jslint.mjs"].replace((
+                /^let\u0020jslint_edition\u0020=\u0020".*?";$/m
+            ), `let jslint_edition = "${versionBeta}";`),
+            src0: dict["jslint.mjs"]
         }
     ].forEach(function ({
         file,
@@ -362,7 +413,6 @@ import moduleFs from "fs";
 import moduleHttps from "https";
 import moduleUrl from "url";
 (async function () {
-    "use strict";
     var dict = {};
     Array.from(
         await moduleFs.promises.readdir(".")
@@ -375,7 +425,7 @@ import moduleUrl from "url";
         }
         data = await moduleFs.promises.readFile(file, "utf8");
         data.replace((
-            /\bhttps?:\/\/.*?(?:[\s")\]]|$)/gm
+            /\bhttps?:\/\/.*?(?:[\s"):\]]|$)/gm
         ), function (url) {
             var req;
             url = url.slice(0, -1).replace((
@@ -424,7 +474,7 @@ import moduleUrl from "url";
             if (!linkType.startsWith("[")) {
                 url = url.slice(1);
             }
-            if (url.startsWith("data:")) {
+            if (url.length === 0 || url.startsWith("data:")) {
                 return;
             }
             // ignore duplicate-link
@@ -484,7 +534,6 @@ shGitLsTree() {(set -e
     node --input-type=module -e '
 import moduleChildProcess from "child_process";
 (async function () {
-    "use strict";
     var result;
     // get file, mode, size
     result = await new Promise(function (resolve) {
@@ -608,7 +657,6 @@ import moduleUrl from "url";
 /*
  * this function will jslint current-directory
  */
-    "use strict";
     moduleFs.stat((
         process.env.HOME + "/jslint.mjs"
     ), function (ignore, exists) {
@@ -627,9 +675,9 @@ import moduleUrl from "url";
 /*
  * this function will start http-file-server
  */
-    "use strict";
     var contentTypeDict = {
         ".bmp": "image/bmp",
+        ".cjs": "application/javascript; charset=utf-8",
         ".css": "text/css; charset=utf-8",
         ".gif": "image/gif",
         ".htm": "text/html; charset=utf-8",
@@ -646,6 +694,7 @@ import moduleUrl from "url";
         ".svg": "image/svg+xml; charset=utf-8",
         ".txt": "text/plain; charset=utf-8",
         ".wasm": "application/wasm",
+        ".woff": "font/woff",
         ".woff2": "font/woff2",
         ".xml": "application/xml; charset=utf-8",
         "/": "text/html; charset=utf-8"
@@ -714,7 +763,6 @@ import moduleUrl from "url";
 /*
  * this function will start repl-debugger
  */
-    "use strict";
     var that;
     // start repl
     that = moduleRepl.start({
@@ -813,7 +861,6 @@ import moduleUrl from "url";
 /*
  * this function will watch current-directory for changes
  */
-    "use strict";
     moduleFs.readdir(".", function (ignore, fileList) {
         fileList.forEach(function (file) {
             if (file[0] === ".") {
@@ -839,7 +886,8 @@ import moduleUrl from "url";
 
 shImageJslintCreate() {(set -e
 # this function will create .png logo of jslint
-    printf '<!DOCTYPE html>
+    echo '
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <title>logo</title>
@@ -864,23 +912,32 @@ div {
 }
 .container1 {
     background: antiquewhite;
-    border: 16px solid darkslategray;
+    border: 24px solid darkslategray;
     border-radius: 96px;
     color: darkslategray;
     font-family: Daley;
     height: 512px;
     margin: 0;
+    position: relative;
     width: 512px;
-    zoom: 100%%;
+    zoom: 100%;
+/*
+    background: transparent;
+    border: 24px solid black;
+    color: black;
+*/
 }
 .text1 {
     font-size: 256px;
-    margin-left: 40px;
-    margin-top: 24px;
+    left: 44px;
+    position: absolute;
+    top: 32px;
 }
 .text2 {
+    bottom: 8px;
     font-size: 192px;
-    margin-left: 56px;
+    left: 44px;
+    position: absolute;
 }
 </style>
 </head>
@@ -890,18 +947,61 @@ div {
 <div class="text2">Lint</div>
 </div>
 </body>
-</html>\n' > .build/asset-image-jslint-512.html
+</html>
+' > .build/asset-image-jslint-512.html
+    cp asset-font-daley-bold.woff2 .build
     # screenshot asset-image-jslint-512.png
     shBrowserScreenshot .build/asset-image-jslint-512.html \
-        "--window-size=512x512" \
-        "-screenshot=.build/asset-image-jslint-512.png"
+        --window-size=512x512 \
+        -screenshot=.build/asset-image-jslint-512.png
     # create various smaller thumbnails
     for SIZE in 32 64 128 256
     do
         convert -resize "${SIZE}x${SIZE}" .build/asset-image-jslint-512.png \
             ".build/asset-image-jslint-$SIZE.png"
+        printf \
+"shImageJslintCreate - wrote - .build/asset-image-jslint-$SIZE.png\n" 1>&2
     done
     # convert to svg @ https://convertio.co/png-svg/
+)}
+
+shImageToDataUri() {(set -e
+# this function will convert image $1 to data-uri string
+    node --input-type=module -e '
+import moduleFs from "fs";
+import moduleHttps from "https";
+(async function () {
+    "use strict";
+    let file;
+    let result;
+    file = process.argv[1];
+    if ((
+        /^https:\/\//
+    ).test(file)) {
+        result = await new Promise(function (resolve) {
+            moduleHttps.get(file, function (res) {
+                let chunkList;
+                chunkList = [];
+                res.on("data", function (chunk) {
+                    chunkList.push(chunk);
+                }).on("end", function () {
+                    resolve(Buffer.concat(chunkList));
+                });
+            });
+        });
+    } else {
+        result = await moduleFs.promises.readFile(file);
+    }
+    result = String(
+        "data:image/" + file.match(
+            /\.[^.]*?$|$/m
+        )[0].slice(1) + ";base64," + result.toString("base64")
+    ).replace((
+        /.{72}/g
+    ), "$&\\\n");
+    console.log(result);
+}());
+' "$@" # '
 )}
 
 shJsonNormalize() {(set -e
@@ -912,7 +1012,6 @@ shJsonNormalize() {(set -e
     node --input-type=module -e '
 import moduleFs from "fs";
 (async function () {
-    "use strict";
     function objectDeepCopyWithKeysSorted(obj) {
 
 // this function will recursively deep-copy <obj> with keys sorted
@@ -963,7 +1062,7 @@ import moduleFs from "fs";
         ) + "\n"
     );
 }());
-' "$1" # '
+' "$@" # '
 )}
 
 shRawLibFetch() {(set -e
@@ -987,7 +1086,6 @@ import modulePath from "path";
     };
 }());
 (async function () {
-    "use strict";
     var fetchList;
     var matchObj;
     var replaceList;
@@ -1269,7 +1367,6 @@ import modulePath from "path";
     };
 }());
 (async function () {
-    "use strict";
     var DIR_COVERAGE = process.env.DIR_COVERAGE;
     var cwd;
     var data;
@@ -1332,7 +1429,7 @@ body {
 }
 .coverage td span {
     display: inline-block;
-    width: 100%%;
+    width: 100%;
 }
 .coverage .content {
     padding: 0 5px;
@@ -1817,8 +1914,8 @@ shRunWithScreenshotTxt() {(set -e
 # https://www.cnx-software.com/2011/09/22/how-to-convert-a-command-line-result-into-an-image-in-linux/
     local EXIT_CODE
     EXIT_CODE=0
-    export SCREENSHOT_SVG=.build/shRunWithScreenshotTxt.svg
-    rm -f "$SCREENSHOT_SVG"
+    export SCREENSHOT_SVG="$1"
+    shift
     printf "0\n" > "$SCREENSHOT_SVG.exit_code"
     printf "shRunWithScreenshotTxt - ($* 2>&1)\n" 1>&2
     # run "$@" with screenshot
@@ -1827,17 +1924,10 @@ shRunWithScreenshotTxt() {(set -e
     ) | tee "$SCREENSHOT_SVG.txt"
     EXIT_CODE="$(cat "$SCREENSHOT_SVG.exit_code")"
     printf "shRunWithScreenshotTxt - EXIT_CODE=$EXIT_CODE\n" 1>&2
-    # run shRunWithScreenshotTxtAfter
-    if (type shRunWithScreenshotTxtAfter > /dev/null 2>&1)
-    then
-        eval shRunWithScreenshotTxtAfter
-        unset shRunWithScreenshotTxtAfter
-    fi
     # format text-output
     node --input-type=module -e '
 import moduleFs from "fs";
 (async function () {
-    "use strict";
     var result = await moduleFs.promises.readFile(
         process.argv[1] + ".txt",
         "utf8"
@@ -1847,12 +1937,14 @@ import moduleFs from "fs";
     result = result.replace((
         /\u001b.*?m/g
     ), "");
+    /*
     // format unicode
     result = result.replace((
         /\\u[0-9a-f]{4}/g
     ), function (match0) {
         return String.fromCharCode("0x" + match0.slice(-4));
     });
+    */
     // normalize "\r\n"
     result = result.replace((
         /\r\n?/
