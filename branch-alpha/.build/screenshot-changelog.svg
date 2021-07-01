@@ -23,7 +23,7 @@
     textLength="768"
     x="10"
     y="76"
->## Todo                                                                                          </tspan>
+># Todo                                                                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -131,7 +131,7 @@
     textLength="768"
     x="10"
     y="472"
->## v2021.6.26-beta                                                                               </tspan>
+># v2021.6.30                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -143,199 +143,199 @@
     textLength="768"
     x="10"
     y="516"
->- bugfix - fix function is_equal() always returning true when comparing string-literals.         </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="538"
 >- ci - auto-screenshot example-shell-commands in README.md.                                      </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="560"
+    y="538"
 >- ci - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint.     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="582"
+    y="560"
 >- jslint - disable out-of-scope warning for functions.                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="604"
+    y="582"
 >- jslint - reintroduce directive `/*jslint indent2*/` - allow 2-space indent.                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="626"
+    y="604"
 >- license - change license to public-domain/unlicense.                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="648"
+    y="626"
 >- website - create codemirror-plugin to highlight jslint-warnings in editor.                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="670"
+    y="648"
 >                                                                                                 </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="670"
+># v2021.6.22                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="692"
->## v2021.6.22                                                                                    </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="714"
 >- bugfix - fix global_list being ignored by jslint.                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="736"
+    y="714"
 >- bugfix - fix no-warning when exception in catch-block is unused.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="758"
+    y="736"
 >- ci - migrate ci-scripts from cjs to esm.                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="780"
+    y="758"
 >- cli - add env-variable \$JSLINT_BETA.                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="802"
+    y="780"
 >- jslint - add new directive `/*jslint beta*/` - enable features currently in beta.              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="824"
+    y="802"
 >- jslint - add new directive `/*jslint variable*/` - allow unordered variable-declarations that \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="846"
+    y="824"
 >  are not at top of function-scope.                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="868"
+    y="846"
 >- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="890"
+    y="868"
 >  .                                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="912"
+    y="890"
 >- jslint - add new warning if const/let/var statements are unordered.                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="934"
+    y="912"
 >- website - invalidate url-cache with each deployment.                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="956"
+    y="934"
 >- website - replace .png logo with .svg logo.                                                    </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="978"
+    y="956"
 >- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1000"
+    y="978"
 >  m `Programma` to `consolas, menlo, monospace`.                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1022"
+    y="1000"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1044"
->## v2021.6.12                                                                                    </tspan>
+    y="1022"
+># v2021.6.12                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1066"
+    y="1044"
 >- bugfix - fix await expression/statement inside catch-statement not registered by functionage.a\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1088"
+    y="1066"
 >  wait.                                                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1110"
+    y="1088"
 >- bugfix - fix cli appending slash "/" to normalized filename.                                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1132"
+    y="1110"
 >- bugfix - fix issue #316, #317 - jslint complains about dynamic-import.                         </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1154"
+    y="1132"
 >- bugfix - fix misleading warning describing alphabetical-order instead of ascii-order.          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1176"
+    y="1154"
 >- bugfix - fix off-by-one-column bug in missing-semicolon-warning.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1198"
+    y="1176"
 >- bugfix - fix try-catch-block complaining about "Unexpected await" inside async-function.       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="1220"
+    y="1198"
 >- directive - re-introduce `/*jslint name*/` to ignore "Bad property name" warning.              </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="1220"
+>- doc - add install-screenshots.                                                                 </tspan>
 
 </text>
 </svg>

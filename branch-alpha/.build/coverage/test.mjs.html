@@ -136,7 +136,7 @@ body {
 <pre><span class="lineno"><a href="#line_7" id="line_7">    7.</a></span><span class="count                ">   1991</span><span> * this function will throw &lt;msg&gt; if &lt;passed&gt; is falsy</span></pre>
 <pre><span class="lineno"><a href="#line_8" id="line_8">    8.</a></span><span class="count                ">   1991</span><span> */</span></pre>
 <pre><span class="lineno"><a href="#line_9" id="line_9">    9.</a></span><span class="count                ">      1</span><span>    if (!passed) {</span></pre>
-<pre><span class="lineno"><a href="#line_10" id="line_10">   10.</a></span><span class="count                ">      1</span><span>        throw new Error(msg.slice(0, 1000));</span></pre>
+<pre><span class="lineno"><a href="#line_10" id="line_10">   10.</a></span><span class="count                ">      1</span><span>        throw new Error(String(msg).slice(0, 1000));</span></pre>
 <pre><span class="lineno"><a href="#line_11" id="line_11">   11.</a></span><span class="count                ">      1</span><span>    }</span></pre>
 <pre><span class="lineno"><a href="#line_12" id="line_12">   12.</a></span><span class="count                ">   1991</span><span>}</span></pre>
 <pre><span class="lineno"><a href="#line_13" id="line_13">   13.</a></span><span class="count                ">      1</span><span></span></pre>
@@ -438,7 +438,7 @@ body {
 <pre><span class="lineno"><a href="#line_309" id="line_309">  309.</a></span><span class="count                ">      1</span><span>                &quot;let aa = (\n    aa()\n    ? 0\n    : 1\n) &quot;</span></pre>
 <pre><span class="lineno"><a href="#line_310" id="line_310">  310.</a></span><span class="count                ">      1</span><span>                + &quot;&amp;&amp; (\n    aa()\n    ? 0\n    : 1\n);&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_311" id="line_311">  311.</a></span><span class="count                ">      1</span><span>            ),</span></pre>
-<pre><span class="lineno"><a href="#line_312" id="line_312">  312.</a></span><span class="count                ">      1</span><span>            &quot;let aa = (\n    aa()\n    ? `0`\n    : `1`\n);&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_312" id="line_312">  312.</a></span><span class="count                ">      1</span><span>            &quot;let aa = (\n    aa()\n    ? `${0}`\n    : `${1}`\n);&quot;</span></pre>
 <pre><span class="lineno"><a href="#line_313" id="line_313">  313.</a></span><span class="count                ">      1</span><span>        ],</span></pre>
 <pre><span class="lineno"><a href="#line_314" id="line_314">  314.</a></span><span class="count                ">      1</span><span>        try_catch: [</span></pre>
 <pre><span class="lineno"><a href="#line_315" id="line_315">  315.</a></span><span class="count                ">      1</span><span>            &quot;let aa = 0;\n&quot;</span></pre>
