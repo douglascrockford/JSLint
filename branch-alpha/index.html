@@ -12,9 +12,9 @@
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
 <!-- Google PageSpeed - Reduce Largest Contentful Paint. -->
-<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=b5cv">
-<link rel="modulepreload" href="browser.mjs?cc=b5cv">
-<link rel="modulepreload" href="jslint.mjs?cc=b5cv">
+<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=wtd7">
+<link rel="modulepreload" href="browser.mjs?cc=wtd7">
+<link rel="modulepreload" href="jslint.mjs?cc=wtd7">
 <style>
 /*jslint-disable*/
 /*
@@ -482,6 +482,144 @@ file none
 */
 /*jslint-enable*/
 </style>
+<style>
+/*csslint
+    box-model: false,
+    ids:false,
+    overqualified-elements: false
+*/
+/*csslint ignore:start*/
+@keyframes uiLoaderEllipsis1 {
+    from {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+}
+@keyframes uiLoaderEllipsis2 {
+    from {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+@keyframes uiLoaderEllipsis3 {
+    from {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+.JSLINT_ .CodeMirror .cm-trailingspace,
+.JSLINT_ .CodeMirror-lint-mark-warning {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
+    background-position: bottom left;
+    background-repeat: repeat-x;
+}
+/*csslint ignore:end*/
+
+/* Google PageSpeed - Reduce Cumulative Layout Shift. */
+.JSLINT_ #JSLINT_SOURCE textarea {
+    height: 298px;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button,
+.JSLINT_ #JSLINT_OPTIONS > div,
+.JSLINT_ #JSLINT_TITLEBOX {
+    font-family: daley, sans-serif;
+    font-size: 14px;
+}
+.JSLINT_ #JSLINT_OPTIONS label {
+    font-family: sans-serif;
+}
+.JSLINT_ #JSLINT_SOURCE .CodeMirror,
+.JSLINT_ #JSLINT_SOURCE .CodeMirror pre {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.JSLINT_ .CodeMirror {
+    padding: 0;
+}
+.JSLINT_ .CodeMirror-lint-marker {
+    background-position: 1px -1px;
+}
+.JSLINT_ .CodeMirror-selected {
+    background: wheat;
+}
+.JSLINT_ .uiLoaderEllipsis span {
+    animation: uiLoaderEllipsis1 1s infinite steps(1);
+}
+.JSLINT_ .uiLoaderEllipsis span:first-child + span {
+    animation-name: uiLoaderEllipsis2;
+}
+.JSLINT_ .uiLoaderEllipsis span:first-child + span + span {
+    animation-name: uiLoaderEllipsis3;
+}
+.JSLINT_ #JSLINT_BUTTONS button {
+    background: darkslategray;
+    color: white;
+    cursor: pointer;
+    margin: 16px 16px 0 16px;
+    padding: 4px 16px;
+}
+.JSLINT_ #JSLINT_GLOBALS {
+    height: 40px;
+    white-space: normal;
+}
+.JSLINT_ #JSLINT_INPUT > div {
+    margin: 16px 40px;
+    width: auto;
+}
+.JSLINT_ #JSLINT_INPUT > #JSLINT_BUTTONS {
+    margin-top: -16px;
+}
+.JSLINT_ #JSLINT_OPTIONS div[title],
+.JSLINT_ #JSLINT_OPTIONS div[title] input,
+.JSLINT_ #JSLINT_OPTIONS div[title] label {
+    cursor: pointer;
+    user-select: none;
+}
+.JSLINT_ #JSLINT_OPTIONS div[title] {
+    padding: 0 4px;
+}
+.JSLINT_ #JSLINT_OPTIONS div[title] input {
+    vertical-align: middle;
+}
+.JSLINT_ #JSLINT_OPTIONS label {
+    padding-left: 4px;
+}
+.JSLINT_ #JSLINT_OPTIONS > div > div {
+    float: left;
+    line-height: 20px;
+    padding: 0 16px 16px 0;
+}
+.JSLINT_ #JSLINT_TITLEBOX {
+    color: darkslategray;
+}
+.JSLINT_ #JSLINT_TITLEBOX ul li {
+    line-height: 20px;
+}
+.JSLINT_ #JSLINT_TITLEBOX ul li a:link {
+    color: black;
+}
+.JSLINT_ #JSLINT_TITLEBOX ul li a:visited {
+    color: #69565c;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button:hover,
+.JSLINT_ #JSLINT_OPTIONS div[title]:hover {
+    background: slategray;
+    color: white;
+}
+
+.JSLINT_ #JSLINT_BUTTONS button:active {
+    color: black;
+}
+</style>
 <style id="#JSLINT_REPORT_STYLE">
 /*csslint
     box-model: false,
@@ -643,94 +781,30 @@ pyNj+JctcQLXenBOCms46aMkenIx45WpXqxxVJQLz/vgpmAVa0fmDv6Pue9xVTBPfVxCUGfj\
 /*csslint ignore:end*/
 
 .JSLINT_ {
-    font-family: sans-serif;
+    font-family: daley, sans-serif;
     font-size: 14px;
 }
-.JSLINT_ address,
-.JSLINT_ cite,
-.JSLINT_ dt,
-.JSLINT_ textarea {
-    font-size: 12px;
-}
-.JSLINT_ legend,
+.JSLINT_ fieldset legend,
 .JSLINT_ .center {
     font-family: daley, sans-serif;
     font-size: 14px;
     text-align: center;
 }
-.JSLINT_ textarea,
-#JSLINT_REPORT_FUNCTIONS > div {
+.JSLINT_ fieldset textarea,
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dt,
+.JSLINT_ #JSLINT_REPORT_WARNINGS samp {
+    font-size: 12px;
+}
+.JSLINT_ fieldset textarea,
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS > div {
     font-family: monospace;
+}
+.JSLINT_ fieldset > div {
+    font-family: sans-serif;
 }
 
 body {
     background: antiquewhite;
-}
-.JSLINT_ address {
-    float: right;
-}
-.JSLINT_ dd {
-    padding-left: 128px;
-}
-.JSLINT_ dfn {
-    display: block;
-    font-style: normal;
-    padding-bottom: 4px;
-}
-.JSLINT_ dl {
-    background: cornsilk;
-    padding: 8px 16px 4px 16px;
-}
-.JSLINT_ dl.level0 {
-    background: white;
-}
-.JSLINT_ dl.level1 {
-    /* yellow */
-    background: #ffffe0;
-    margin-left: 16px;
-}
-.JSLINT_ dl.level2 {
-    /* green */
-    background: #e0ffe0;
-    margin-left: 32px;
-}
-.JSLINT_ dl.level3 {
-    /* blue */
-    background: #D0D0ff;
-    margin-left: 48px;
-}
-.JSLINT_ dl.level4 {
-    /* purple */
-    background: #ffe0ff;
-    margin-left: 64px;
-}
-.JSLINT_ dl.level5 {
-    /* red */
-    background: #ffe0e0;
-    margin-left: 80px;
-}
-.JSLINT_ dl.level6 {
-    /* orange */
-    background: #ffe390;
-    margin-left: 96px;
-}
-.JSLINT_ dl.level7 {
-    /* gray */
-    background: #e0e0e0;
-    margin-left: 112px;
-}
-.JSLINT_ dl.level8 {
-    margin-left: 128px;
-}
-.JSLINT_ dl.level9 {
-    margin-left: 144px;
-}
-.JSLINT_ dt {
-    float: left;
-    font-style: italic;
-    padding-top: 2px;
-    text-align: right;
-    width: 100px;
 }
 .JSLINT_ fieldset {
     background: gainsboro;
@@ -738,192 +812,121 @@ body {
     margin: 16px 40px;
     width: auto;
 }
-.JSLINT_ fieldset > div {
-    padding: 16px;
-    width: 100%;
-    word-wrap: break-word;
+.JSLINT_ fieldset address {
+    float: right;
 }
-.JSLINT_ legend {
+.JSLINT_ fieldset legend {
     background: darkslategray;
     color: white;
     padding: 4px 0;
     width: 100%;
 }
-.JSLINT_ textarea {
+.JSLINT_ fieldset textarea {
     padding: 4px;
     resize: none;
     white-space: pre;
     width: 100%;
 }
-.JSLINT_ textarea::selection {
+.JSLINT_ fieldset textarea::selection {
     background: wheat;
 }
-#JSLINT_REPORT_PROPERTIES {
+.JSLINT_ fieldset > div {
+    padding: 16px;
+    width: 100%;
+    word-wrap: break-word;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dd {
+    padding-left: 128px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dfn {
+    display: block;
+    font-style: normal;
+    padding-bottom: 4px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl {
+    background: cornsilk;
+    padding: 8px 16px 4px 16px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level0 {
+    background: white;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level1 {
+    /* yellow */
+    background: #ffffe0;
+    margin-left: 16px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level2 {
+    /* green */
+    background: #e0ffe0;
+    margin-left: 32px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level3 {
+    /* blue */
+    background: #D0D0ff;
+    margin-left: 48px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level4 {
+    /* purple */
+    background: #ffe0ff;
+    margin-left: 64px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level5 {
+    /* red */
+    background: #ffe0e0;
+    margin-left: 80px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level6 {
+    /* orange */
+    background: #ffe390;
+    margin-left: 96px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level7 {
+    /* gray */
+    background: #e0e0e0;
+    margin-left: 112px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level8 {
+    margin-left: 128px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level9 {
+    margin-left: 144px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dt {
+    float: left;
+    font-style: italic;
+    padding-top: 2px;
+    text-align: right;
+    width: 100px;
+}
+.JSLINT_ #JSLINT_REPORT_PROPERTIES {
     background: transparent;
 }
-#JSLINT_REPORT_PROPERTIES textarea {
+.JSLINT_ #JSLINT_REPORT_PROPERTIES textarea {
     background: honeydew;
     height: 100px;
 }
-#JSLINT_REPORT_WARNINGS cite {
+.JSLINT_ #JSLINT_REPORT_WARNINGS cite {
     display: block;
     margin: 16px 0 4px 0;
     overflow-x: hidden;
+    white-space: pre-line;
 }
-#JSLINT_REPORT_WARNINGS cite:nth-child(1) {
+.JSLINT_ #JSLINT_REPORT_WARNINGS cite:nth-child(1) {
     margin-top: 0;
 }
-#JSLINT_REPORT_WARNINGS samp {
+.JSLINT_ #JSLINT_REPORT_WARNINGS samp {
     background: lavenderblush;
     display: block;
     padding: 4px;
     white-space: pre-wrap;
 }
-#JSLINT_REPORT_WARNINGS > div {
+.JSLINT_ #JSLINT_REPORT_WARNINGS > div {
     background: pink;
     max-height: 400px;
     overflow-y: auto;
 }
-#JSLINT_REPORT_WARNINGS > legend {
+.JSLINT_ #JSLINT_REPORT_WARNINGS > legend {
     background: indianred;
-}
-</style>
-<style>
-/*csslint
-    box-model: false,
-    ids:false,
-    overqualified-elements: false
-*/
-/*csslint ignore:start*/
-@keyframes uiLoaderEllipsis1 {
-    from {
-        opacity: 0;
-    }
-    25% {
-        opacity: 1;
-    }
-}
-@keyframes uiLoaderEllipsis2 {
-    from {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-@keyframes uiLoaderEllipsis3 {
-    from {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-}
-.JSLINT_ .CodeMirror .cm-trailingspace,
-.JSLINT_ .CodeMirror-lint-mark-warning {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==");
-    background-position: bottom left;
-    background-repeat: repeat-x;
-}
-/*csslint ignore:end*/
-
-/* Google PageSpeed - Reduce Cumulative Layout Shift. */
-#JSLINT_SOURCE {
-    height: 298px;
-}
-
-.JSLINT_ button,
-#JSLINT_OPTIONS,
-#JSLINT_TITLEBOX {
-    font-family: daley, sans-serif;
-    font-size: 14px;
-}
-.JSLINT_ label {
-    font-family: sans-serif;
-}
-.JSLINT_ .CodeMirror,
-.JSLINT_ .CodeMirror pre {
-    font-family: monospace;
-    font-size: 12px;
-}
-
-.JSLINT_ a:link {
-    color: black;
-}
-.JSLINT_ a:visited {
-    color: #69565c;
-}
-.JSLINT_ button {
-    background: darkslategray;
-    color: white;
-    cursor: pointer;
-    margin: 16px 16px 0 16px;
-    padding: 4px 16px;
-}
-.JSLINT_ label {
-    padding-left: 4px;
-}
-.JSLINT_ .CodeMirror {
-    padding: 0;
-}
-.JSLINT_ .CodeMirror-lint-marker {
-    background-position: 1px -1px;
-}
-.JSLINT_ .CodeMirror-selected {
-    background: wheat;
-}
-.JSLINT_ .uiLoaderEllipsis span {
-    animation: uiLoaderEllipsis1 1s infinite steps(1);
-}
-.JSLINT_ .uiLoaderEllipsis span:first-child + span {
-    animation-name: uiLoaderEllipsis2;
-}
-.JSLINT_ .uiLoaderEllipsis span:first-child + span + span {
-    animation-name: uiLoaderEllipsis3;
-}
-#JSLINT_GLOBALS {
-    height: 40px;
-    white-space: normal;
-}
-#JSLINT_INPUT > div {
-    margin: 16px 40px;
-    width: auto;
-}
-#JSLINT_INPUT > #JSLINT_BUTTONS {
-    margin-top: -16px;
-}
-#JSLINT_OPTIONS div[title],
-#JSLINT_OPTIONS div[title] input,
-#JSLINT_OPTIONS div[title] label {
-    cursor: pointer;
-    user-select: none;
-}
-#JSLINT_OPTIONS div[title] {
-    padding: 0 4px;
-}
-#JSLINT_OPTIONS div[title] input {
-    vertical-align: middle;
-}
-#JSLINT_OPTIONS > div > div {
-    float: left;
-    line-height: 20px;
-    padding: 0 16px 16px 0;
-}
-#JSLINT_TITLEBOX {
-    color: darkslategray;
-}
-#JSLINT_TITLEBOX li {
-    line-height: 20px;
-}
-
-.JSLINT_ button:hover,
-#JSLINT_OPTIONS div[title]:hover {
-    background: slategray;
-    color: white;
-}
-
-.JSLINT_ button:active {
-    color: black;
 }
 </style>
 </head>
@@ -956,7 +959,7 @@ style="
 ">
     <a
         href="https://github.com/jslint-org/jslint"
-        style="color: white; font-family: daley"
+        style="color: white;"
     >
     fork on github
     </a>
@@ -998,9 +1001,9 @@ style="
     <li><a href="https://github.com/jslint-org/jslint/issues">Report a bug.</a></li>
     </ul>
 </div>
-<fieldset>
+<fieldset id="JSLINT_SOURCE">
     <legend>Source</legend>
-    <textarea id="JSLINT_SOURCE"></textarea>
+    <textarea></textarea>
 </fieldset>
 <div class="center" id="JSLINT_BUTTONS">
     <button class="center" name="JSLint" title="Ctrl + Enter">JSLint</button>
@@ -1081,14 +1084,14 @@ style="
         id="JSLINT_GLOBALS"
         placeholder="imported globals (e.g. $, jQuery)"
         spellcheck="false"
-        title="global"
+        title="globals"
     ></textarea>
     </div>
 </fieldset>
 </div>
 <div id="JSLINT_REPORT_HTML"></div>
-<script defer src="asset-codemirror-rollup.js?cc=b5cv"></script>
-<script src="browser.mjs?cc=b5cv" type="module"></script>
+<script defer src="asset-codemirror-rollup.js?cc=wtd7"></script>
+<script src="browser.mjs?cc=wtd7" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {
