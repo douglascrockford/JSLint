@@ -12,9 +12,9 @@
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
 <!-- Google PageSpeed - Reduce Largest Contentful Paint. -->
-<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=5r2f">
-<link rel="modulepreload" href="browser.mjs?cc=5r2f">
-<link rel="modulepreload" href="jslint.mjs?cc=5r2f">
+<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=43am">
+<link rel="modulepreload" href="browser.mjs?cc=43am">
+<link rel="modulepreload" href="jslint.mjs?cc=43am">
 <style>
 /*jslint-disable*/
 /*
@@ -783,6 +783,8 @@ pyNj+JctcQLXenBOCms46aMkenIx45WpXqxxVJQLz/vgpmAVa0fmDv6Pue9xVTBPfVxCUGfj\
 .JSLINT_ {
     font-family: daley, sans-serif;
     font-size: 14px;
+    -ms-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
     text-size-adjust: none;
 }
 .JSLINT_ fieldset legend,
@@ -836,17 +838,9 @@ body {
     width: 100%;
     word-wrap: break-word;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dd {
-    padding-left: 128px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dfn {
-    display: block;
-    font-style: normal;
-    padding-bottom: 4px;
-}
 .JSLINT_ #JSLINT_REPORT_FUNCTIONS dl {
     background: cornsilk;
-    padding: 8px 16px 4px 16px;
+    padding: 8px 16px;
 }
 .JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level0 {
     background: white;
@@ -892,10 +886,23 @@ body {
 .JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level9 {
     margin-left: 144px;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dt {
-    float: left;
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dd {
+    line-height: 20px;
+    padding-left: 120px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dfn {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 20px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl div {
+    position: relative
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dt {
     font-style: italic;
-    padding-top: 2px;
+    line-height: 20px;
+    position: absolute;
     text-align: right;
     width: 100px;
 }
@@ -1091,8 +1098,8 @@ style="
 </fieldset>
 </div>
 <div id="JSLINT_REPORT_HTML"></div>
-<script defer src="asset-codemirror-rollup.js?cc=5r2f"></script>
-<script src="browser.mjs?cc=5r2f" type="module"></script>
+<script defer src="asset-codemirror-rollup.js?cc=43am"></script>
+<script src="browser.mjs?cc=43am" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {
