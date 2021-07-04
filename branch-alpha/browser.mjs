@@ -46,7 +46,7 @@
     warnings, width
 */
 
-import jslint from "./jslint.mjs?cc=6f9y";
+import jslint from "./jslint.mjs?cc=rnpv";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -897,6 +897,11 @@ eval( //jslint-quiet
     });
 }());
 `);
+    }
+    if (mode_debug) {
+        document.querySelector(
+            "#JSLINT_OPTIONS input[value=debug]"
+        ).click();
     }
     document.querySelector("button[name='JSLint']").click();
 
