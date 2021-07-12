@@ -119,61 +119,61 @@
     textLength="768"
     x="10"
     y="428"
->- jslint-refactor - migrate recursive-loops to for/while loops.                                  </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="450"
 >- merge function.html and help.html into README.md                                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="472"
+    y="450"
 >- node - after node-v14 is deprecated, remove shell-code `export "NODE_OPTIONS=--unhandled-rejec\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="494"
+    y="472"
 >  tions=strict"`.                                                                                </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="516"
+    y="494"
 >- vim - add vim plugin.                                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="538"
+    y="516"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="560"
+    y="538"
 ># v2021.7.1-beta                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="582"
+    y="560"
 >- bugfix - fix jslint not warning about function-redefinition when function is defined inside a \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="604"
+    y="582"
 >  call.                                                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
-    y="626"
+    y="604"
 >- bugfix - fix website crashing when linting pure json-object.                                   </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="626"
+>- jslint - add new beta-warning if functions are unordered.                                      </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
@@ -191,163 +191,163 @@
     textLength="768"
     x="10"
     y="692"
->- tests - revamp cause-based testing with more robust instrumentation.                           </tspan>
+>- jslint-revamp - rearrange functions in jslint.mjs to comply with ordered-functions beta-warnin\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="714"
->- tests - test artifact and column-position in warnings are correct.                             </tspan>
+>  g.                                                                                             </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="736"
->                                                                                                 </tspan>
+>- jslint-revamp - revamp cause-based testing with more robust instrumentation.                   </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="758"
-># v2021.6.30                                                                                     </tspan>
+>- tests - test artifact and column-position in warnings are correct.                             </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="780"
->- breaking-change - rename files *.js to *.mjs for better integration with nodejs.               </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="802"
->- ci - auto-screenshot example-shell-commands in README.md.                                      </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="824"
->- ci - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint.     </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="846"
->- jslint - disable out-of-scope warning for functions.                                           </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="868"
->- jslint - reintroduce directive `/*jslint indent2*/` - allow 2-space indent.                    </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="890"
->- license - change license to public-domain/unlicense.                                           </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="912"
->- website - create codemirror-plugin to highlight jslint-warnings in editor.                     </tspan>
-<tspan
-    lengthAdjust="spacingAndGlyphs"
-    textLength="768"
-    x="10"
-    y="934"
 >                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
+    y="802"
+># v2021.6.30                                                                                     </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="824"
+>- breaking-change - rename files *.js to *.mjs for better integration with nodejs.               </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="846"
+>- ci - auto-screenshot example-shell-commands in README.md.                                      </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="868"
+>- ci - include explicit commonjs (jslint.cjs) and es-module (jslint.mjs) variants of jslint.     </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="890"
+>- jslint - disable out-of-scope warning for functions.                                           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="912"
+>- jslint - reintroduce directive `/*jslint indent2*/` - allow 2-space indent.                    </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
+    y="934"
+>- license - change license to public-domain/unlicense.                                           </tspan>
+<tspan
+    lengthAdjust="spacingAndGlyphs"
+    textLength="768"
+    x="10"
     y="956"
-># v2021.6.22                                                                                     </tspan>
+>- website - create codemirror-plugin to highlight jslint-warnings in editor.                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="978"
->- bugfix - fix global_list being ignored by jslint.                                              </tspan>
+>                                                                                                 </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1000"
->- bugfix - fix no-warning when exception in catch-block is unused.                               </tspan>
+># v2021.6.22                                                                                     </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1022"
->- ci - migrate ci-scripts from cjs to esm.                                                       </tspan>
+>- bugfix - fix global_list being ignored by jslint.                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1044"
->- cli - add env-variable \$JSLINT_BETA.                                                          </tspan>
+>- bugfix - fix no-warning when exception in catch-block is unused.                               </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1066"
->- jslint - add new directive `/*jslint beta*/` - enable features currently in beta.              </tspan>
+>- ci - migrate ci-scripts from cjs to esm.                                                       </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1088"
->- jslint - add new directive `/*jslint variable*/` - allow unordered variable-declarations that \</tspan>
+>- cli - add env-variable \$JSLINT_BETA.                                                          </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1110"
->  are not at top of function-scope.                                                              </tspan>
+>- jslint - add new directive `/*jslint beta*/` - enable features currently in beta.              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1132"
->- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan>
+>- jslint - add new directive `/*jslint variable*/` - allow unordered variable-declarations that \</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1154"
->  .                                                                                              </tspan>
+>  are not at top of function-scope.                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1176"
->- jslint - add new warning if const/let/var statements are unordered.                            </tspan>
+>- jslint - add new warning if const/let/var statements are not declared at top of function-scope\</tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1198"
->- website - invalidate url-cache with each deployment.                                           </tspan>
+>  .                                                                                              </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1220"
->- website - replace .png logo with .svg logo.                                                    </tspan>
+>- jslint - add new warning if const/let/var statements are unordered.                            </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1242"
->- website - replace current-editor with CodeMirror-editor and change programming-font-family fro\</tspan>
+>- website - invalidate url-cache with each deployment.                                           </tspan>
 <tspan
     lengthAdjust="spacingAndGlyphs"
     textLength="768"
     x="10"
     y="1264"
->  m `Programma` to `consolas, menlo, monospace`.                                                 </tspan>
+>- website - replace .png logo with .svg logo.                                                    </tspan>
 
 </text>
 </svg>
