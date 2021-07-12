@@ -193,31 +193,28 @@ import moduleChildProcess from "child_process";
     });
 }());
 ' # '
-    # seo - invalidate cached-assets and inline css
+    # seo - invalidate cached-assets, inline css, and add google-analytics.
     node --input-type=module -e '
 import moduleFs from "fs";
-var cacheKey = Math.random().toString(36).slice(-4);
 (async function () {
-    var result = await moduleFs.promises.readFile("browser.mjs", "utf8");
+    var cacheKey = Math.random().toString(36).slice(-4);
+    var fileDict = {};
+    await Promise.all([
+        "asset-codemirror-rollup.css",
+        "browser.mjs",
+        "index.html"
+    ].map(async function (file) {
+        fileDict[file] = await moduleFs.promises.readFile(file, "utf8");
+    }));
 
 // Invalidate cached-assets.
 
-    result = result.replace((
+    fileDict["browser.mjs"] = fileDict["browser.mjs"].replace((
         /^import\u0020.+?\u0020from\u0020".+?\.(?:js|mjs)\b/gm
     ), function (match0) {
         return `${match0}?cc=${cacheKey}`;
     });
-
-// Write file.
-
-    await moduleFs.promises.writeFile("browser.mjs", result);
-}());
-(async function () {
-    var result = await moduleFs.promises.readFile("index.html", "utf8");
-
-// Invalidate cached-assets.
-
-    result = result.replace((
+    fileDict["index.html"] = fileDict["index.html"].replace((
         /\b(?:href|src)=".+?\.(?:css|js|mjs)\b/g
     ), function (match0) {
         return `${match0}?cc=${cacheKey}`;
@@ -225,35 +222,49 @@ var cacheKey = Math.random().toString(36).slice(-4);
 
 // Inline css-assets.
 
-    result.replace((
-        /\n<link\u0020rel="stylesheet"\u0020href="([^"]+?)">\n/g
-    ), function (match0, url) {
-        var data = moduleFs.readFileSync( //jslint-quiet
-            url.split("?")[0],
-            "utf8"
+    fileDict["index.html"] = fileDict["index.html"].replace((
+        "\n<link rel=\"stylesheet\" href=\"asset-codemirror-rollup.css\">\n"
+    ), function () {
+        return (
+            "\n<style>\n"
+            + fileDict["asset-codemirror-rollup.css"].trim()
+            + "\n</style>\n"
         );
-        result = result.replace(match0, function () {
-            return `\n<style>\n${data.trim()}\n</style>\n`;
-        });
-        return "";
     });
-    result.replace((
-        `\n<style id="#JSLINT_REPORT_STYLE"></style>\n`
-    ), function (match0) {
-        var data = moduleFs.readFileSync("browser.mjs", "utf8"); //jslint-quiet
-        result = result.replace(match0, function () {
-            return data.match(
-                /\n<style\sid="#JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
-            )[0];
-        });
-        return "";
+    fileDict["index.html"] = fileDict["index.html"].replace((
+        "\n<style id=\"#JSLINT_REPORT_STYLE\"></style>\n"
+    ), function () {
+        return fileDict["browser.mjs"].match(
+            /\n<style\sid="#JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
+        )[0];
+    });
+
+// Add google-analytics.
+    fileDict["index.html"] = fileDict["index.html"].replace((
+        "\n</head>\n"
+    ), function () {
+        return (`
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-201902693-1">
+</script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-201902693-1');
+    gtag('config', 'G-08PMGLWS66');
+</script>
+</head>
+        `);
     });
 
 // Write file.
 
-    process.on("exit", function () {
-        moduleFs.writeFileSync("index.html", result); //jslint-quiet
-    });
+    await Promise.all(Object.entries(fileDict).map(function ([
+        file, data
+    ]) {
+        moduleFs.promises.writeFile(file, data);
+    }));
 }());
 ' # '
     # add dir .build
