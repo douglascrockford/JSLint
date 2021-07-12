@@ -253,6 +253,12 @@ import moduleFs from "fs";
     gtag('js', new Date());
     gtag('config', 'UA-201902693-1');
     gtag('config', 'G-08PMGLWS66');
+
+    gtag('config', 'G-BFFS85EB2L');
+    gtag('config', 'UA-20312845-13');
+
+    gtag('config', 'G-0150QGH89J');
+    gtag('config', 'UA-201902693-2');
 </script>
 </head>
         `);
