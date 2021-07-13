@@ -47,7 +47,7 @@
     warnings, width
 */
 
-import jslint from "./jslint.mjs?cc=v9ua";
+import jslint from "./jslint.mjs?cc=7uee";
 
 // This is the web script companion file for JSLint. It includes code for
 // interacting with the browser and displaying the reports.
@@ -168,9 +168,9 @@ function jslint_report_html({
 // <cite><address>LINE_NUMBER</address>MESSAGE</cite>
 // <samp>EVIDENCE</samp>
 
-    html += `<div class="JSLINT_" id="JSLINT_REPORT_HTML">`;
+    html += "<div class=\"JSLINT_\" id=\"JSLINT_REPORT_HTML\">\n";
     html += String(`
-<style id="#JSLINT_REPORT_STYLE">
+<style class="JSLINT_REPORT_STYLE">
 /*csslint
     box-model: false,
     ids:false,
@@ -488,11 +488,11 @@ body {
 }
 </style>
             `).trim();
-    html += `<fieldset id="JSLINT_REPORT_WARNINGS">`;
-    html += `<legend>Report: Warnings</legend>`;
-    html += `<div>`;
+    html += "<fieldset id=\"JSLINT_REPORT_WARNINGS\">\n";
+    html += "<legend>Report: Warnings</legend>\n";
+    html += "<div>\n";
     if (stop) {
-        html += `<div class="center">JSLint was unable to finish.</div>`;
+        html += "<div class=\"center\">JSLint was unable to finish.</div>\n";
     }
     warnings.forEach(function ({
         column,
@@ -508,21 +508,21 @@ body {
             + "</cite>"
             + "<samp>"
             + entityify(line_source.slice(0, 400) + "\n" + stack_trace)
-            + "</samp>"
+            + "</samp>\n"
         );
     });
     if (warnings.length === 0) {
-        html += `<div class="center">There are no warnings.</div>`;
+        html += "<div class=\"center\">There are no warnings.</div>\n";
     }
-    html += `</div>`;
-    html += `</fieldset>`;
+    html += "</div>\n";
+    html += "</fieldset>\n";
 
 // Produce the /*property*/ directive.
 
-    html += `<fieldset id="JSLINT_REPORT_PROPERTIES">`;
-    html += `<legend>Report: Properties</legend>`;
-    html += `<textarea readonly>`;
-    html += `/*property`;
+    html += "<fieldset id=\"JSLINT_REPORT_PROPERTIES\">\n";
+    html += "<legend>Report: Properties</legend>\n";
+    html += "<textarea readonly>";
+    html += "/*property";
     Object.keys(property).sort().forEach(function (key, ii) {
         if (ii !== 0) {
             html += ",";
@@ -536,17 +536,17 @@ body {
         length_80 += key.length;
     });
     html += "\n*/\n";
-    html += `</textarea>`;
-    html += `</fieldset>`;
+    html += "</textarea>\n";
+    html += "</fieldset>\n";
 
 // Produce the HTML Function Report.
 // <dl class=LEVEL><address>LINE_NUMBER</address>FUNCTION_NAME_AND_SIGNATURE
 //     <dt>DETAIL</dt><dd>NAMES</dd>
 // </dl>
 
-    html += `<fieldset id="JSLINT_REPORT_FUNCTIONS">`;
-    html += `<legend>Report: Functions</legend>`;
-    html += `<div>`;
+    html += "<fieldset id=\"JSLINT_REPORT_FUNCTIONS\">\n";
+    html += "<legend>Report: Functions</legend>\n";
+    html += "<div>\n";
     if (json) {
 
 // Bugfix - fix website crashing when linting pure json-object.
@@ -554,11 +554,11 @@ body {
 
         html += (
             warnings.length === 0
-            ? "<div class=\"center\">JSON: good.</div>"
-            : "<div class=\"center\">JSON: bad.</div>"
+            ? "<div class=\"center\">JSON: good.</div>\n"
+            : "<div class=\"center\">JSON: bad.</div>\n"
         );
     } else if (functions.length === 0) {
-        html += `<div class="center">There are no functions.</div>`;
+        html += "<div class=\"center\">There are no functions.</div>\n";
     }
     exports = Object.keys(exports).sort();
     froms.sort();
@@ -569,11 +569,11 @@ body {
         : "global"
     );
     if (global.length + froms.length + exports.length > 0) {
-        html += "<dl class=level0>";
+        html += "<dl class=level0>\n";
         html += detail(module, global);
         html += detail("import from", froms);
         html += detail("export", exports);
-        html += "</dl>";
+        html += "</dl>\n";
     }
     functions.forEach(function (the_function) {
         let {
@@ -652,10 +652,10 @@ body {
         html += detail("label", list.filter(function (id) {
             return context[id].role === "label";
         }));
-        html += "</dl>";
+        html += "</dl>\n";
     });
-    html += `</div>`;
-    html += `</fieldset>`;
+    html += "</div>\n";
+    html += "</fieldset>\n";
     html += String(`
 <script>
 /*jslint browser*/
@@ -678,7 +678,7 @@ body {
 }());
 </script>
     `).trim();
-    html += `</div>\n`;
+    html += "</div>\n";
     return html;
 }
 
@@ -687,6 +687,7 @@ async function jslint_ui_call() {
 
 // Show ui-loader-animation.
 
+    document.querySelector("#uiLoader1 > div").textContent = "Linting";
     document.querySelector("#uiLoader1").style.display = "flex";
     try {
 
@@ -741,7 +742,7 @@ function jslint_ui_onresize() {
 // Init edition.
 
     document.querySelector("#JSLINT_EDITION").textContent = (
-        `Edition: ${jslint.edition}`
+        "Edition: " + jslint.edition
     );
 
 // Init mode_debug.
@@ -844,7 +845,8 @@ function jslint_ui_onresize() {
     window.addEventListener("load", jslint_ui_onresize);
     window.addEventListener("resize", jslint_ui_onresize);
     if (!mode_debug) {
-        editor.setValue(`#!/usr/bin/env node
+        editor.setValue(String(`
+#!/usr/bin/env node
 
 /*jslint browser, node*/
 /*global caches, indexedDb*/ //jslint-quiet
@@ -906,7 +908,7 @@ eval( //jslint-quiet
         console.error(formatted_message);
     });
 }());
-`);
+        `).trim());
     }
     if (mode_debug) {
         document.querySelector(

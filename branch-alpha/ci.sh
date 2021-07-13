@@ -232,10 +232,10 @@ import moduleFs from "fs";
         );
     });
     fileDict["index.html"] = fileDict["index.html"].replace((
-        "\n<style id=\"#JSLINT_REPORT_STYLE\"></style>\n"
+        "\n<style class=\"JSLINT_REPORT_STYLE\"></style>\n"
     ), function () {
         return fileDict["browser.mjs"].match(
-            /\n<style\sid="#JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
+            /\n<style\sclass="JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
         )[0];
     });
 

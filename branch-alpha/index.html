@@ -12,10 +12,10 @@
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
 <!-- Google PageSpeed - Reduce Largest Contentful Paint. -->
-<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=v9ua">
-<link rel="modulepreload" href="browser.mjs?cc=v9ua">
-<link rel="modulepreload" href="jslint.mjs?cc=v9ua">
-<link rel="stylesheet" href="asset-codemirror-rollup.css?cc=v9ua">
+<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=7uee">
+<link rel="modulepreload" href="browser.mjs?cc=7uee">
+<link rel="modulepreload" href="jslint.mjs?cc=7uee">
+<link rel="stylesheet" href="asset-codemirror-rollup.css?cc=7uee">
 <style>
 /*csslint
     box-model: false,
@@ -154,7 +154,7 @@
     color: black;
 }
 </style>
-<style id="#JSLINT_REPORT_STYLE">
+<style class="JSLINT_REPORT_STYLE">
 /*csslint
     box-model: false,
     ids:false,
@@ -511,7 +511,7 @@ style="
     align-items: center;
     background: lightslategray;
     color: white;
-    display: none;
+    display: flex;
     height: 50px;
     justify-content: center;
     left: 50%;
@@ -522,14 +522,13 @@ style="
     width: 200px;
     z-index: 99;
 ">
-<div>
-    Linting
+    <div>Loading modules</div>
+    &nbsp;
     <span class="uiLoaderEllipsis">
         <span>.</span>
         <span>.</span>
         <span>.</span>
     </span>
-    </div>
 </div>
 <div id="JSLINT_INPUT">
 <div id="JSLINT_TITLEBOX">
@@ -632,8 +631,8 @@ style="
 </fieldset>
 </div>
 <div id="JSLINT_REPORT_HTML"></div>
-<script defer src="asset-codemirror-rollup.js?cc=v9ua"></script>
-<script src="browser.mjs?cc=v9ua" type="module"></script>
+<script defer src="asset-codemirror-rollup.js?cc=7uee"></script>
+<script src="browser.mjs?cc=7uee" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {
