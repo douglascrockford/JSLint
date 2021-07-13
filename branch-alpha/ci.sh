@@ -239,31 +239,6 @@ import moduleFs from "fs";
         )[0];
     });
 
-// Add google-analytics.
-    fileDict["index.html"] = fileDict["index.html"].replace((
-        "\n</head>\n"
-    ), function () {
-        return (`
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-201902693-1">
-</script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-201902693-1');
-    gtag('config', 'G-08PMGLWS66');
-
-    gtag('config', 'G-BFFS85EB2L');
-    gtag('config', 'UA-20312845-13');
-
-    gtag('config', 'G-0150QGH89J');
-    gtag('config', 'UA-201902693-2');
-</script>
-</head>
-        `);
-    });
-
 // Write file.
 
     await Promise.all(Object.entries(fileDict).map(function ([
