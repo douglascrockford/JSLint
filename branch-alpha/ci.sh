@@ -193,7 +193,7 @@ import moduleChildProcess from "child_process";
     });
 }());
 ' # '
-    # seo - invalidate cached-assets, inline css, and add google-analytics.
+    # seo - invalidate cached-assets and inline css
     node --input-type=module -e '
 import moduleFs from "fs";
 (async function () {
