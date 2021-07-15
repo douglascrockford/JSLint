@@ -206,7 +206,7 @@ echo "\
     });
 }());
 ' # '
-    # seo - invalidate cached-assets and inline css
+    # seo - inline css-assets and invalidate cached-assets
     node --input-type=module -e '
 import moduleFs from "fs";
 (async function () {
@@ -219,19 +219,6 @@ import moduleFs from "fs";
     ].map(async function (file) {
         fileDict[file] = await moduleFs.promises.readFile(file, "utf8");
     }));
-
-// Invalidate cached-assets.
-
-    fileDict["browser.mjs"] = fileDict["browser.mjs"].replace((
-        /^import\u0020.+?\u0020from\u0020".+?\.(?:js|mjs)\b/gm
-    ), function (match0) {
-        return `${match0}?cc=${cacheKey}`;
-    });
-    fileDict["index.html"] = fileDict["index.html"].replace((
-        /\b(?:href|src)=".+?\.(?:css|js|mjs)\b/g
-    ), function (match0) {
-        return `${match0}?cc=${cacheKey}`;
-    });
 
 // Inline css-assets.
 
@@ -250,6 +237,19 @@ import moduleFs from "fs";
         return fileDict["browser.mjs"].match(
             /\n<style\sclass="JSLINT_REPORT_STYLE">\n[\S\s]*?\n<\/style>\n/
         )[0];
+    });
+
+// Invalidate cached-assets.
+
+    fileDict["browser.mjs"] = fileDict["browser.mjs"].replace((
+        /^import\u0020.+?\u0020from\u0020".+?\.(?:js|mjs)\b/gm
+    ), function (match0) {
+        return `${match0}?cc=${cacheKey}`;
+    });
+    fileDict["index.html"] = fileDict["index.html"].replace((
+        /\b(?:href|src)=".+?\.(?:css|js|mjs)\b/g
+    ), function (match0) {
+        return `${match0}?cc=${cacheKey}`;
     });
 
 // Write file.
