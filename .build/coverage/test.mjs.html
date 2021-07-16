@@ -121,7 +121,7 @@ body {
 </td>
 <td style="text-align: right;">
     100.00 %<br>
-    421 / 421
+    422 / 422
 </td>
 </tr></tbody>
 </table>
@@ -533,21 +533,22 @@ body {
 <pre><span class="lineno"><a href="#line_404" id="line_404">  404.</a></span><span class="count                ">    492</span><span>        causeList.split(&quot;\n&quot;).forEach(function (cause) {</span></pre>
 <pre><span class="lineno"><a href="#line_405" id="line_405">  405.</a></span><span class="count                ">    492</span><span>            cause = JSON.parse(cause);</span></pre>
 <pre><span class="lineno"><a href="#line_406" id="line_406">  406.</a></span><span class="count                ">    492</span><span>            tmp = jslint(cause[0], {</span></pre>
-<pre><span class="lineno"><a href="#line_407" id="line_407">  407.</a></span><span class="count                ">    492</span><span>                test_cause: true</span></pre>
-<pre><span class="lineno"><a href="#line_408" id="line_408">  408.</a></span><span class="count                ">    492</span><span>            }).causes;</span></pre>
-<pre><span class="lineno"><a href="#line_409" id="line_409">  409.</a></span><span class="count                ">    492</span><span>            // Validate cause.</span></pre>
-<pre><span class="lineno"><a href="#line_410" id="line_410">  410.</a></span><span class="count                ">    492</span><span>            assertOrThrow(</span></pre>
-<pre><span class="lineno"><a href="#line_411" id="line_411">  411.</a></span><span class="count                ">    492</span><span>                tmp[JSON.stringify(cause.slice(1))],</span></pre>
-<pre><span class="lineno"><a href="#line_412" id="line_412">  412.</a></span><span class="count                ">    492</span><span>                (</span></pre>
-<pre><span class="lineno"><a href="#line_413" id="line_413">  413.</a></span><span class="count                ">    492</span><span>                    &quot;\n&quot; + JSON.stringify(cause) + &quot;\n\n&quot;</span></pre>
-<pre><span class="lineno"><a href="#line_414" id="line_414">  414.</a></span><span class="count                ">    492</span><span>                    + Object.keys(tmp).sort().join(&quot;\n&quot;)</span></pre>
-<pre><span class="lineno"><a href="#line_415" id="line_415">  415.</a></span><span class="count                ">    492</span><span>                )</span></pre>
-<pre><span class="lineno"><a href="#line_416" id="line_416">  416.</a></span><span class="count                ">    492</span><span>            );</span></pre>
-<pre><span class="lineno"><a href="#line_417" id="line_417">  417.</a></span><span class="count                ">    492</span><span>        });</span></pre>
-<pre><span class="lineno"><a href="#line_418" id="line_418">  418.</a></span><span class="count                ">    330</span><span>        return &quot;&quot;;</span></pre>
-<pre><span class="lineno"><a href="#line_419" id="line_419">  419.</a></span><span class="count                ">    330</span><span>    });</span></pre>
-<pre><span class="lineno"><a href="#line_420" id="line_420">  420.</a></span><span class="count                ">      1</span><span>}());</span></pre>
-<pre><span class="lineno"><a href="#line_421" id="line_421">  421.</a></span><span class="count                ">      1</span><span></span></pre>
+<pre><span class="lineno"><a href="#line_407" id="line_407">  407.</a></span><span class="count                ">    492</span><span>                beta: true,</span></pre>
+<pre><span class="lineno"><a href="#line_408" id="line_408">  408.</a></span><span class="count                ">    492</span><span>                test_cause: true</span></pre>
+<pre><span class="lineno"><a href="#line_409" id="line_409">  409.</a></span><span class="count                ">    492</span><span>            }).causes;</span></pre>
+<pre><span class="lineno"><a href="#line_410" id="line_410">  410.</a></span><span class="count                ">    492</span><span>            // Validate cause.</span></pre>
+<pre><span class="lineno"><a href="#line_411" id="line_411">  411.</a></span><span class="count                ">    492</span><span>            assertOrThrow(</span></pre>
+<pre><span class="lineno"><a href="#line_412" id="line_412">  412.</a></span><span class="count                ">    492</span><span>                tmp[JSON.stringify(cause.slice(1))],</span></pre>
+<pre><span class="lineno"><a href="#line_413" id="line_413">  413.</a></span><span class="count                ">    492</span><span>                (</span></pre>
+<pre><span class="lineno"><a href="#line_414" id="line_414">  414.</a></span><span class="count                ">    492</span><span>                    &quot;\n&quot; + JSON.stringify(cause) + &quot;\n\n&quot;</span></pre>
+<pre><span class="lineno"><a href="#line_415" id="line_415">  415.</a></span><span class="count                ">    492</span><span>                    + Object.keys(tmp).sort().join(&quot;\n&quot;)</span></pre>
+<pre><span class="lineno"><a href="#line_416" id="line_416">  416.</a></span><span class="count                ">    492</span><span>                )</span></pre>
+<pre><span class="lineno"><a href="#line_417" id="line_417">  417.</a></span><span class="count                ">    492</span><span>            );</span></pre>
+<pre><span class="lineno"><a href="#line_418" id="line_418">  418.</a></span><span class="count                ">    492</span><span>        });</span></pre>
+<pre><span class="lineno"><a href="#line_419" id="line_419">  419.</a></span><span class="count                ">    330</span><span>        return &quot;&quot;;</span></pre>
+<pre><span class="lineno"><a href="#line_420" id="line_420">  420.</a></span><span class="count                ">    330</span><span>    });</span></pre>
+<pre><span class="lineno"><a href="#line_421" id="line_421">  421.</a></span><span class="count                ">      1</span><span>}());</span></pre>
+<pre><span class="lineno"><a href="#line_422" id="line_422">  422.</a></span><span class="count                ">      1</span><span></span></pre>
 
 </div>
 <div class="coverageFooter">
