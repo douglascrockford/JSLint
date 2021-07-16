@@ -181,6 +181,7 @@ function jslint(
 ) {
 
 // The jslint function itself.
+
     let catch_list = [];        // The array containing all catch-blocks.
     let catch_stack = [         // The stack of catch-blocks.
         {
@@ -2524,6 +2525,7 @@ function jslint_phase2_lex(state) {
             ], "development");
             break;
 
+// These are the globals that are provided by the language standard.
 // Assign global ECMAScript variables to global_dict.
 // /*jslint beta, node*/
 // import https from "https";
