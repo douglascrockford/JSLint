@@ -13,9 +13,9 @@
 <link rel="icon" type="image/png" href="asset-image-jslint-512.svg"/>
 <title>JSLint:&nbsp;The&nbsp;JavaScript&nbsp;Code Quality Tool</title>
 <!-- Google Lighthouse Performance - Reduce Largest Contentful Paint. -->
-<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=d4i4">
-<link rel="modulepreload" href="browser.mjs?cc=d4i4">
-<link rel="modulepreload" href="jslint.mjs?cc=d4i4">
+<link as="script" rel="preload" href="asset-codemirror-rollup.js?cc=hhca">
+<link rel="modulepreload" href="browser.mjs?cc=hhca">
+<link rel="modulepreload" href="jslint.mjs?cc=hhca">
 <style>
 /*jslint-disable*/
 /*
@@ -522,11 +522,6 @@ file none
 }
 /*csslint ignore:end*/
 
-.JSLINT_ #JSLINT_SOURCE textarea {
-/* Google Lighthouse Performance - Reduce Cumulative Layout Shift. */
-    height: 298px;
-}
-
 .JSLINT_ #JSLINT_BUTTONS button,
 .JSLINT_ #JSLINT_OPTIONS > div,
 .JSLINT_ #JSLINT_TITLEBOX {
@@ -540,6 +535,61 @@ file none
 .JSLINT_ #JSLINT_SOURCE .CodeMirror pre {
     font-family: monospace;
     font-size: 12px;
+}
+.skip-link {
+    background: darkslategray;
+    color: white;
+    left: 0;
+    opacity: 0.75;
+    padding: 4px;
+    position: absolute;
+    top: -40px;
+    z-index: 10;
+}
+.skip-link:focus {
+    top: 0;
+}
+#bannerFork1 {
+    height: 100px;
+    left: 0;
+    opacity: 0.75;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    z-index: 1;
+}
+#bannerFork1 a {
+    color: white;
+}
+#bannerFork1 div {
+    background: darkslategray;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    opacity: 0.75;
+    overflow: visible;
+    position: absolute;
+    right: 65px;
+    text-align: center;
+    top: 25px;
+    transform: rotate(-45deg);
+    width: 100%;
+}
+#uiLoader1 {
+    align-items: center;
+    background: lightslategray;
+    color: white;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    left: 50%;
+    margin: -50px 0 0 -100px;
+    opacity: 0.85;
+    position: fixed;
+    top: 40%;
+    width: 200px;
+    z-index: 1;
 }
 
 .JSLINT_ .CodeMirror {
@@ -601,6 +651,10 @@ file none
     float: left;
     line-height: 20px;
     padding: 0 16px 16px 0;
+}
+.JSLINT_ #JSLINT_SOURCE textarea {
+/* Google Lighthouse Performance - Reduce Cumulative Layout Shift. */
+    height: 298px;
 }
 .JSLINT_ #JSLINT_TITLEBOX {
     color: darkslategray;
@@ -843,73 +897,73 @@ body {
     width: 100%;
     word-wrap: break-word;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl {
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level {
     background: cornsilk;
     padding: 8px 16px;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level0 {
-    background: white;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level1 {
-    /* yellow */
-    background: #ffffe0;
-    margin-left: 16px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level2 {
-    /* green */
-    background: #e0ffe0;
-    margin-left: 32px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level3 {
-    /* blue */
-    background: #D0D0ff;
-    margin-left: 48px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level4 {
-    /* purple */
-    background: #ffe0ff;
-    margin-left: 64px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level5 {
-    /* red */
-    background: #ffe0e0;
-    margin-left: 80px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level6 {
-    /* orange */
-    background: #ffe390;
-    margin-left: 96px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level7 {
-    /* gray */
-    background: #e0e0e0;
-    margin-left: 112px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level8 {
-    margin-left: 128px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl.level9 {
-    margin-left: 144px;
-}
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dd {
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level dd {
     line-height: 20px;
     padding-left: 120px;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dfn {
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level dfn {
     display: block;
     font-style: normal;
     font-weight: bold;
     line-height: 20px;
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl div {
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level dl {
     position: relative
 }
-.JSLINT_ #JSLINT_REPORT_FUNCTIONS dl dt {
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level dt {
     font-style: italic;
     line-height: 20px;
     position: absolute;
     text-align: right;
     width: 100px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level0 {
+    background: white;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level1 {
+    /* yellow */
+    background: #ffffe0;
+    margin-left: 16px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level2 {
+    /* green */
+    background: #e0ffe0;
+    margin-left: 32px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level3 {
+    /* blue */
+    background: #D0D0ff;
+    margin-left: 48px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level4 {
+    /* purple */
+    background: #ffe0ff;
+    margin-left: 64px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level5 {
+    /* red */
+    background: #ffe0e0;
+    margin-left: 80px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level6 {
+    /* orange */
+    background: #ffe390;
+    margin-left: 96px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level7 {
+    /* gray */
+    background: #e0e0e0;
+    margin-left: 112px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level8 {
+    margin-left: 128px;
+}
+.JSLINT_ #JSLINT_REPORT_FUNCTIONS .level9 {
+    margin-left: 144px;
 }
 .JSLINT_ #JSLINT_REPORT_PROPERTIES {
     background: transparent;
@@ -947,55 +1001,13 @@ body {
 </style>
 </head>
 <body class="JSLINT_">
-<div id="bannerFork1"
-style="
-    height: 100px;
-    left: 0;
-    opacity: 0.75;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    width: 200px;
-    z-index: 99;
-">
-    <div
-style="
-    background: darkslategray;
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
-    opacity: 0.75;
-    overflow: visible;
-    position: absolute;
-    right: 65px;
-    text-align: center;
-    top: 25px;
-    transform: rotate(-45deg);
-    width: 100%;
-">
-    <a
-        href="https://github.com/jslint-org/jslint"
-        style="color: white;"
-    >
-    fork on github
-    </a>
-    </div>
+<!-- Google Lighthouse Accessibility -->
+<!-- The page does not contain a heading, skip link, or landmark region -->
+<a class="skip-link" href="#JSLINT_INPUT">Skip to main</a>
+<div id="bannerFork1">
+    <div><a href="https://github.com/jslint-org/jslint">Fork on github</a></div>
 </div>
-<div id="uiLoader1" style="
-    align-items: center;
-    background: lightslategray;
-    color: white;
-    display: flex;
-    height: 50px;
-    justify-content: center;
-    left: 50%;
-    margin: -50px 0 0 -100px;
-    opacity: 0.85;
-    position: fixed;
-    top: 40%;
-    width: 200px;
-    z-index: 99;
-">
+<div id="uiLoader1">
     <div>Loading modules</div>
     &nbsp;
     <span class="uiLoaderEllipsis">
@@ -1004,7 +1016,7 @@ style="
         <span>.</span>
     </span>
 </div>
-<div id="JSLINT_INPUT">
+<main id="JSLINT_INPUT">
 <div id="JSLINT_TITLEBOX">
     <div style="float: left; margin-bottom: 16px;">
     <div style="font-size: 50px;">JSLint</div>
@@ -1097,10 +1109,10 @@ style="
     ></textarea>
     </div>
 </fieldset>
-</div>
+</main>
 <div id="JSLINT_REPORT_HTML"></div>
-<script defer src="asset-codemirror-rollup.js?cc=d4i4"></script>
-<script src="browser.mjs?cc=d4i4" type="module"></script>
+<script defer src="asset-codemirror-rollup.js?cc=hhca"></script>
+<script src="browser.mjs?cc=hhca" type="module"></script>
 <!-- coverage-hack -->
 <script>
 (function () {
